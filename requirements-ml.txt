@@ -1,0 +1,11 @@
+pandas
+torch
+transformers
+sentence-transformers
+skillner
+tqdm
+spacy
+beautifulsoup4
+langdetect
+scikit-learn
+numpy

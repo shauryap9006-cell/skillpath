@@ -1,0 +1,280 @@
+'use client';
+
+import React, { useState } from 'react';
+import {
+  Play, Sparkles, CheckCircle2, AlertCircle,
+  ChevronDown, Clock, RotateCcw, Layers, Zap,
+} from 'lucide-react';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
+import { ResourceCard } from './ResourceCard';
+import type { SkillGap, Resource, SkillResources } from '@/types/analysis';
+
+interface SkillCardProps {
+  gap: SkillGap;
+  index: number;
+  analysisId: string;
+  role: string;
+  seniority: string;
+  companyType: string;
+  initialResources?: SkillResources | Resource[];
+  autoGenerate?: boolean;
+}
+
+type Status = 'idle' | 'loading' | 'done' | 'error';
+
+const statusConfig: Record<Status, { accent: string; border: string; bg: string }> = {
+  idle:    { accent: 'bg-muted/40',         border: 'border-hairline',       bg: 'bg-surface-card' },
+  loading: { accent: 'bg-primary',           border: 'border-primary/20',     bg: 'bg-surface-soft' },
+  done:    { accent: 'bg-brand-teal',        border: 'border-hairline',       bg: 'bg-surface-card' },
+  error:   { accent: 'bg-brand-pink',        border: 'border-brand-pink/20',  bg: 'bg-brand-pink/5' },
+};
+
+const LEVELS = ['Basic', 'Intermediate', 'Advanced', 'Expert'] as const;
+
+const PriorityDots = ({ priority }: { priority: number }) => {
+  const lit = Math.max(1, 6 - priority);
+  return (
+    <div className="flex items-center gap-1">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <div key={i} className={`w-1.5 h-1.5 rounded-full transition-colors ${i < lit ? 'bg-ink' : 'bg-muted/20'}`} />
+      ))}
+    </div>
+  );
+};
+
+const slide = {
+  hidden:  { opacity: 0, height: 0 },
+  visible: { opacity: 1, height: 'auto', transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
+  exit:    { opacity: 0, height: 0,      transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] } },
+};
+
+export const SkillCard: React.FC<SkillCardProps> = ({
+  gap, index, analysisId, role, seniority, companyType,
+  initialResources, autoGenerate = false,
+}) => {
+  const [status, setStatus] = useState<Status>(initialResources ? 'done' : 'idle');
+  const [skillResources, setSkillResources] = useState<SkillResources | null>(() => {
+    if (!initialResources) return null;
+    if (Array.isArray(initialResources)) return {
+      focus_summary: `Mastering ${gap.skill} is a high-leverage move for ${role} roles.`,
+      estimated_weeks: gap.weeks_to_learn,
+      resources: initialResources,
+    };
+    return initialResources;
+  });
+  const [error, setError]       = useState<string | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [clickCount, setClickCount] = useState(() =>
+    skillResources ? Math.floor(skillResources.resources.length / 4) : 0
+  );
+
+  const level = LEVELS[Math.min(clickCount, 3)];
+  const cfg   = statusConfig[status];
+
+  const generate = async (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (status === 'loading') return;
+    const next = clickCount + 1;
+    setClickCount(next);
+    setStatus('loading');
+    setError(null);
+    try {
+      const res = await fetch('/api/generate-resources', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          analysis_id: analysisId,
+          skill: gap.skill,
+          role, seniority,
+          company_type: companyType,
+          existing_urls: skillResources?.resources.map(r => r.url) ?? [],
+          click_count: next,
+        }),
+      });
+      if (!res.ok) throw new Error('Failed');
+      const data = await res.json();
+      setSkillResources(prev => {
+        if (!prev) return data.skill_resources;
+        const seen = new Set(prev.resources.map(r => r.url));
+        return {
+          ...data.skill_resources,
+          resources: [
+            ...prev.resources,
+            ...data.skill_resources.resources.filter((r: Resource) => !seen.has(r.url)),
+          ],
+        };
+      });
+      setStatus('done');
+      if (!isExpanded) setIsExpanded(true);
+    } catch {
+      setError('Connection failed');
+      setStatus('error');
+    }
+  };
+
+  React.useEffect(() => {
+    if (autoGenerate && status === 'idle' && !initialResources) generate();
+  }, [autoGenerate]);
+
+  return (
+    <MotionConfig reducedMotion="user">
+      <div className={`relative rounded-xl border overflow-hidden transition-all duration-300 tactile-card ${cfg.bg} ${cfg.border}`}>
+
+        {/* Left accent bar */}
+        <div className={`absolute left-0 top-0 bottom-0 w-1 ${cfg.accent} transition-colors duration-300`} />
+
+        {/* ── Main content ──────────────────────────────────────── */}
+        <div className="pl-8 pr-8 pt-7 pb-7">
+
+          {/* Header: two columns */}
+          <div className="grid grid-cols-[1fr_auto] gap-6 items-start">
+
+            {/* Left col: index + name + badges */}
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <span className="font-mono text-[11px] text-muted font-bold tracking-widest">
+                  #{String(index + 1).padStart(2, '0')}
+                </span>
+                {gap.in_mvc && (
+                  <span className="flex items-center gap-1 px-2 py-0.5 rounded-sm bg-brand-teal/10 border border-brand-teal/20 text-[9px] text-brand-teal font-bold tracking-widest uppercase">
+                    <Zap size={8} className="fill-current" />
+                    MVC
+                  </span>
+                )}
+                <span className="px-2 py-0.5 rounded-sm bg-surface-soft border border-hairline text-[9px] text-muted font-bold uppercase tracking-widest">
+                  {level}
+                </span>
+              </div>
+              <h4 className="font-display text-title-lg text-ink tracking-tight leading-tight">
+                {gap.skill}
+              </h4>
+            </div>
+
+            {/* Right col: priority + time — stacked */}
+            <div className="flex flex-col items-end gap-2 pt-1">
+              <PriorityDots priority={gap.priority} />
+              <div className="flex items-center gap-1.5 text-muted">
+                <Clock size={11} />
+                <span className="font-sans text-[11px] font-semibold tabular-nums">
+                  {gap.weeks_to_learn}w
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Reason */}
+          <p className="font-sans text-body-md text-muted leading-relaxed mt-5">
+            {gap.reason}
+          </p>
+        </div>
+
+        {/* ── Strategic Focus (slides in) ───────────────────────── */}
+        <AnimatePresence>
+          {status === 'done' && skillResources && (
+            <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="overflow-hidden">
+              <div className="mx-8 mb-0 px-5 py-4 rounded-lg bg-surface-soft border border-hairline">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <Sparkles size={13} className="text-primary" />
+                  <span className="font-sans text-[10px] font-bold uppercase tracking-widest text-primary">
+                    Strategic Focus
+                  </span>
+                </div>
+                <p className="font-sans text-body-sm text-muted leading-relaxed">
+                  {skillResources.focus_summary}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Action bar ────────────────────────────────────────── */}
+        <div className="px-8 py-5 mt-2">
+          {status === 'idle' && (
+            <button
+              onClick={generate}
+              className="flex items-center gap-2.5 bg-primary text-on-primary font-sans font-semibold text-button px-6 py-3 rounded-md hover:bg-primary-active transition-colors tactile-button"
+            >
+              <Play size={14} className="fill-current" />
+              Generate Curriculum
+            </button>
+          )}
+
+          {status === 'loading' && (
+            <div className="flex items-center gap-3 text-muted font-sans text-body-sm">
+              <div className="w-4 h-4 rounded-full border-2 border-muted border-t-primary animate-spin shrink-0" />
+              Synthesizing optimized path...
+            </div>
+          )}
+
+          {status === 'error' && (
+            <div className="flex items-center justify-between p-4 rounded-md bg-brand-pink/10 border border-brand-pink/20">
+              <div className="flex items-center gap-2.5 text-brand-pink font-sans text-body-sm">
+                <AlertCircle size={15} />
+                {error}
+              </div>
+              <button onClick={generate} className="flex items-center gap-1.5 text-brand-pink hover:underline font-bold uppercase tracking-widest text-[10px]">
+                <RotateCcw size={12} />
+                Retry
+              </button>
+            </div>
+          )}
+
+          {status === 'done' && skillResources && (
+            <div className="flex items-center gap-2.5">
+              <button
+                onClick={e => { e.stopPropagation(); setIsExpanded(v => !v); }}
+                className="flex items-center gap-2 px-5 py-2.5 bg-ink text-on-primary rounded-md font-sans font-semibold text-button hover:opacity-90 transition-opacity tactile-button"
+              >
+                <Layers size={14} />
+                {isExpanded ? 'Hide' : skillResources.resources.length} Resources
+                <motion.span animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.25 }}>
+                  <ChevronDown size={13} />
+                </motion.span>
+              </button>
+
+              <button
+                onClick={generate}
+                className="flex items-center gap-2 px-5 py-2.5 border border-brand-lavender/30 bg-brand-lavender/5 hover:bg-brand-lavender/10 rounded-md font-sans font-semibold text-button text-brand-lavender transition-all active:scale-95"
+              >
+                <Sparkles size={14} />
+                Deepen
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* ── Expanded resource list ────────────────────────────── */}
+        <AnimatePresence>
+          {isExpanded && skillResources && (
+            <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="overflow-hidden">
+              <div className="border-t border-hairline mx-8 pt-5 pb-7 flex flex-col gap-4">
+                {skillResources.resources.map((res, i) => (
+                  <ResourceCard key={`${res.url}-${i}`} resource={res} />
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Footer ───────────────────────────────────────────── */}
+        <AnimatePresence>
+          {status === 'done' && (
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+              className="flex items-center justify-between px-8 py-3 border-t border-hairline bg-surface-soft/50"
+            >
+              <div className="flex items-center gap-2 text-brand-teal font-bold text-[10px] uppercase tracking-widest">
+                <CheckCircle2 size={12} />
+                Validated for {companyType}
+              </div>
+              <span className="font-mono text-[10px] text-muted uppercase tracking-widest">
+                {skillResources?.resources.length ?? 0} items · {gap.weeks_to_learn}wk
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+      </div>
+    </MotionConfig>
+  );
+};

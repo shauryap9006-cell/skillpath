@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Premium Auth</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container dashboard-card">
+        <div class="card">
+            <h1 id="welcomeTitle">Welcome</h1>
+            <p class="subtitle">Your secure profile information</p>
+
+            <div id="message" class="message"></div>
+
+            <div class="user-info" id="userInfo">
+                <p><span>Name:</span> <strong id="userName">Loading...</strong></p>
+                <p><span>Email:</span> <strong id="userEmail">Loading...</strong></p>
+                <p><span>Account ID:</span> <strong id="userId">Loading...</strong></p>
+            </div>
+
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

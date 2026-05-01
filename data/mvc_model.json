@@ -1,0 +1,1100 @@
+{
+  "other": [
+    {
+      "skill": "communication",
+      "count": 6484
+    },
+    {
+      "skill": "excel",
+      "count": 3546
+    },
+    {
+      "skill": "sql",
+      "count": 3445
+    },
+    {
+      "skill": "leadership",
+      "count": 3337
+    },
+    {
+      "skill": "python",
+      "count": 3232
+    },
+    {
+      "skill": "sales",
+      "count": 2556
+    },
+    {
+      "skill": "r",
+      "count": 2035
+    },
+    {
+      "skill": "html",
+      "count": 1632
+    },
+    {
+      "skill": "design",
+      "count": 1587
+    },
+    {
+      "skill": "css",
+      "count": 1573
+    },
+    {
+      "skill": "javascript",
+      "count": 1497
+    },
+    {
+      "skill": "statistics",
+      "count": 1441
+    },
+    {
+      "skill": "bash",
+      "count": 1332
+    },
+    {
+      "skill": "marketing",
+      "count": 1327
+    },
+    {
+      "skill": "go",
+      "count": 1320
+    },
+    {
+      "skill": "agile",
+      "count": 1062
+    },
+    {
+      "skill": "docker",
+      "count": 957
+    },
+    {
+      "skill": "data analysis",
+      "count": 955
+    },
+    {
+      "skill": "teamwork",
+      "count": 892
+    },
+    {
+      "skill": "tableau",
+      "count": 845
+    },
+    {
+      "skill": "time management",
+      "count": 840
+    },
+    {
+      "skill": "java",
+      "count": 839
+    },
+    {
+      "skill": "problem solving",
+      "count": 810
+    },
+    {
+      "skill": "postgresql",
+      "count": 810
+    },
+    {
+      "skill": "mysql",
+      "count": 752
+    },
+    {
+      "skill": "node.js",
+      "count": 731
+    },
+    {
+      "skill": "machine learning",
+      "count": 715
+    },
+    {
+      "skill": "power bi",
+      "count": 702
+    },
+    {
+      "skill": "typescript",
+      "count": 690
+    },
+    {
+      "skill": "tensorflow",
+      "count": 676
+    }
+  ],
+  "sales": [
+    {
+      "skill": "sales",
+      "count": 1501
+    },
+    {
+      "skill": "communication",
+      "count": 941
+    },
+    {
+      "skill": "marketing",
+      "count": 561
+    },
+    {
+      "skill": "leadership",
+      "count": 312
+    },
+    {
+      "skill": "crm",
+      "count": 272
+    },
+    {
+      "skill": "excel",
+      "count": 212
+    },
+    {
+      "skill": "time management",
+      "count": 201
+    },
+    {
+      "skill": "design",
+      "count": 198
+    },
+    {
+      "skill": "salesforce",
+      "count": 187
+    },
+    {
+      "skill": "negotiation",
+      "count": 157
+    },
+    {
+      "skill": "go",
+      "count": 142
+    },
+    {
+      "skill": "b2b",
+      "count": 124
+    },
+    {
+      "skill": "cold calling",
+      "count": 115
+    },
+    {
+      "skill": "teamwork",
+      "count": 107
+    },
+    {
+      "skill": "express",
+      "count": 79
+    },
+    {
+      "skill": "lead generation",
+      "count": 79
+    },
+    {
+      "skill": "problem solving",
+      "count": 60
+    },
+    {
+      "skill": "r",
+      "count": 38
+    },
+    {
+      "skill": "data analysis",
+      "count": 30
+    },
+    {
+      "skill": "critical thinking",
+      "count": 23
+    },
+    {
+      "skill": "hubspot",
+      "count": 23
+    },
+    {
+      "skill": "agile",
+      "count": 22
+    },
+    {
+      "skill": "product management",
+      "count": 16
+    },
+    {
+      "skill": "tableau",
+      "count": 9
+    },
+    {
+      "skill": "oracle",
+      "count": 7
+    },
+    {
+      "skill": "spark",
+      "count": 7
+    },
+    {
+      "skill": "html",
+      "count": 7
+    },
+    {
+      "skill": "statistics",
+      "count": 7
+    },
+    {
+      "skill": "content marketing",
+      "count": 6
+    },
+    {
+      "skill": "react",
+      "count": 6
+    }
+  ],
+  "software-engineer": [
+    {
+      "skill": "python",
+      "count": 9893
+    },
+    {
+      "skill": "docker",
+      "count": 9640
+    },
+    {
+      "skill": "sql",
+      "count": 9601
+    },
+    {
+      "skill": "javascript",
+      "count": 8624
+    },
+    {
+      "skill": "aws",
+      "count": 7844
+    },
+    {
+      "skill": "html",
+      "count": 7842
+    },
+    {
+      "skill": "css",
+      "count": 7814
+    },
+    {
+      "skill": "postgresql",
+      "count": 6160
+    },
+    {
+      "skill": "typescript",
+      "count": 6130
+    },
+    {
+      "skill": "bash",
+      "count": 5514
+    },
+    {
+      "skill": "java",
+      "count": 5400
+    },
+    {
+      "skill": "kubernetes",
+      "count": 5175
+    },
+    {
+      "skill": "react",
+      "count": 4819
+    },
+    {
+      "skill": "node.js",
+      "count": 4483
+    },
+    {
+      "skill": "mysql",
+      "count": 3941
+    },
+    {
+      "skill": "redis",
+      "count": 3589
+    },
+    {
+      "skill": "sql server",
+      "count": 3165
+    },
+    {
+      "skill": "azure",
+      "count": 2788
+    },
+    {
+      "skill": "powershell",
+      "count": 2702
+    },
+    {
+      "skill": "terraform",
+      "count": 2414
+    },
+    {
+      "skill": "mongodb",
+      "count": 2404
+    },
+    {
+      "skill": "php",
+      "count": 2208
+    },
+    {
+      "skill": "asp.net",
+      "count": 2186
+    },
+    {
+      "skill": "go",
+      "count": 2158
+    },
+    {
+      "skill": "design",
+      "count": 2101
+    },
+    {
+      "skill": "angular",
+      "count": 1882
+    },
+    {
+      "skill": "git",
+      "count": 1855
+    },
+    {
+      "skill": "express",
+      "count": 1847
+    },
+    {
+      "skill": "webpack",
+      "count": 1828
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 1757
+    }
+  ],
+  "marketing": [
+    {
+      "skill": "marketing",
+      "count": 947
+    },
+    {
+      "skill": "seo",
+      "count": 700
+    },
+    {
+      "skill": "crm",
+      "count": 698
+    },
+    {
+      "skill": "a/b testing",
+      "count": 645
+    },
+    {
+      "skill": "communication",
+      "count": 244
+    },
+    {
+      "skill": "sales",
+      "count": 202
+    },
+    {
+      "skill": "leadership",
+      "count": 115
+    },
+    {
+      "skill": "design",
+      "count": 110
+    },
+    {
+      "skill": "excel",
+      "count": 73
+    },
+    {
+      "skill": "go",
+      "count": 48
+    },
+    {
+      "skill": "b2b",
+      "count": 45
+    },
+    {
+      "skill": "email marketing",
+      "count": 40
+    },
+    {
+      "skill": "salesforce",
+      "count": 39
+    },
+    {
+      "skill": "time management",
+      "count": 35
+    },
+    {
+      "skill": "google analytics",
+      "count": 28
+    },
+    {
+      "skill": "content marketing",
+      "count": 27
+    },
+    {
+      "skill": "problem solving",
+      "count": 24
+    },
+    {
+      "skill": "lead generation",
+      "count": 23
+    },
+    {
+      "skill": "data analysis",
+      "count": 23
+    },
+    {
+      "skill": "social media marketing",
+      "count": 23
+    },
+    {
+      "skill": "sem",
+      "count": 22
+    },
+    {
+      "skill": "product management",
+      "count": 21
+    },
+    {
+      "skill": "photoshop",
+      "count": 19
+    },
+    {
+      "skill": "hubspot",
+      "count": 19
+    },
+    {
+      "skill": "teamwork",
+      "count": 18
+    },
+    {
+      "skill": "html",
+      "count": 17
+    },
+    {
+      "skill": "agile",
+      "count": 16
+    },
+    {
+      "skill": "negotiation",
+      "count": 15
+    },
+    {
+      "skill": "critical thinking",
+      "count": 13
+    },
+    {
+      "skill": "sql",
+      "count": 12
+    }
+  ],
+  "cloud-infra": [
+    {
+      "skill": "kubernetes",
+      "count": 581
+    },
+    {
+      "skill": "aws",
+      "count": 569
+    },
+    {
+      "skill": "microservices",
+      "count": 567
+    },
+    {
+      "skill": "terraform",
+      "count": 564
+    },
+    {
+      "skill": "azure",
+      "count": 562
+    },
+    {
+      "skill": "gcp",
+      "count": 551
+    },
+    {
+      "skill": "communication",
+      "count": 65
+    },
+    {
+      "skill": "design",
+      "count": 50
+    },
+    {
+      "skill": "leadership",
+      "count": 37
+    },
+    {
+      "skill": "oracle",
+      "count": 18
+    },
+    {
+      "skill": "sales",
+      "count": 18
+    },
+    {
+      "skill": "devops",
+      "count": 15
+    },
+    {
+      "skill": "go",
+      "count": 14
+    },
+    {
+      "skill": "python",
+      "count": 12
+    },
+    {
+      "skill": "linux",
+      "count": 12
+    },
+    {
+      "skill": "sql",
+      "count": 10
+    },
+    {
+      "skill": "powershell",
+      "count": 8
+    },
+    {
+      "skill": "marketing",
+      "count": 8
+    },
+    {
+      "skill": "agile",
+      "count": 8
+    },
+    {
+      "skill": "docker",
+      "count": 8
+    },
+    {
+      "skill": "teamwork",
+      "count": 7
+    },
+    {
+      "skill": "ansible",
+      "count": 7
+    },
+    {
+      "skill": "product management",
+      "count": 6
+    },
+    {
+      "skill": "crm",
+      "count": 5
+    },
+    {
+      "skill": "statistics",
+      "count": 5
+    },
+    {
+      "skill": "bash",
+      "count": 5
+    },
+    {
+      "skill": "excel",
+      "count": 5
+    },
+    {
+      "skill": "jira",
+      "count": 5
+    },
+    {
+      "skill": "git",
+      "count": 5
+    },
+    {
+      "skill": "scrum",
+      "count": 4
+    }
+  ],
+  "designer": [
+    {
+      "skill": "design",
+      "count": 953
+    },
+    {
+      "skill": "figma",
+      "count": 772
+    },
+    {
+      "skill": "adobe xd",
+      "count": 762
+    },
+    {
+      "skill": "user research",
+      "count": 757
+    },
+    {
+      "skill": "prototyping",
+      "count": 753
+    },
+    {
+      "skill": "communication",
+      "count": 269
+    },
+    {
+      "skill": "javascript",
+      "count": 180
+    },
+    {
+      "skill": "html",
+      "count": 168
+    },
+    {
+      "skill": "css",
+      "count": 167
+    },
+    {
+      "skill": "sql",
+      "count": 158
+    },
+    {
+      "skill": "python",
+      "count": 137
+    },
+    {
+      "skill": "postgresql",
+      "count": 134
+    },
+    {
+      "skill": "docker",
+      "count": 132
+    },
+    {
+      "skill": "typescript",
+      "count": 120
+    },
+    {
+      "skill": "leadership",
+      "count": 114
+    },
+    {
+      "skill": "aws",
+      "count": 114
+    },
+    {
+      "skill": "bash",
+      "count": 113
+    },
+    {
+      "skill": "node.js",
+      "count": 106
+    },
+    {
+      "skill": "react",
+      "count": 99
+    },
+    {
+      "skill": "go",
+      "count": 83
+    },
+    {
+      "skill": "mysql",
+      "count": 83
+    },
+    {
+      "skill": "sales",
+      "count": 79
+    },
+    {
+      "skill": "redis",
+      "count": 79
+    },
+    {
+      "skill": "marketing",
+      "count": 76
+    },
+    {
+      "skill": "excel",
+      "count": 75
+    },
+    {
+      "skill": "azure",
+      "count": 73
+    },
+    {
+      "skill": "sql server",
+      "count": 64
+    },
+    {
+      "skill": "powershell",
+      "count": 62
+    },
+    {
+      "skill": "php",
+      "count": 60
+    },
+    {
+      "skill": "java",
+      "count": 55
+    }
+  ],
+  "cybersecurity": [
+    {
+      "skill": "python",
+      "count": 848
+    },
+    {
+      "skill": "bash",
+      "count": 96
+    },
+    {
+      "skill": "communication",
+      "count": 87
+    },
+    {
+      "skill": "docker",
+      "count": 85
+    },
+    {
+      "skill": "sql",
+      "count": 79
+    },
+    {
+      "skill": "javascript",
+      "count": 76
+    },
+    {
+      "skill": "aws",
+      "count": 75
+    },
+    {
+      "skill": "html",
+      "count": 74
+    },
+    {
+      "skill": "css",
+      "count": 73
+    },
+    {
+      "skill": "go",
+      "count": 59
+    },
+    {
+      "skill": "mysql",
+      "count": 58
+    },
+    {
+      "skill": "postgresql",
+      "count": 58
+    },
+    {
+      "skill": "powershell",
+      "count": 57
+    },
+    {
+      "skill": "leadership",
+      "count": 56
+    },
+    {
+      "skill": "azure",
+      "count": 51
+    },
+    {
+      "skill": "java",
+      "count": 49
+    },
+    {
+      "skill": "node.js",
+      "count": 44
+    },
+    {
+      "skill": "design",
+      "count": 43
+    },
+    {
+      "skill": "kubernetes",
+      "count": 41
+    },
+    {
+      "skill": "rust",
+      "count": 41
+    },
+    {
+      "skill": "php",
+      "count": 38
+    },
+    {
+      "skill": "react",
+      "count": 35
+    },
+    {
+      "skill": "typescript",
+      "count": 34
+    },
+    {
+      "skill": "terraform",
+      "count": 32
+    },
+    {
+      "skill": "mongodb",
+      "count": 32
+    },
+    {
+      "skill": "ansible",
+      "count": 31
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 30
+    },
+    {
+      "skill": "sql server",
+      "count": 29
+    },
+    {
+      "skill": "redis",
+      "count": 27
+    },
+    {
+      "skill": "django",
+      "count": 26
+    }
+  ],
+  "product-manager": [
+    {
+      "skill": "agile",
+      "count": 906
+    },
+    {
+      "skill": "sql",
+      "count": 875
+    },
+    {
+      "skill": "a/b testing",
+      "count": 773
+    },
+    {
+      "skill": "roadmapping",
+      "count": 762
+    },
+    {
+      "skill": "communication",
+      "count": 361
+    },
+    {
+      "skill": "leadership",
+      "count": 238
+    },
+    {
+      "skill": "design",
+      "count": 211
+    },
+    {
+      "skill": "python",
+      "count": 106
+    },
+    {
+      "skill": "marketing",
+      "count": 105
+    },
+    {
+      "skill": "javascript",
+      "count": 97
+    },
+    {
+      "skill": "excel",
+      "count": 91
+    },
+    {
+      "skill": "product management",
+      "count": 91
+    },
+    {
+      "skill": "html",
+      "count": 91
+    },
+    {
+      "skill": "sales",
+      "count": 89
+    },
+    {
+      "skill": "css",
+      "count": 84
+    },
+    {
+      "skill": "scrum",
+      "count": 77
+    },
+    {
+      "skill": "docker",
+      "count": 73
+    },
+    {
+      "skill": "go",
+      "count": 68
+    },
+    {
+      "skill": "bash",
+      "count": 67
+    },
+    {
+      "skill": "azure",
+      "count": 64
+    },
+    {
+      "skill": "aws",
+      "count": 61
+    },
+    {
+      "skill": "postgresql",
+      "count": 57
+    },
+    {
+      "skill": "jira",
+      "count": 53
+    },
+    {
+      "skill": "mysql",
+      "count": 52
+    },
+    {
+      "skill": "sql server",
+      "count": 52
+    },
+    {
+      "skill": "teamwork",
+      "count": 51
+    },
+    {
+      "skill": "node.js",
+      "count": 47
+    },
+    {
+      "skill": "react",
+      "count": 46
+    },
+    {
+      "skill": "java",
+      "count": 45
+    },
+    {
+      "skill": "typescript",
+      "count": 45
+    }
+  ],
+  "data-professional": [
+    {
+      "skill": "python",
+      "count": 1485
+    },
+    {
+      "skill": "sql",
+      "count": 1457
+    },
+    {
+      "skill": "tableau",
+      "count": 1257
+    },
+    {
+      "skill": "statistics",
+      "count": 1224
+    },
+    {
+      "skill": "excel",
+      "count": 682
+    },
+    {
+      "skill": "r",
+      "count": 679
+    },
+    {
+      "skill": "data visualization",
+      "count": 665
+    },
+    {
+      "skill": "power bi",
+      "count": 664
+    },
+    {
+      "skill": "machine learning",
+      "count": 577
+    },
+    {
+      "skill": "spark",
+      "count": 568
+    },
+    {
+      "skill": "tensorflow",
+      "count": 539
+    },
+    {
+      "skill": "docker",
+      "count": 104
+    },
+    {
+      "skill": "html",
+      "count": 100
+    },
+    {
+      "skill": "postgresql",
+      "count": 99
+    },
+    {
+      "skill": "css",
+      "count": 92
+    },
+    {
+      "skill": "bash",
+      "count": 89
+    },
+    {
+      "skill": "aws",
+      "count": 88
+    },
+    {
+      "skill": "javascript",
+      "count": 79
+    },
+    {
+      "skill": "communication",
+      "count": 77
+    },
+    {
+      "skill": "azure",
+      "count": 75
+    },
+    {
+      "skill": "mysql",
+      "count": 72
+    },
+    {
+      "skill": "sql server",
+      "count": 70
+    },
+    {
+      "skill": "design",
+      "count": 68
+    },
+    {
+      "skill": "leadership",
+      "count": 54
+    },
+    {
+      "skill": "powershell",
+      "count": 47
+    },
+    {
+      "skill": "data analysis",
+      "count": 44
+    },
+    {
+      "skill": "flask",
+      "count": 43
+    },
+    {
+      "skill": "kubernetes",
+      "count": 42
+    },
+    {
+      "skill": "java",
+      "count": 41
+    },
+    {
+      "skill": "typescript",
+      "count": 36
+    }
+  ]
+}
