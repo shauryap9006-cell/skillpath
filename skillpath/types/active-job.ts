@@ -1,0 +1,32 @@
+// types/active-job.ts
+
+export type SkillState = 'not_started' | 'in_progress' | 'learned';
+
+export interface TrackedSkill {
+  skill: string;
+  priority: number;
+  weeks_to_learn: number;
+  in_mvc: boolean;
+  reason: string;
+  state: SkillState;
+  learned_at?: string;
+  resources_generated: boolean;
+}
+
+export interface ActiveJob {
+  id: string;
+  analysis_id: string;
+  job_title: string;
+  company_type: string;
+  role: string;
+  seniority: string;
+  pinned_at: string;
+  color: string;
+  skills: TrackedSkill[];
+  readiness_score: number;
+}
+
+export interface ArchivedJob extends ActiveJob {
+  archived_at: string;
+  final_score: number;
+}

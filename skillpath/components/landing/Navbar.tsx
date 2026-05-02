@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -12,6 +12,11 @@ export function Navbar() {
   const pathname = usePathname();
   const { user, openAuthModal } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navLinks = [
     { label: 'Home', href: '/' },
@@ -27,7 +32,7 @@ export function Navbar() {
     <nav className="fixed top-0 left-0 right-0 h-[64px] bg-canvas/80 backdrop-blur-md border-b border-hairline shadow-sm z-[100] flex justify-center px-8 lg:px-24">
       <div className="max-w-[1280px] w-full flex items-center justify-between">
         {/* Logo */}
-        <div 
+        <div
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => router.push('/')}
         >
@@ -40,7 +45,7 @@ export function Navbar() {
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-12">
           {navLinks.map((link) => (
-            <a 
+            <a
               key={link.label}
               href={link.href}
               className="font-sans text-nav-link text-muted dark:text-ink/60 hover:text-ink transition-colors"
@@ -54,33 +59,33 @@ export function Navbar() {
         <div className="flex items-center gap-md">
           <div className="hidden sm:flex items-center gap-md">
             <ThemeToggle />
-            {!user ? (
+            {mounted && (!user ? (
               <>
-                <button 
+                <button
                   onClick={openAuthModal}
-                  className="font-sans text-nav-link text-ink hover:text-muted transition-colors px-2"
+                  className="font-sans text-nav-link text-ink hover:text-brand-pink transition-colors px-2"
                 >
                   Sign in
                 </button>
-                <button 
+                <button
                   onClick={openAuthModal}
-                  className="border border-primary text-ink font-sans font-semibold text-button px-[16px] py-[8px] h-[36px] rounded-md hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors flex items-center"
+                  className="bg-brand-pink text-white font-sans font-semibold text-button px-[16px] py-[8px] h-[36px] rounded-md hover:opacity-90 transition-all flex items-center shadow-sm active:scale-95 tactile-button"
                 >
                   Try free
                 </button>
               </>
             ) : (
-              <button 
+              <button
                 onClick={() => router.push('/profile')}
-                className="bg-primary text-on-primary font-sans font-semibold text-button px-[16px] py-[8px] h-[36px] rounded-md hover:bg-primary-active transition-colors flex items-center"
+                className="bg-brand-pink text-white font-sans font-semibold text-button px-[16px] py-[8px] h-[36px] rounded-md hover:opacity-90 transition-all flex items-center shadow-sm active:scale-95 tactile-button"
               >
                 Profile
               </button>
-            )}
+            ))}
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button 
+          <button
             className="md:hidden p-2 text-ink flex items-center justify-center"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle Menu"
@@ -93,7 +98,7 @@ export function Navbar() {
       {/* Mobile Dropdown */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -101,7 +106,7 @@ export function Navbar() {
             className="absolute top-[64px] left-0 right-0 bg-canvas border-b border-hairline shadow-xl p-8 flex flex-col gap-6 md:hidden z-50"
           >
             {navLinks.map((link) => (
-              <a 
+              <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -115,27 +120,27 @@ export function Navbar() {
                 <span className="text-sm font-bold text-muted uppercase tracking-widest">Theme</span>
                 <ThemeToggle />
               </div>
-              {!user ? (
-                <button 
+              {mounted && (!user ? (
+                <button
                   onClick={() => {
                     openAuthModal();
                     setIsMobileMenuOpen(false);
                   }}
-                  className="w-full bg-primary text-on-primary font-sans font-semibold py-4 rounded-xl shadow-lg active:scale-95 transition-transform"
+                  className="w-full bg-brand-pink text-white font-sans font-semibold py-4 rounded-xl shadow-lg active:scale-95 transition-transform tactile-button"
                 >
                   Get Started
                 </button>
               ) : (
-                <button 
+                <button
                   onClick={() => {
                     router.push('/profile');
                     setIsMobileMenuOpen(false);
                   }}
-                  className="w-full bg-primary text-on-primary font-sans font-semibold py-4 rounded-xl shadow-lg"
+                  className="w-full bg-brand-pink text-white font-sans font-semibold py-4 rounded-xl shadow-lg tactile-button"
                 >
                   My Profile
                 </button>
-              )}
+              ))}
             </div>
           </motion.div>
         )}

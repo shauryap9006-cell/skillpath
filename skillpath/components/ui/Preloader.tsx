@@ -84,79 +84,78 @@ export function Preloader({ onComplete }: PreloaderProps) {
           exit={{
             y: "-100%",
             transition: {
-              duration: 1,
+              duration: 1.2,
               ease: [0.76, 0, 0.24, 1],
               when: "afterChildren"
             }
           }}
         >
-          {/* Top-Left Logo Fixed */}
-          <motion.div
-            className="absolute top-12 left-12 flex items-center space-x-3 z-50"
-            exit={{ opacity: 0, x: -20 }}
-          >
-            <div className="w-10 h-10 rounded-2xl tactile-card flex items-center justify-center">
-              <div className="w-4 h-4 rounded-full bg-red-500 glow-yellow"></div>
-            </div>
-            <span className="font-bold text-2xl tracking-tight uppercase">Skillpath</span>
-          </motion.div>
-
+          {/* Noise Texture */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+          
           <motion.div
             key="preloader-content"
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{
               opacity: 0,
-              scale: 1.1,
+              scale: 1.05,
               transition: { duration: 0.5, ease: "easeIn" }
             }}
-            className="flex flex-col items-center w-full max-w-xl"
+            className="flex flex-col items-center w-full max-w-2xl"
           >
-            <div className="relative flex flex-col items-center justify-center">
-              <motion.div
-                className="w-64 h-64 rounded-full tactile-card mb-12 flex items-center justify-center border-4 border-surface-soft relative"
-              >
+            <div className="relative flex flex-col items-center justify-center mb-20">
+              <div className="relative w-40 h-40">
                 <motion.div
-                  className="absolute inset-2 rounded-full border-t-4 border-r-4 border-red-500/50"
+                  className="absolute inset-0 border-4 border-ink/5 rounded-[40px]"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.div
+                  className="absolute inset-0 border-t-4 border-brand-pink rounded-[40px]"
                   animate={{ rotate: 360 }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 />
-                <div
-                  className="w-48 h-48 rounded-full tactile-input flex flex-col items-center justify-center relative overflow-hidden z-10"
-                >
-                  <span className="text-body-strong font-black text-6xl relative z-10">{Math.min(progress, 100)}%</span>
-                  <span className="text-muted text-xs font-bold uppercase tracking-widest mt-2 relative z-10">loading</span>
-
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 bg-red-500/10 z-0"
-                    initial={{ height: "0%" }}
-                    animate={{ height: `${progress}%` }}
-                    transition={{ ease: "easeOut" }}
-                  />
+                <div className="absolute inset-4 bg-white rounded-[32px] shadow-2xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-ink rounded-lg flex items-center justify-center">
+                    <div className="w-6 h-6 bg-brand-pink rounded-sm rotate-45" />
+                  </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
 
-            <div className="text-center space-y-4 max-w-sm mt-8">
-              <h1 className="text-4xl font-black text-body-strong leading-tight">{quote}</h1>
+            <div className="text-center space-y-6 max-w-md">
+              <motion.span 
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-pink"
+              >
+                Initializing Engine
+              </motion.span>
+              <h1 className="text-4xl font-black text-ink leading-tight tracking-tight">{quote}</h1>
             </div>
 
-            <div className="mt-16 w-full max-w-md">
-              <div className="w-full h-8 rounded-full tactile-input flex items-center px-1 relative overflow-hidden">
+            <div className="mt-20 w-full max-w-sm">
+              <div className="relative h-[2px] w-full bg-ink/5 rounded-full overflow-hidden">
                 <motion.div
-                  className="h-6 rounded-full tactile-button !bg-red-500"
+                  className="absolute inset-y-0 left-0 bg-ink"
                   initial={{ width: "0%" }}
                   animate={{ width: `${progress}%` }}
-                  transition={{ ease: "easeOut", bounce: 0 }}
+                  transition={{ ease: "easeOut" }}
                 />
+              </div>
+              <div className="flex justify-between mt-4">
+                <span className="text-[10px] font-black uppercase tracking-widest text-muted">Progress</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-ink">{Math.min(progress, 100)}%</span>
               </div>
             </div>
           </motion.div>
 
-          {/* Decorative background dot-grid */}
-          <div className="absolute inset-0 pointer-events-none opacity-20 dot-grid" />
+          {/* Background dot-grid */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.03] dot-grid" />
         </motion.div>
       )}
     </AnimatePresence>
   );
+
 }

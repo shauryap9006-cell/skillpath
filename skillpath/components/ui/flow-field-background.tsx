@@ -39,9 +39,7 @@ export default function NeuralBackground({
   className,
   color = "#6366f1", // Default Indigo
   trailOpacity = 0.45,
-  particleCount = 1500,
-
-
+  particleCount = 2000,
   speed = 1,
   backgroundColor = "transparent",
   trailColor = "10, 10, 10", // RGB values
@@ -81,14 +79,14 @@ export default function NeuralBackground({
         this.vy = 0;
         this.age = 0;
         // Random lifespan to create natural recycling
-        this.life = Math.random() * 200 + 100; 
+        this.life = Math.random() * 200 + 100;
       }
 
       update() {
         // 1. Flow Field Math (Simplex-ish noise)
         // We calculate an angle based on position to create the "flow"
         const angle = (Math.cos(this.x * 0.005) + Math.sin(this.y * 0.005)) * Math.PI;
-        
+
         // 2. Add force from flow field
         this.vx += Math.cos(angle) * 0.2 * speed;
         this.vy += Math.sin(angle) * 0.2 * speed;
@@ -102,11 +100,9 @@ export default function NeuralBackground({
         if (distance < interactionRadius) {
           const force = (interactionRadius - distance) / interactionRadius;
           // Push away
-          this.vx -= dx * force * 0.1;
-          this.vy -= dy * force * 0.1;
+          this.vx -= dx * force * 0.05;
+          this.vy -= dy * force * 0.05;
         }
-
-
 
         // 4. Apply Velocity & Friction
         this.x += this.vx;
@@ -165,7 +161,7 @@ export default function NeuralBackground({
     const animate = () => {
       // "Fade" effect: Instead of clearing the canvas, we draw a semi-transparent rect
       // This creates the "Trails" look.
-      
+
       // If background is transparent, we need to handle clearing carefully or use a specific color
       // In SkillPath's case, we'll use the background color or a transparent black overlay.
       if (backgroundColor === "transparent") {
@@ -174,7 +170,7 @@ export default function NeuralBackground({
         // However, for this effect, we'll clear with a semi-transparent version of the canvas background.
         // Let's assume black trails if not specified, or match the design system.
         ctx.globalCompositeOperation = 'source-over';
-        ctx.fillStyle = `rgba(${trailColor}, ${trailOpacity})`; 
+        ctx.fillStyle = `rgba(${trailColor}, ${trailOpacity})`;
         ctx.fillRect(0, 0, width, height);
       } else {
         ctx.fillStyle = backgroundColor;
@@ -203,8 +199,8 @@ export default function NeuralBackground({
     };
 
     const handleMouseLeave = () => {
-        mouse.x = -1000;
-        mouse.y = -1000;
+      mouse.x = -1000;
+      mouse.y = -1000;
     }
 
     // Start
@@ -212,16 +208,15 @@ export default function NeuralBackground({
     animate();
 
     window.addEventListener("resize", handleResize);
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseleave", handleMouseLeave);
+    container.addEventListener("mousemove", handleMouseMove);
+    container.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseleave", handleMouseLeave);
+      container.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("mouseleave", handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
-
   }, [color, trailOpacity, particleCount, speed, backgroundColor]);
 
   return (

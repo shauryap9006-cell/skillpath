@@ -18,7 +18,13 @@ import {
   OneFactor, 
   GLSL3 
 } from "three";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  updateProfile 
+} from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
 type Uniforms = {
@@ -391,6 +397,8 @@ function MiniNavbar() {
   );
 }
 
+
+
 export const SignInPage = ({ className, onSuccess }: SignInPageProps) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -398,95 +406,58 @@ export const SignInPage = ({ className, onSuccess }: SignInPageProps) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [step, setStep] = useState<"auth" | "success">("auth");
-  const [initialCanvasVisible, setInitialCanvasVisible] = useState(true);
-  const [reverseCanvasVisible, setReverseCanvasVisible] = useState(false);
-
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/auth';
+  const [loading, setLoading] = useState(false);
 
   const handleAuthSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
     
     if (mode === "signup" && password !== confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
+    setLoading(true);
     try {
-      let res;
       if (mode === "login") {
-        res = await fetch(`${API_URL}/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
+        await signInWithEmailAndPassword(auth, email, password);
       } else {
-        res = await fetch(`${API_URL}/signup`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, password })
-        });
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(userCredential.user, { displayName: name });
       }
 
-      if (res.ok) {
-        const data = await res.json();
-        localStorage.setItem('token', data.token);
-        
-        try {
-          localStorage.setItem('user', JSON.stringify({ 
-            name: data.user?.name || name || email.split('@')[0], 
-            email 
-          }));
-        } catch (e) {
-          console.warn('Failed to save user info to localStorage');
-        }
-        
-        setReverseCanvasVisible(true);
-        setTimeout(() => setInitialCanvasVisible(false), 50);
-        setStep("success");
-        if (onSuccess) setTimeout(onSuccess, 2000);
-      } else {
-        let errorMessage = "Authentication failed";
-        try {
-          const errorData = await res.json();
-          errorMessage = errorData.message || errorMessage;
-        } catch (e) {
-          // Response was not JSON
-        }
-        alert(errorMessage);
-      }
-    } catch (err) {
+      setStep("success");
+      if (onSuccess) setTimeout(onSuccess, 2000);
+    } catch (err: any) {
       console.error('Auth error:', err);
-      alert("Connection to server failed. Please check your internet or try again later.");
+      let message = "Authentication failed";
+      if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+        message = "Invalid email or password";
+      } else if (err.code === 'auth/email-already-in-use') {
+        message = "Email already in use";
+      } else if (err.code === 'auth/invalid-email') {
+        message = "Invalid email address";
+      } else if (err.code === 'auth/weak-password') {
+        message = "Password is too weak";
+      }
+      alert(message);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleGoogleLogin = async () => {
+    if (loading) return;
     const provider = new GoogleAuthProvider();
+    setLoading(true);
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      
-      const res = await fetch(`${API_URL}/signup`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          name: user.displayName, 
-          email: user.email, 
-          password: user.uid,
-          isGoogle: true
-        })
-      });
-
-      if (res.ok || res.status === 200) {
-        const data = await res.json();
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify({ name: user.displayName, email: user.email }));
-        
-        setStep("success");
-        if (onSuccess) setTimeout(onSuccess, 2000);
-      }
+      await signInWithPopup(auth, provider);
+      setStep("success");
+      if (onSuccess) setTimeout(onSuccess, 2000);
     } catch (error) {
       console.error("Google Sign-In Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 

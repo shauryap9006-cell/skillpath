@@ -9,10 +9,9 @@ import dynamic from 'next/dynamic';
 const SignInPage = dynamic(() => import('@/components/ui/sign-in-flow-1').then(mod => mod.SignInPage), { ssr: false });
 
 export function AuthModal() {
-  const { isAuthModalOpen, closeAuthModal, refreshUser } = useAuth();
+  const { isAuthModalOpen, closeAuthModal } = useAuth();
 
   const handleSuccess = () => {
-    refreshUser();
     setTimeout(() => {
       closeAuthModal();
     }, 2000); // Allow the "You're in!" animation to play

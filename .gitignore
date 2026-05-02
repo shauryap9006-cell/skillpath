@@ -43,6 +43,10 @@ htmlcov/
 Thumbs.db
 .vscode/
 .idea/
+.agent/
+.agents/
+.claude/
+.gemini/
 *.swp
 *.swo
 

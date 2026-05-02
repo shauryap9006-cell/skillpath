@@ -50,7 +50,7 @@ const FEATURES: Feature[] = [
 
 const FeatureCard = memo(({ feature }: { feature: Feature }) => {
   // Force the icon size we want without altering the original component
-  const icon = React.cloneElement(feature.icon, {
+  const icon = React.cloneElement(feature.icon as React.ReactElement<{ className?: string }>, {
     className: "w-7 h-7 text-primary",
   });
 

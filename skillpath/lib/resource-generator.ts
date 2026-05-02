@@ -3,7 +3,14 @@ import Groq from 'groq-sdk';
 import { generateResourcesPrompt } from '../prompts/generate-resources';
 import type { Resource, SkillResources } from '../types/analysis';
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+let groqClient: Groq | null = null;
+function getGroqClient() {
+  if (groqClient) return groqClient;
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) return null;
+  groqClient = new Groq({ apiKey });
+  return groqClient;
+}
 
 const globalCache = new Map<string, { data: SkillResources; expiresAt: number }>();
 
@@ -190,7 +197,13 @@ export async function generateResources(
   );
 
   try {
-    const completion = await groq.chat.completions.create({
+    const client = getGroqClient();
+    if (!client) {
+      console.warn('[Generator] GROQ_API_KEY is missing, using curated fallbacks.');
+      return { skill_resources: buildFallbackResources(skill), from_cache: false };
+    }
+
+    const completion = await client.chat.completions.create({
       messages: [{ role: 'user', content: prompt }],
       // Using llama-3.3-70b for maximum reasoning quality and career insights.
       model: 'llama-3.3-70b-versatile',

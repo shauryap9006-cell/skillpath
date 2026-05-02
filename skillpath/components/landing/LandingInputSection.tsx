@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
@@ -12,9 +12,14 @@ export function LandingInputSection() {
   const [jd, setJd] = useState('');
   const router = useRouter();
   const { user, openAuthModal } = useAuth();
+  const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
 
-  const isDark = theme === 'dark';
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && theme === 'dark';
   const particleColor = isDark ? '#6366f1' : '#ff4d8b';
   const trailColor = isDark ? '0, 0, 0' : '255, 250, 240';
 

@@ -1,6 +1,18 @@
 'use client';
 
 import React, { useEffect, useState, use } from 'react';
+import { 
+  ArrowLeft, 
+  Share2, 
+  Sparkles, 
+  CheckCircle2, 
+  ChevronRight, 
+  Info, 
+  Zap, 
+  Clock,
+  Target,
+  FileText
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Chip } from '@/components/ui/Chip';
 import { ProgressBar } from '@/components/ui/ProgressBar';
@@ -9,9 +21,19 @@ import { saveToHistory, getHistory } from '@/lib/history';
 import type { AnalysisResult, Resource } from '@/types/analysis';
 import { SkillCard } from '@/components/results/SkillCard';
 import { GenerateAllButton } from '@/components/results/GenerateAllButton';
+import { PinJobButton } from '@/components/results/PinJobButton';
+import { ReadinessRing } from '@/components/results/ReadinessRing';
+import { AnalysisInsights } from '@/components/results/AnalysisInsights';
 
-export default function ResultsPage({ params }: { params: Promise<{ id: string }> }) {
+export default function ResultsPage({ 
+  params, 
+  searchParams 
+}: { 
+  params: Promise<{ id: string }>,
+  searchParams: Promise<{ skill?: string }>
+}) {
   const { id } = use(params);
+  const { skill: targetSkill } = use(searchParams);
   const [data, setData] = useState<AnalysisResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -45,6 +67,67 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
   const [batchProgress, setBatchProgress] = useState({ current: 0, total: 0 });
   const [isListExpanded, setIsListExpanded] = useState(false);
   const [isPlanExpanded, setIsPlanExpanded] = useState(false);
+  const [activeJob, setActiveJob] = useState<any>(null);
+
+  // Auto-scroll to target skill if provided in URL
+  useEffect(() => {
+    if (targetSkill && !loading && data) {
+      const id = `skill-${targetSkill.toLowerCase().replace(/\s+/g, '-')}`;
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 500);
+    }
+  }, [targetSkill, loading, data]);
+
+  // Fetch active job to sync tracking status
+  useEffect(() => {
+    async function fetchActiveJob() {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+      try {
+        const res = await fetch('/api/active-job', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const json = await res.json();
+          if (json.active_job?.analysis_id === id) {
+            setActiveJob(json.active_job);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch active job:', err);
+      }
+    }
+    fetchActiveJob();
+  }, [id]);
+
+  const handleTrackingChange = async (skill: string, state: string) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    try {
+      const res = await fetch('/api/active-job', {
+        method: 'PATCH',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ skill, state }),
+      });
+      if (res.ok) {
+        const json = await res.json();
+        setActiveJob((prev: any) => ({
+          ...prev,
+          skills: json.skills,
+          readiness_score: json.readiness_score
+        }));
+      }
+    } catch (err) {
+      console.error('Failed to update tracking:', err);
+    }
+  };
 
   useEffect(() => {
     if (data) {
@@ -57,7 +140,11 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
     if (generatingPlan) return;
     setGeneratingPlan(true);
     try {
-      const res = await fetch(`/api/results/${id}/plan`, { method: 'POST' });
+      const token = localStorage.getItem('token');
+      const res = await fetch(`/api/results/${id}/plan`, { 
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
       if (!res.ok) throw new Error('Failed to generate plan');
       const learningPlan = await res.json();
       setData(prev => prev ? { ...prev, learning_plan: learningPlan } : null);
@@ -163,7 +250,17 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
     );
   }
 
-  const gapPercent = 100 - data.gap_score;
+  const currentScore = activeJob ? activeJob.readiness_score : data.gap_score;
+  
+  // Calculate remaining weeks based on skills not yet learned
+  const remainingWeeks = activeJob 
+    ? activeJob.skills
+        .filter((s: any) => s.state !== 'learned')
+        .reduce((sum: number, s: any) => sum + (s.weeks_to_learn || 1), 0)
+    : data.weeks_required;
+
+  const readyDate = new Date();
+  readyDate.setDate(readyDate.getDate() + (remainingWeeks * 7));
 
   return (
     <main className="flex flex-col min-h-screen pb-24 bg-canvas text-ink relative pt-[64px]">
@@ -172,12 +269,20 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
         {/* Results Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 border-b border-hairline pb-16 gap-8">
           <div className="max-w-2xl">
-            <span className="font-sans text-nav-link text-muted uppercase tracking-[0.06em] mb-4 block">Analysis Complete</span>
+            <span className="font-sans text-nav-link text-muted uppercase tracking-[0.06em] mb-4 block">
+              {activeJob ? 'Learning Progress' : 'Analysis Complete'}
+            </span>
             <h1 className="font-display text-display-lg leading-[1.1] mb-6">
-              You&apos;re {data.weeks_required} weeks away.
+              {remainingWeeks > 0 
+                ? `You're ${remainingWeeks} weeks away.` 
+                : "You're ready to apply!"}
             </h1>
             <p className="font-sans text-body-lg text-muted">
-              Ready by <span className="text-ink font-medium">{new Date(data.ready_by_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</span> — at 1hr/day
+              {remainingWeeks > 0 ? (
+                <>Ready by <span className="text-ink font-medium">{readyDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</span> — at 1hr/day</>
+              ) : (
+                <>All essential skill gaps have been closed.</>
+              )}
             </p>
           </div>
           <div className="flex gap-4">
@@ -191,6 +296,14 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             >
               {saved ? '✓ Saved' : 'Save to Profile'}
             </button>
+            <PinJobButton
+              analysisId={data.share_token}
+              jobTitle={data.role_label || 'Software Engineer'}
+              role={data.role_category || ''}
+              seniority="entry"
+              companyType={data.company_type}
+              skillGaps={data.skill_gaps}
+            />
             <button
               onClick={handleShare}
               className="bg-primary text-on-primary font-sans font-semibold text-button px-6 py-3 rounded-md hover:bg-primary-active transition-colors"
@@ -202,17 +315,39 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           <div className="lg:col-span-7">
-            {/* Gap Score */}
+            {/* Gap & Readiness Score */}
             <div className="mb-24">
-              <span className="font-sans text-nav-link text-muted uppercase tracking-[0.06em] mb-6 block">Gap Score</span>
-              <div className="flex items-baseline gap-2 mb-8">
-                <span className="font-display text-[96px] leading-none tracking-tight">{data.gap_score}</span>
-                <span className="font-sans text-display-sm text-muted">/ 100</span>
-              </div>
-              <ProgressBar progress={data.gap_score} className="h-4" />
-              <div className="flex justify-between mt-4">
-                <span className="font-sans text-body-md font-medium">{data.gap_score}% match</span>
-                <span className="font-sans text-body-sm text-muted">{gapPercent}% gap to close</span>
+              <div className="flex items-center gap-12">
+                {activeJob && (
+                  <div className="shrink-0">
+                    <ReadinessRing score={currentScore} color={activeJob.color} size={132} strokeWidth={8} />
+                  </div>
+                )}
+                <div className="flex-1">
+                  <div className="flex items-center gap-4 mb-6">
+                    <span className="font-sans text-nav-link text-muted uppercase tracking-[0.06em]">
+                      {activeJob ? 'Current Readiness' : 'Gap Score'}
+                    </span>
+                    {activeJob && (
+                      <span className="px-2 py-0.5 rounded-full bg-surface-strong border border-hairline text-[10px] text-muted font-bold uppercase tracking-widest">
+                        Match: {data.gap_score}%
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-baseline gap-2 mb-8">
+                    <span className="font-display text-[96px] leading-none tracking-tight">{currentScore}</span>
+                    <span className="font-sans text-display-sm text-muted">/ 100</span>
+                  </div>
+                  <ProgressBar progress={currentScore} className="h-4" />
+                  <div className="flex justify-between mt-4">
+                    <span className="font-sans text-body-md font-medium">
+                      {activeJob ? `${currentScore}% prepared for this role` : `${currentScore}% resume match`}
+                    </span>
+                    <span className="font-sans text-body-sm text-muted">
+                      {activeJob ? 'Target: 80% to apply' : `${100 - data.gap_score}% gap to close`}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -261,13 +396,14 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                     return (
                       <motion.div
                         key={gap.skill}
+                        id={`skill-${gap.skill.toLowerCase().replace(/\s+/g, '-')}`}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ 
                           duration: 0.5, 
                           delay: i * 0.1,
-                          ease: [0.16, 1, 0.3, 1]
+                          ease: [0.16, 1, 0.3, 1] as any
                         }}
                         className="py-8 tactile-row"
                       >
@@ -279,8 +415,11 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                           seniority="entry"
                           companyType={data.company_type}
                           initialResources={data.generated_resources?.[gap.skill]}
-                          autoGenerate={i === 0 && gap.in_mvc}
+                          autoGenerate={(i === 0 && gap.in_mvc) || gap.skill === targetSkill}
                           colorVariant={colorVariant}
+                          trackingState={activeJob?.skills?.find((s: any) => s.skill === gap.skill)?.state}
+                          onTrackingChange={handleTrackingChange}
+                          trackingColor={activeJob?.color}
                         />
                       </motion.div>
                     );
@@ -301,14 +440,15 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             </div>
           </div>
 
-          {/* Sidebar / Learning Plan */}
-          <div className="lg:col-span-5">
-            <div className="sticky top-32 p-10 rounded-xl bg-surface-soft border border-hairline">
+          <div className="lg:col-span-5 space-y-8">
+            <AnalysisInsights data={data} />
+            
+            <div className="sticky top-32 p-10 rounded-3xl border border-hairline bg-surface-card dark:bg-surface-soft shadow-[0_8px_32px_rgba(0,0,0,0.06)] overflow-hidden">
               {!data.learning_plan?.weeks?.length ? (
                 <div className="text-center py-8">
-                  <h3 className="font-display text-title-lg mb-6">Build your custom path</h3>
+                  <h3 className="font-display text-title-lg mb-6">Build your roadmap</h3>
                   <p className="font-sans text-body-md text-muted mb-10">
-                    Generate a 12-week blueprint with curated resources, skip-notes, and target projects.
+                    Generate a custom 12-week blueprint with curated resources.
                   </p>
                   <button
                     onClick={handleGeneratePlan}
@@ -339,7 +479,17 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: wi * 0.05 }}
                         >
-                          <Accordion title={`Week ${week.week}: ${week.skill}`}>
+                          <Accordion 
+                            title={
+                              <div className="flex items-center justify-between w-full pr-4">
+                                <span>Week {week.week}: {week.skill}</span>
+                                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-soft border border-hairline text-[10px] text-muted font-bold">
+                                  <Clock size={10} className="text-brand-teal" />
+                                  <span>1w</span>
+                                </div>
+                              </div>
+                            }
+                          >
                             <div className="space-y-6 pt-4">
                               {resources.map((resource: any, ri: number) => (
                                 <div key={ri} className="space-y-3">
@@ -353,16 +503,9 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                                   </div>
 
                                   {resource.project && (
-                                    <div className="p-4 bg-canvas rounded-md border border-hairline">
+                                    <div className="p-4 bg-surface-strong rounded-md border border-hairline">
                                       <span className="font-sans text-nav-link text-muted uppercase text-[10px] block mb-1">Build</span>
                                       <p className="font-sans text-body-sm">{resource.project}</p>
-                                    </div>
-                                  )}
-
-                                  {(resource.start_at || resource.skip_note) && (
-                                    <div className="flex gap-4 font-sans text-[12px] text-muted">
-                                      {resource.start_at && <span>Start: {resource.start_at}</span>}
-                                      {resource.skip_note && <span>Skip: {resource.skip_note}</span>}
                                     </div>
                                   )}
                                 </div>

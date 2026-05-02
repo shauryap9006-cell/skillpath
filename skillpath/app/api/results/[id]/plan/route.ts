@@ -7,6 +7,8 @@ import {
 } from "@/prompts/generate-plan";
 import type { LearningPlan } from "@/types/analysis";
 
+import { getAuthUser } from "@/lib/auth-helpers";
+
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -14,6 +16,10 @@ export async function POST(
   const { id } = await params;
 
   try {
+    const user = await getAuthUser(req);
+    if (!user) {
+      return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+    }
     if (!adminDb) {
       return NextResponse.json({ error: "database_unavailable" }, { status: 500 });
     }

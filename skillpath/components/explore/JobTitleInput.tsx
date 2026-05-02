@@ -41,7 +41,7 @@ export default function JobTitleInput() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }}
         className="text-center mb-16"
       >
         <span className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-brand-teal/10 border border-brand-teal/20 text-[11px] text-brand-teal font-bold tracking-widest uppercase mb-6">
@@ -71,7 +71,7 @@ export default function JobTitleInput() {
           <button
             type="submit"
             disabled={!jobTitle.trim() || isExploring}
-            className={`flex items-center justify-center gap-3 px-10 py-6 md:py-0 bg-primary text-on-primary rounded-lg font-sans font-semibold text-button transition-all hover:bg-primary-active active:scale-[0.98] tactile-button ${
+            className={`flex items-center justify-center gap-3 px-10 py-6 md:py-0 bg-primary dark:bg-brand-pink text-on-primary dark:text-white rounded-lg font-sans font-semibold text-button transition-all hover:bg-primary-active dark:hover:opacity-90 active:scale-[0.98] tactile-button ${
               isExploring ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >

@@ -47,7 +47,7 @@ export function Hero() {
   };
   const fadeUp: any = {
     hidden: { opacity: 0, y: 24 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as any } },
   };
 
   return (
@@ -93,7 +93,7 @@ export function Hero() {
           {/* CTA */}
           <motion.div variants={fadeUp} style={{ willChange: 'transform, opacity' }}>
             <button
-              onClick={handleAction}
+              onClick={() => user ? router.push('/analyze') : openAuthModal()}
               className="group relative flex items-center gap-3 px-8 py-4 bg-ink text-on-primary rounded-full transition-all duration-300 hover:shadow-[0_24px_48px_rgba(0,0,0,0.18)] active:scale-95 overflow-hidden"
             >
               {/* Shimmer on hover */}
@@ -364,7 +364,7 @@ export function Hero() {
                   hidden: { opacity: 0, y: 8 },
                   visible: { opacity: 1, y: 0 }
                 }}
-                transition={{ delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] as any }}
                 style={{ top, left, right, x }}
                 className="absolute text-[10px] font-black uppercase tracking-[0.15em] text-ink whitespace-nowrap"
               >
@@ -395,7 +395,7 @@ export function Hero() {
               initial={{ opacity: 0, scale: 0.94, y: 16 }}
               animate={{ opacity: 1, scale: 1,    y: 0  }}
               exit={{   opacity: 0, scale: 0.94, y: 16  }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as any }}
               className="relative w-full max-w-md mx-4 bg-surface-card rounded-2xl border border-hairline text-center"
               style={{
                 boxShadow: '0 32px 80px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.07), 0 0 0 1px rgba(255,255,255,0.6) inset',

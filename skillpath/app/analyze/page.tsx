@@ -82,9 +82,13 @@ export default function AnalyzePage() {
         return;
       }
 
+      const token = localStorage.getItem('token');
       const response = await fetch('/api/analyze', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({
           jd_text: jd,
           resume_text: finalResumeText,
@@ -120,24 +124,24 @@ export default function AnalyzePage() {
   const bars = Array.from({ length: 12 }, (_, i) => i);
 
   return (
-    <main className="flex flex-col min-h-screen bg-canvas text-ink relative font-sans overflow-hidden">
+    <main className="flex flex-col min-h-screen bg-[#F5F4EE] dark:bg-canvas text-ink relative font-sans overflow-hidden">
       {/* Generative Background */}
       <div className="absolute inset-0 z-0 opacity-40">
         <GenerativeArtScene />
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-canvas/60 via-transparent to-canvas z-0" />
-      
-      <div className="relative z-10 flex flex-col items-center pt-32 pb-32 px-8">
+
+      <div className="relative z-10 flex flex-col items-center pt-24 md:pt-32 pb-32 px-4 md:px-8">
         <motion.div
 
           className="w-full max-w-[800px]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }}
         >
 
-          <div className="text-center mb-20">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-brand-teal/10 border border-brand-teal/20 text-[11px] text-brand-teal font-bold tracking-widest uppercase mb-6">
+          <div className="text-center mb-12 md:mb-20">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-brand-teal/10 border border-brand-teal/20 text-[10px] md:text-[11px] text-brand-teal font-bold tracking-widest uppercase mb-6">
               <Sparkles size={12} className="fill-current" />
               Vector Analysis Phase 01
             </span>
@@ -151,106 +155,179 @@ export default function AnalyzePage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             {/* Target Job Section */}
-            <div className="bg-surface-card rounded-xl p-8 border border-hairline shadow-sm relative flex flex-col h-full">
+            <div className="flex flex-col h-full bg-[#EBE9DC] dark:bg-[#0A0A0A] border border-black/5 dark:border-white/5 rounded-[24px] md:rounded-[32px] p-5 md:p-8 shadow-[12px_12px_24px_rgba(0,0,0,0.05),-12px_-12px_24px_rgba(255,255,255,0.9),inset_1px_1px_1px_rgba(255,255,255,0.8)] dark:shadow-[0_0_40px_rgba(0,0,0,0.2)] relative group transition-all">
               <div className="flex items-center justify-between mb-6">
-                <div className="flex gap-4">
-                  <button
-                    onClick={() => setMode('job')}
-                    className={`flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] transition-colors ${mode === 'job' ? 'text-primary' : 'text-muted'}`}
-                  >
-                    <FileText size={16} />
-                    <span>Target Job</span>
-                  </button>
-                  <button
-                    onClick={() => setMode('dream')}
-                    className={`flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] transition-colors ${mode === 'dream' ? 'text-primary' : 'text-muted'}`}
-                  >
-                    <Target size={16} />
-                    <span>Career Dream</span>
-                  </button>
+                <div className="flex items-center gap-3">
+                  <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-[16px] shadow-[inset_1px_1px_3px_rgba(0,0,0,0.1),inset_-1px_-1px_3px_rgba(255,255,255,0.5)] dark:shadow-[inset_0_0_5px_rgba(0,0,0,0.3)] border border-black/5 dark:border-white/5 relative">
+                    <button
+                      onClick={() => setMode('job')}
+                      className={`relative px-3 md:px-5 py-1.5 md:py-2 rounded-[10px] md:rounded-[12px] text-[10px] md:text-[11px] font-bold uppercase tracking-wider transition-colors duration-300 z-10 ${mode === 'job' ? 'text-ink dark:text-white' : 'text-ink/30 hover:text-ink/50'}`}
+                    >
+                      {mode === 'job' && (
+                        <motion.div
+                          layoutId="target-mode-pill"
+                          className="absolute inset-0 bg-[#EBE9DC] dark:bg-[#1A1A1A] rounded-[10px] md:rounded-[12px] shadow-[2px_2px_5px_rgba(0,0,0,0.1),-1px_-1px_3px_rgba(255,255,255,0.8)] dark:shadow-none"
+                          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                        />
+                      )}
+                      <span className="relative z-20">Target Job</span>
+                    </button>
+                    <button
+                      onClick={() => setMode('dream')}
+                      className={`relative px-3 md:px-5 py-1.5 md:py-2 rounded-[10px] md:rounded-[12px] text-[10px] md:text-[11px] font-bold uppercase tracking-wider transition-colors duration-300 z-10 ${mode === 'dream' ? 'text-ink dark:text-white' : 'text-ink/30 hover:text-ink/50'}`}
+                    >
+                      {mode === 'dream' && (
+                        <motion.div
+                          layoutId="target-mode-pill"
+                          className="absolute inset-0 bg-[#EBE9DC] dark:bg-[#1A1A1A] rounded-[10px] md:rounded-[12px] shadow-[2px_2px_5px_rgba(0,0,0,0.1),-1px_-1px_3px_rgba(255,255,255,0.8)] dark:shadow-none"
+                          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                        />
+                      )}
+                      <span className="relative z-20">Dream</span>
+                    </button>
+                  </div>
+                  <div className="relative group/info">
+                    <div className="w-4 h-4 rounded-full border border-ink/20 flex items-center justify-center text-[10px] text-ink/40 cursor-help hover:border-ink/40 hover:text-ink/60 transition-colors">?</div>
+                    <div className="absolute left-0 top-6 w-48 p-3 rounded-xl bg-[#EBE9DC] dark:bg-surface-strong border border-black/10 dark:border-hairline shadow-2xl opacity-0 invisible group-hover/info:opacity-100 group-hover/info:visible transition-all z-50 text-[10px] text-ink/60 leading-relaxed">
+                      {mode === 'job' 
+                        ? "Analyze a specific role you're applying for right now." 
+                        : "Analyze your profile against long-term industry leadership benchmarks."}
+                    </div>
+                  </div>
                 </div>
+                <Target size={16} className="text-ink/20" />
               </div>
-              <div className="bg-canvas border border-hairline rounded-md overflow-hidden transition-all focus-within:border-primary flex-1 flex flex-col">
+
+              <div className="relative flex-1 rounded-[20px] overflow-hidden bg-black/[0.03] dark:bg-white/[0.02] shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.5)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)] border border-black/5 dark:border-white/5 transition-all focus-within:border-brand-teal/20">
                 <textarea 
-                  placeholder={mode === 'job' ? "Paste the full job description here..." : "e.g. My dream is to be a Senior AI Engineer at Google..."}
-                  className="w-full flex-1 min-h-[300px] p-6 font-sans text-body-md text-ink placeholder:text-muted/40 bg-transparent focus:outline-none resize-none"
+                  placeholder={mode === 'job' ? "Paste the full job description here..." : "Describe your ultimate career goal..."}
+                  className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/20 bg-transparent focus:outline-none resize-none leading-relaxed"
                   value={jd}
                   onChange={(e) => setJd(e.target.value)}
                 />
               </div>
+
               <div className="flex items-center justify-between mt-4">
-                <p className="text-[10px] text-muted font-bold uppercase tracking-widest">
-                  {mode === 'job' ? "Analyzes specific posting" : "Builds career roadmap"}
-                </p>
+                <p className="text-[10px] text-ink/30 font-medium uppercase tracking-[0.2em]">Clinical Extraction</p>
                 {mode === 'job' && (
                   <button
-                    onClick={() => setJd("Job Title: \nCompany Type: \nCore Skills: \nResponsibilities: ")}
-                    className="text-[10px] text-muted hover:text-ink font-bold uppercase tracking-widest transition-colors"
+                    onClick={() => setJd("Job Title: \nCompany: \n\nAbout the role: \nRequirements: \nTech Stack: ")}
+                    className="text-[10px] text-brand-teal hover:text-brand-teal/80 font-bold uppercase tracking-widest transition-colors"
                   >
-                    + Paste Template
+                    + Template
                   </button>
                 )}
               </div>
             </div>
 
-            {/* Resume Section */}
-            <div className="bg-surface-card rounded-xl p-8 border border-hairline shadow-sm relative flex flex-col h-full">
-               <div className="flex items-center gap-2 text-[11px] text-ink font-bold uppercase tracking-[0.15em] mb-6">
-                  <Upload size={16} />
-                  <span>Career History</span>
-                </div>
-              
-              <div className="border-2 border-dashed border-hairline rounded-md p-8 text-center bg-canvas hover:bg-canvas/50 transition-colors cursor-pointer group mb-6">
-                <div className="flex flex-col items-center gap-4">
-                  <div className="w-12 h-12 rounded-sm bg-surface-card border border-hairline flex items-center justify-center group-hover:border-primary transition-colors">
-                    <Upload size={20} className="text-muted group-hover:text-primary transition-colors" />
+            {/* Career History Section */}
+            <div className="flex flex-col h-full bg-[#EBE9DC] dark:bg-[#0A0A0A] border border-black/5 dark:border-white/5 rounded-[32px] p-8 shadow-[12px_12px_24px_rgba(0,0,0,0.05),-12px_-12px_24px_rgba(255,255,255,0.9),inset_1px_1px_1px_rgba(255,255,255,0.8)] dark:shadow-[0_0_40px_rgba(0,0,0,0.2)] relative group transition-all">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-brand-teal/10 flex items-center justify-center border border-brand-teal/20">
+                    <Upload size={14} className="text-brand-teal" />
                   </div>
-                  <p className="font-sans text-body-md text-ink font-medium">
-                    Drop PDF here or <span className="underline decoration-hairline underline-offset-4">click to upload</span>
-                  </p>
+                  <span className="text-[11px] text-ink font-bold uppercase tracking-widest">Career History</span>
+                </div>
+                <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-[16px] shadow-[inset_1px_1px_3px_rgba(0,0,0,0.1),inset_-1px_-1px_3px_rgba(255,255,255,0.5)] dark:shadow-[inset_0_0_5px_rgba(0,0,0,0.3)] border border-black/5 dark:border-white/5 relative">
+                  <button 
+                    onClick={() => setResumeText('')}
+                    className={`relative px-4 md:px-5 py-1.5 md:py-2 rounded-[10px] md:rounded-[12px] text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 z-10 ${!resumeText ? 'text-ink dark:text-white' : 'text-ink/30 hover:text-ink/50'}`}
+                  >
+                    {!resumeText && (
+                      <motion.div
+                        layoutId="resume-mode-pill"
+                        className="absolute inset-0 bg-[#EBE9DC] dark:bg-[#1A1A1A] rounded-[10px] md:rounded-[12px] shadow-[2px_2px_5px_rgba(0,0,0,0.1),-1px_-1px_3px_rgba(255,255,255,0.8)] dark:shadow-none"
+                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-20">PDF</span>
+                  </button>
+                  <button 
+                    onClick={() => { if(!resumeText) setResumeText(' '); }}
+                    className={`relative px-4 md:px-5 py-1.5 md:py-2 rounded-[10px] md:rounded-[12px] text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 z-10 ${resumeText ? 'text-ink dark:text-white' : 'text-ink/30 hover:text-ink/50'}`}
+                  >
+                    {resumeText && (
+                      <motion.div
+                        layoutId="resume-mode-pill"
+                        className="absolute inset-0 bg-[#EBE9DC] dark:bg-[#1A1A1A] rounded-[10px] md:rounded-[12px] shadow-[2px_2px_5px_rgba(0,0,0,0.1),-1px_-1px_3px_rgba(255,255,255,0.8)] dark:shadow-none"
+                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-20">Text</span>
+                  </button>
                 </div>
               </div>
-
-              <div className="relative flex items-center justify-center mb-6">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-hairline"></div>
-                </div>
-                <div className="relative px-4 bg-surface-card text-[10px] text-muted font-bold uppercase tracking-[0.2em]">
-                  OR PASTE TEXT
-                </div>
+              
+              <div className="flex-1 flex flex-col">
+                <AnimatePresence mode="wait">
+                  {!resumeText ? (
+                    <motion.div
+                      key="dropzone"
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      className="h-full"
+                    >
+                      <DropZone 
+                        onFileSelect={(f) => setFile(f)} 
+                        className="h-full min-h-[320px]"
+                      />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="textarea"
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      className="flex-1 rounded-[20px] overflow-hidden bg-black/[0.03] dark:bg-white/[0.02] shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.5)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)] border border-black/5 dark:border-white/5 transition-all focus-within:border-brand-teal/20"
+                    >
+                      <textarea 
+                        placeholder="Paste your raw resume text here..."
+                        className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/20 bg-transparent focus:outline-none resize-none leading-relaxed"
+                        value={resumeText === ' ' ? '' : resumeText}
+                        onChange={(e) => setResumeText(e.target.value)}
+                        autoFocus
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
-              <div className="bg-canvas border border-hairline rounded-md overflow-hidden transition-all focus-within:border-primary flex-1 flex flex-col">
-                <textarea 
-                  placeholder="Paste your resume text here..."
-                  className="w-full flex-1 min-h-[120px] p-6 font-sans text-body-md text-ink placeholder:text-muted/40 bg-transparent focus:outline-none resize-none"
-                  value={resumeText}
-                  onChange={(e) => { setResumeText(e.target.value); setFile(null); }}
-                />
+              <div className="mt-4 flex items-center justify-between">
+                <p className="text-[10px] text-ink/30 font-medium uppercase tracking-[0.2em]">Identity Mapping</p>
+                {resumeText && (
+                  <button
+                    onClick={() => setResumeText('')}
+                    className="text-[10px] text-ink/40 hover:text-ink/60 font-bold uppercase tracking-widest transition-colors"
+                  >
+                    Back to Upload
+                  </button>
+                )}
               </div>
             </div>
           </div>
 
-          <div className="space-y-6">
-
+          <div className="flex flex-col items-center">
             <AnimatePresence>
               {error && (
                 <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="p-6 rounded-md bg-brand-pink/5 border border-brand-pink/20 text-brand-pink text-[11px] font-bold uppercase tracking-widest"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="mb-8 px-6 py-3 rounded-full bg-brand-pink/10 border border-brand-pink/20 text-brand-pink text-[11px] font-bold uppercase tracking-widest"
                 >
                   {error}
                 </motion.div>
               )}
             </AnimatePresence>
 
-            <div className="pt-8 flex flex-col items-center">
+            <div className="w-full max-w-[480px] relative group">
+              <div className="absolute inset-0 bg-brand-teal/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
               <button
                 disabled={!isFormValid || isAnalyzing}
                 onClick={handleAnalyze}
-                className="w-full max-w-[400px] bg-ink text-on-primary font-sans font-bold text-button px-12 py-6 rounded-md hover:bg-ink/90 transition-all active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-30 disabled:cursor-wait shadow-sm relative overflow-hidden h-[68px]"
+                className="relative w-full h-[56px] md:h-[64px] bg-ink text-canvas font-display font-bold text-[13px] md:text-[15px] uppercase tracking-[0.15em] rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-20 shadow-[0_15px_30px_rgba(0,0,0,0.15)] flex items-center justify-center gap-3"
               >
                 <AnimatePresence mode="wait">
                   {isAnalyzing ? (
@@ -259,29 +336,19 @@ export default function AnalyzePage() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="flex flex-col items-center justify-center absolute inset-0 bg-ink"
+                      className="flex items-center justify-center gap-4"
                     >
-                      <div className="flex gap-1.5 items-end h-4 mb-2">
-                        {bars.map((bar) => (
+                      <div className="flex gap-1 items-end h-3">
+                        {[1, 2, 3, 4, 5].map((i) => (
                           <motion.div
-                            key={bar}
-                            className="w-1 bg-brand-teal rounded-t-full"
-                            animate={{
-                              height: ['30%', '100%', '30%'],
-                              opacity: [0.3, 1, 0.3]
-                            }}
-                            transition={{
-                              duration: 1.2,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                              delay: bar * 0.1
-                            }}
+                            key={i}
+                            className="w-1 bg-black rounded-full"
+                            animate={{ height: ['40%', '100%', '40%'] }}
+                            transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.1 }}
                           />
                         ))}
                       </div>
-                      <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-on-primary/60">
-                        {MOTIVATIONAL_QUOTES[quoteIndex]}
-                      </span>
+                      <span className="text-[13px]">Processing Neural Map</span>
                     </motion.div>
                   ) : (
                     <motion.span
@@ -290,22 +357,18 @@ export default function AnalyzePage() {
                       animate={{ opacity: 1 }}
                       className="flex items-center justify-center gap-3"
                     >
-                      GENERATE ANALYSIS
-                      <ChevronRight size={18} />
+                      Generate Vector Analysis
+                      <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                     </motion.span>
                   )}
                 </AnimatePresence>
               </button>
               
-              {isAnalyzing && (
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="mt-6 text-[10px] text-muted font-bold uppercase tracking-[0.3em]"
-                >
-                  Analysis protocol in progress · ETA 10s
-                </motion.p>
-              )}
+              <div className="mt-6 text-center">
+                <p className="text-[9px] md:text-[10px] text-ink/30 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] leading-relaxed max-w-[280px] md:max-w-none mx-auto">
+                  Encryption Secured · AI-Powered Insights · Real-time Market Mapping
+                </p>
+              </div>
             </div>
           </div>
         </motion.div>

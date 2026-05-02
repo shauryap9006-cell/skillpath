@@ -1,18 +1,19 @@
 'use client';
-
+ 
 import React, { useState, useRef } from 'react';
-import { X } from 'lucide-react';
-
+import { X, Upload, FileText } from 'lucide-react';
+import { motion } from 'framer-motion';
+ 
 interface DropZoneProps {
   onFileSelect: (file: File | null) => void;
   className?: string;
 }
-
+ 
 export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = '' }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
+ 
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -22,7 +23,7 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = ''
       setIsDragging(false);
     }
   };
-
+ 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -38,7 +39,7 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = ''
       }
     }
   };
-
+ 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selected = e.target.files[0];
@@ -46,7 +47,7 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = ''
       onFileSelect(selected);
     }
   };
-
+ 
   const clearFile = (e: React.MouseEvent) => {
     e.stopPropagation();
     setFile(null);
@@ -55,31 +56,50 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = ''
       inputRef.current.value = '';
     }
   };
-
+ 
   if (file) {
     return (
-      <div className={`h-[120px] w-full border border-white/20 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-between px-6 transition-all ${className}`}>
-        <div className="flex flex-col">
-          <span className="font-mono text-sm text-white truncate max-w-[200px] sm:max-w-[400px]">{file.name}</span>
-          <span className="font-mono text-xs text-gray-400">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className={`h-full min-h-[140px] w-full bg-ink/[0.03] border border-ink/10 rounded-[16px] flex items-center justify-between px-6 transition-all relative overflow-hidden group ${className}`}
+      >
+        <div className="flex items-center gap-4 relative z-10">
+          <div className="w-10 h-10 rounded-xl bg-ink/5 flex items-center justify-center border border-ink/10">
+            <FileText size={18} className="text-brand-teal" />
+          </div>
+          <div className="flex flex-col">
+            <span className="font-sans text-sm font-bold text-ink truncate max-w-[180px] sm:max-w-[280px]">{file.name}</span>
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-[9px] text-ink/30 font-bold uppercase tracking-widest">Vector Ready</span>
+              <span className="w-1 h-1 rounded-full bg-ink/10" />
+              <span className="font-mono text-[9px] text-ink/50 font-bold uppercase">{(file.size / 1024 / 1024).toFixed(1)}MB</span>
+            </div>
+          </div>
         </div>
-        <button onClick={clearFile} className="p-2 hover:bg-white/10 rounded-full transition-colors" aria-label="Remove file">
-          <X size={18} className="text-white" />
+        <button 
+          onClick={clearFile} 
+          className="relative z-10 w-8 h-8 flex items-center justify-center bg-ink/5 hover:bg-ink/10 rounded-lg transition-all border border-ink/10" 
+          aria-label="Remove file"
+        >
+          <X size={14} className="text-ink/40 hover:text-ink" />
         </button>
-      </div>
+      </motion.div>
     );
   }
  
   return (
-    <div 
+    <motion.div 
       onClick={() => inputRef.current?.click()}
       onDragEnter={handleDrag}
       onDragLeave={handleDrag}
       onDragOver={handleDrag}
       onDrop={handleDrop}
-      className={`h-[120px] w-full border border-dashed rounded-xl flex items-center justify-center cursor-pointer transition-all backdrop-blur-md
-        ${isDragging ? 'border-blue-500 bg-blue-500/10' : 'border-white/20 bg-white/5'}
-        hover:border-blue-400 hover:bg-white/10
+      whileHover={{ scale: 1.005 }}
+      whileTap={{ scale: 0.995 }}
+      className={`h-full min-h-[140px] w-full border-2 border-dashed rounded-[16px] flex items-center justify-center cursor-pointer transition-all duration-300 shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.5)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)]
+        ${isDragging ? 'border-brand-teal bg-brand-teal/5' : 'border-ink/5 dark:border-white/5 bg-ink/[0.01] dark:bg-white/[0.01]'}
+        hover:border-ink/20 dark:hover:border-white/20 hover:bg-ink/[0.03] dark:hover:bg-white/[0.03]
         ${className}
       `}
     >
@@ -90,7 +110,20 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = ''
         accept="application/pdf" 
         className="hidden" 
       />
-      <span className="font-mono text-sm text-gray-400 group-hover:text-white transition-colors">Drop PDF here or click to upload</span>
-    </div>
+      
+      <div className="flex flex-col items-center gap-3 relative z-10">
+        <div className="w-10 h-10 rounded-xl bg-ink/5 border border-ink/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+          <Upload size={18} className="text-ink/20" />
+        </div>
+        <div className="text-center">
+          <p className="font-sans text-[13px] font-bold text-ink/60">
+            Drop PDF or <span className="text-brand-teal underline decoration-brand-teal/20 underline-offset-4">browse</span>
+          </p>
+          <p className="font-sans text-[10px] text-ink/30 font-medium mt-1 uppercase tracking-widest">
+            Maximum Identity Depth: 10MB
+          </p>
+        </div>
+      </div>
+    </motion.div>
   );
 };

@@ -30,7 +30,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
         className={`relative h-full rounded-sm ${barClassName}`}
         initial={{ width: 0 }}
         animate={{ width: `${width}%` }}
-        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] as any }}
       />
     </div>
   );

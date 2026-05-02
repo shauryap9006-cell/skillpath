@@ -23,11 +23,16 @@ import type { SkillGap } from "@/types/analysis";
 import crypto from "crypto";
 import Groq from "groq-sdk";
 import { PDFParse } from "pdf-parse";
+import { getAuthUser } from "@/lib/auth-helpers";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export async function POST(req: NextRequest) {
   try {
+    const user = await getAuthUser(req);
+    if (!user) {
+      return NextResponse.json({ error: "unauthorized", message: "Please sign in to analyze your resume." }, { status: 401 });
+    }
     let jd_text = "";
     let resume_text = "";
 

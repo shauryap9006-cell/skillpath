@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper to check if user owns the document
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Analyses: Publicly readable via share token (doc ID), but not listable
+    match /analyses/{analysisId} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update, delete: if false; // System handles these via admin SDK
+    }
+
+    // Profiles: Only readable/writable by owner
+    match /profiles/{userId} {
+      allow get, write: if isOwner(userId);
+    }
+
+    // Active Jobs: Only readable/writable by owner
+    match /active_jobs/{userId} {
+      allow get, write: if isOwner(userId);
+    }
+
+    // Job History: Only readable/writable by owner
+    match /job_history/{userId} {
+      allow get, write: if isOwner(userId);
+      
+      match /jobs/{jobId} {
+        allow get, write: if isOwner(userId);
+      }
+    }
+
+    // Share Cards: Publicly readable via ID
+    match /share_cards/{cardId} {
+      allow get: if true;
+      allow write: if false; // System handles these
+    }
+  }
+}

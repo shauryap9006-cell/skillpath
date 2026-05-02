@@ -18,6 +18,11 @@ interface SkillCardProps {
   companyType: string;
   initialResources?: SkillResources | Resource[];
   autoGenerate?: boolean;
+  // Tracking integration
+  trackingState?: 'not_started' | 'in_progress' | 'learned';
+  onTrackingChange?: (skill: string, state: 'not_started' | 'in_progress' | 'learned') => Promise<void>;
+  trackingColor?: string;
+  colorVariant?: string;
 }
 
 type Status = 'idle' | 'loading' | 'done' | 'error';
@@ -44,13 +49,14 @@ const PriorityDots = ({ priority }: { priority: number }) => {
 
 const slide: any = {
   hidden:  { opacity: 0, height: 0 },
-  visible: { opacity: 1, height: 'auto', transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
-  exit:    { opacity: 0, height: 0,      transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] } },
+  visible: { opacity: 1, height: 'auto', transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as any } },
+  exit:    { opacity: 0, height: 0,      transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] as any } },
 };
 
 const SkillCardComponent: React.FC<SkillCardProps> = ({
   gap, index, analysisId, role, seniority, companyType,
   initialResources, autoGenerate = false,
+  trackingState = 'not_started', onTrackingChange, trackingColor
 }) => {
   const [status, setStatus] = useState<Status>(initialResources ? 'done' : 'idle');
   const [skillResources, setSkillResources] = useState<SkillResources | null>(() => {
@@ -74,8 +80,8 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
   const generate = async (e?: React.MouseEvent) => {
     e?.stopPropagation();
     if (status === 'loading') return;
-    const next = clickCount + 1;
-    setClickCount(next);
+    const nextCount = clickCount + 1;
+    setClickCount(nextCount);
     setStatus('loading');
     setError(null);
     try {
@@ -88,16 +94,11 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
           role, seniority,
           company_type: companyType,
           existing_urls: skillResources?.resources.map(r => r.url) ?? [],
-          click_count: next,
+          click_count: nextCount,
         }),
       });
       if (!res.ok) throw new Error('Generation failed');
       
-      const contentType = res.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        throw new Error('Invalid server response');
-      }
-
       const data = await res.json();
       setSkillResources(prev => {
         if (!prev) return data.skill_resources;
@@ -123,6 +124,19 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
     if (autoGenerate && status === 'idle' && !initialResources) generate();
   }, [autoGenerate]);
 
+  const handleToggle = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!onTrackingChange) return;
+    
+    const next = {
+      not_started: 'in_progress',
+      in_progress: 'learned',
+      learned: 'not_started'
+    }[trackingState] as any;
+    
+    await onTrackingChange(gap.skill, next);
+  };
+
   return (
     <MotionConfig reducedMotion="user">
       <div className={`relative rounded-xl border overflow-hidden transition-all duration-300 tactile-card ${cfg.bg} ${cfg.border}`}>
@@ -133,11 +147,27 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
         {/* ── Main content ──────────────────────────────────────── */}
         <div className="pl-8 pr-8 pt-7 pb-7">
 
-          {/* Header: two columns */}
-          <div className="grid grid-cols-[1fr_auto] gap-6 items-start">
+          {/* Header: grid */}
+          <div className="flex gap-6 items-start">
+            
+            {/* Tracking Toggle */}
+            <div className="pt-1.5">
+              <button
+                onClick={handleToggle}
+                className={`w-9 h-9 rounded-full border-2 flex items-center justify-center transition-all active:scale-90 ${
+                  trackingState === 'learned' ? 'bg-brand-teal border-brand-teal text-on-primary' :
+                  trackingState === 'in_progress' ? 'bg-primary/10 border-primary text-primary' :
+                  'bg-transparent border-hairline text-muted hover:border-muted/50'
+                } ${!onTrackingChange ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'}`}
+                title={onTrackingChange ? `Status: ${trackingState.replace('_', ' ')}` : 'Pin job to track progress'}
+              >
+                {trackingState === 'learned' ? <CheckCircle2 size={18} /> :
+                 trackingState === 'in_progress' ? <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" /> :
+                 <div className="w-2.5 h-2.5 rounded-full border-2 border-hairline" />}
+              </button>
+            </div>
 
-            {/* Left col: index + name + badges */}
-            <div>
+            <div className="flex-1 min-w-0">
               <div className="flex items-center gap-3 mb-2">
                 <span className="font-mono text-[11px] text-muted font-bold tracking-widest">
                   #{String(index + 1).padStart(2, '0')}
@@ -152,13 +182,13 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
                   {level}
                 </span>
               </div>
-              <h4 className="font-display text-title-lg text-ink tracking-tight leading-tight">
+              <h4 className={`font-display text-title-lg text-ink tracking-tight leading-tight transition-all truncate ${trackingState === 'learned' ? 'line-through opacity-40' : ''}`}>
                 {gap.skill}
               </h4>
             </div>
 
-            {/* Right col: priority + time — stacked */}
-            <div className="flex flex-col items-end gap-2 pt-1">
+            {/* Right col: priority + time */}
+            <div className="flex flex-col items-end gap-2 pt-1 shrink-0">
               <PriorityDots priority={gap.priority} />
               <div className="flex items-center gap-1.5 text-muted">
                 <Clock size={11} />
@@ -170,7 +200,7 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
           </div>
 
           {/* Reason */}
-          <p className="font-sans text-body-md text-muted leading-relaxed mt-5">
+          <p className="font-sans text-body-md text-muted leading-relaxed mt-5 max-w-2xl">
             {gap.reason}
           </p>
         </div>

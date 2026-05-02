@@ -32,7 +32,7 @@ import { SmoothScrolling } from "@/components/ui/SmoothScrolling";
 import { Navbar } from "@/components/landing/Navbar";
 import { AuthProvider } from "@/context/AuthContext";
 import { AuthModal } from "@/components/ui/auth-modal";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Preloader } from "@/components/ui/Preloader";
 import { UIProvider, useUI } from "@/context/UIContext";
 import { AppWrapper } from "@/components/ui/AppWrapper";
@@ -50,7 +50,6 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-          suppressHydrationWarning
         >
 
           <AuthProvider>

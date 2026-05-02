@@ -4,8 +4,8 @@
  * our trained MVC model (frequency data from 5000+ JDs).
  */
 
-import type { MVCProfiles } from "@/types/analysis";
-import mvcData from "@/data/mvc_model.json";
+import type { MVCProfiles, SkillGap } from "@/types/analysis";
+import mvcData from "./data/mvc_model.json";
 
 // Mapping of internal role slugs to user-friendly labels for UI display
 const ROLE_LABELS: Record<string, string> = {
