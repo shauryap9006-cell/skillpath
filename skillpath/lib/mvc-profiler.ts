@@ -271,7 +271,7 @@ export function rankGapsLocally(
   mvcSkills: string[],
   companyType: string,
   roleCategory: string
-): any[] {
+): SkillGap[] {
   const mvcSet = new Set(mvcSkills.map(s => s.toLowerCase()));
   const roleData = mvcProfiles[roleCategory] ?? mvcProfiles["other"];
   const skills = Array.isArray(roleData) ? roleData : (roleData?.skills ?? []);

@@ -7,6 +7,7 @@ import { DropZone } from '@/components/ui/DropZone';
 import { saveToHistory } from '@/lib/history';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, FileText, Upload, ChevronRight, Target } from 'lucide-react';
+import { GenerativeArtScene } from '@/components/ui/anomalous-matter-hero';
 
 const MOTIVATIONAL_QUOTES = [
   "Deep analyzing your profile...",
@@ -90,11 +91,12 @@ export default function AnalyzePage() {
         }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.message || 'Analysis failed');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Analysis failed');
       }
+
+      const data = await response.json();
 
       saveToHistory({
         share_token: data.share_token,
@@ -118,15 +120,22 @@ export default function AnalyzePage() {
   const bars = Array.from({ length: 12 }, (_, i) => i);
 
   return (
-    <main className="flex flex-col min-h-screen bg-canvas text-ink relative font-sans">
+    <main className="flex flex-col min-h-screen bg-canvas text-ink relative font-sans overflow-hidden">
+      {/* Generative Background */}
+      <div className="absolute inset-0 z-0 opacity-40">
+        <GenerativeArtScene />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-canvas/60 via-transparent to-canvas z-0" />
       
-      <div className="flex flex-col items-center pt-48 pb-32 px-8">
+      <div className="relative z-10 flex flex-col items-center pt-32 pb-32 px-8">
         <motion.div
+
           className="w-full max-w-[800px]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
+
           <div className="text-center mb-20">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-brand-teal/10 border border-brand-teal/20 text-[11px] text-brand-teal font-bold tracking-widest uppercase mb-6">
               <Sparkles size={12} className="fill-current" />

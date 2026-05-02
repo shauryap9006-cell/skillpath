@@ -273,6 +273,10 @@ body {
   background-size: 40px 40px;
 }
 
+.dark .dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1.5px, transparent 1.5px);
+}
+
 .porcelain-ribbon {
   /* Reduced drop shadow complexity */
   filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.1));
@@ -283,4 +287,19 @@ body {
   /* Optimized: single drop shadow, theme-aware color */
   filter: drop-shadow(0 0 25px var(--color-bulb-glow));
   will-change: filter;
+}
+
+@keyframes fade-in-long {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-long {
+  animation: fade-in-long 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

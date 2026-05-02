@@ -1,6 +1,7 @@
 'use client';
 
 import { useScroll, useTransform, motion } from 'framer-motion';
+import Image from 'next/image';
 import { useRef } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -63,10 +64,13 @@ export function ZoomParallax({ images, className }: ZoomParallaxProps) {
                 "relative overflow-hidden shadow-2xl",
                 isCenter ? "h-[30vh] w-[40vw] md:h-[40vh] md:w-[50vw]" : "h-[25vh] w-[25vw]"
               )}>
-                <img
+                <Image
                   src={src || '/placeholder.svg'}
                   alt={alt || `Parallax image ${index + 1}`}
-                  className="h-full w-full object-cover"
+                  fill
+                  sizes={isCenter ? "(max-width: 768px) 50vw, 40vw" : "25vw"}
+                  className="object-cover"
+                  priority={isCenter}
                 />
                 {!isCenter && <div className="absolute inset-0 bg-black/20" />}
               </div>

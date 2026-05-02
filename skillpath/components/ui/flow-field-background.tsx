@@ -24,15 +24,29 @@ interface NeuralBackgroundProps {
    * Speed multiplier. Default: 1
    */
   speed?: number;
+  /**
+   * Background color of the canvas. Defaults to transparent.
+   */
+  backgroundColor?: string;
+  /**
+   * Color of the trails. Should match the background color for best effect.
+   * Default: rgba(10, 10, 10)
+   */
+  trailColor?: string;
 }
 
 export default function NeuralBackground({
   className,
   color = "#6366f1", // Default Indigo
-  trailOpacity = 0.15,
+  trailOpacity = 0.45,
   particleCount = 1500,
+
+
   speed = 1,
+  backgroundColor = "transparent",
+  trailColor = "10, 10, 10", // RGB values
 }: NeuralBackgroundProps) {
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -83,14 +97,16 @@ export default function NeuralBackground({
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        const interactionRadius = 150;
+        const interactionRadius = 50;
 
         if (distance < interactionRadius) {
           const force = (interactionRadius - distance) / interactionRadius;
           // Push away
-          this.vx -= dx * force * 0.05;
-          this.vy -= dy * force * 0.05;
+          this.vx -= dx * force * 0.1;
+          this.vy -= dy * force * 0.1;
         }
+
+
 
         // 4. Apply Velocity & Friction
         this.x += this.vx;
@@ -149,10 +165,21 @@ export default function NeuralBackground({
     const animate = () => {
       // "Fade" effect: Instead of clearing the canvas, we draw a semi-transparent rect
       // This creates the "Trails" look.
-      // We use the background color of the parent or a dark overlay.
-      // Assuming dark mode for this effect usually:
-      ctx.fillStyle = `rgba(0, 0, 0, ${trailOpacity})`; 
-      ctx.fillRect(0, 0, width, height);
+      
+      // If background is transparent, we need to handle clearing carefully or use a specific color
+      // In SkillPath's case, we'll use the background color or a transparent black overlay.
+      if (backgroundColor === "transparent") {
+        // For transparent background, we can't easily do trails with ctx.fillRect(0,0,w,h)
+        // without affecting the whole page background unless we manage a clearRect or specific logic.
+        // However, for this effect, we'll clear with a semi-transparent version of the canvas background.
+        // Let's assume black trails if not specified, or match the design system.
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.fillStyle = `rgba(${trailColor}, ${trailOpacity})`; 
+        ctx.fillRect(0, 0, width, height);
+      } else {
+        ctx.fillStyle = backgroundColor;
+        ctx.fillRect(0, 0, width, height);
+      }
 
       particles.forEach((p) => {
         p.update();
@@ -194,7 +221,8 @@ export default function NeuralBackground({
       window.removeEventListener("mouseleave", handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [color, trailOpacity, particleCount, speed]);
+
+  }, [color, trailOpacity, particleCount, speed, backgroundColor]);
 
   return (
     <div ref={containerRef} className={cn("relative w-full h-full overflow-hidden", className)}>

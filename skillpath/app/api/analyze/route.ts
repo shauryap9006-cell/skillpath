@@ -34,7 +34,12 @@ export async function POST(req: NextRequest) {
     const contentType = req.headers.get("content-type") || "";
 
     if (contentType.includes("multipart/form-data")) {
-      const formData = await req.formData();
+      let formData;
+      try {
+        formData = await req.formData();
+      } catch (err) {
+        return NextResponse.json({ error: "bad_request", message: "Malformed form data." }, { status: 400 });
+      }
       console.log("[Pipeline] Received FormData keys:", Array.from(formData.keys()));
 
       jd_text = (formData.get("jd_text") as string) || "";
@@ -60,7 +65,12 @@ export async function POST(req: NextRequest) {
         console.log(`[Pipeline] Using raw resume text (${resume_text.length} chars)`);
       }
     } else {
-      const body = await req.json();
+      let body;
+      try {
+        body = await req.json();
+      } catch (err) {
+        return NextResponse.json({ error: "bad_request", message: "Malformed JSON body." }, { status: 400 });
+      }
       jd_text = body.jd_text;
       resume_text = body.resume_text;
       console.log("[Pipeline] Received JSON input");

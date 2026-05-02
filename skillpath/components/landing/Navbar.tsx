@@ -1,14 +1,17 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const { user, openAuthModal } = useAuth();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { label: 'Home', href: '/' },
@@ -34,47 +37,109 @@ export function Navbar() {
           <span className="font-display text-title-md text-ink tracking-tight">SkillPath</span>
         </div>
 
-        {/* Links */}
+        {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-12">
           {navLinks.map((link) => (
             <a 
               key={link.label}
               href={link.href}
-              className="font-sans text-nav-link text-muted hover:text-ink transition-colors"
+              className="font-sans text-nav-link text-muted dark:text-ink/60 hover:text-ink transition-colors"
             >
               {link.label}
             </a>
           ))}
         </div>
 
-        {/* CTAs */}
+        {/* Right side Actions */}
         <div className="flex items-center gap-md">
-          <ThemeToggle />
-          {!user ? (
-            <>
+          <div className="hidden sm:flex items-center gap-md">
+            <ThemeToggle />
+            {!user ? (
+              <>
+                <button 
+                  onClick={openAuthModal}
+                  className="font-sans text-nav-link text-ink hover:text-muted transition-colors px-2"
+                >
+                  Sign in
+                </button>
+                <button 
+                  onClick={openAuthModal}
+                  className="border border-primary text-ink font-sans font-semibold text-button px-[16px] py-[8px] h-[36px] rounded-md hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors flex items-center"
+                >
+                  Try free
+                </button>
+              </>
+            ) : (
               <button 
-                onClick={openAuthModal}
-                className="font-sans text-nav-link text-ink hover:text-muted transition-colors px-2"
-              >
-                Sign in
-              </button>
-              <button 
-                onClick={openAuthModal}
+                onClick={() => router.push('/profile')}
                 className="bg-primary text-on-primary font-sans font-semibold text-button px-[16px] py-[8px] h-[36px] rounded-md hover:bg-primary-active transition-colors flex items-center"
               >
-                Try free
+                Profile
               </button>
-            </>
-          ) : (
-            <button 
-              onClick={() => router.push('/profile')}
-              className="bg-primary text-on-primary font-sans font-semibold text-button px-[16px] py-[8px] h-[36px] rounded-md hover:bg-primary-active transition-colors flex items-center"
-            >
-              Profile
-            </button>
-          )}
+            )}
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            className="md:hidden p-2 text-ink flex items-center justify-center"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle Menu"
+          >
+            <MenuToggleIcon open={isMobileMenuOpen} className="w-8 h-8" duration={400} />
+          </button>
         </div>
       </div>
+
+      {/* Mobile Dropdown */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-[64px] left-0 right-0 bg-canvas border-b border-hairline shadow-xl p-8 flex flex-col gap-6 md:hidden z-50"
+          >
+            {navLinks.map((link) => (
+              <a 
+                key={link.label}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="font-sans text-[18px] font-semibold text-ink hover:text-brand-pink transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+            <div className="pt-6 border-t border-hairline flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-bold text-muted uppercase tracking-widest">Theme</span>
+                <ThemeToggle />
+              </div>
+              {!user ? (
+                <button 
+                  onClick={() => {
+                    openAuthModal();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full bg-primary text-on-primary font-sans font-semibold py-4 rounded-xl shadow-lg active:scale-95 transition-transform"
+                >
+                  Get Started
+                </button>
+              ) : (
+                <button 
+                  onClick={() => {
+                    router.push('/profile');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full bg-primary text-on-primary font-sans font-semibold py-4 rounded-xl shadow-lg"
+                >
+                  My Profile
+                </button>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

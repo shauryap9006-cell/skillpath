@@ -401,7 +401,7 @@ export const SignInPage = ({ className, onSuccess }: SignInPageProps) => {
   const [initialCanvasVisible, setInitialCanvasVisible] = useState(true);
   const [reverseCanvasVisible, setReverseCanvasVisible] = useState(false);
 
-  const API_URL = 'http://localhost:5000/api/auth';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/auth';
 
   const handleAuthSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -430,22 +430,33 @@ export const SignInPage = ({ className, onSuccess }: SignInPageProps) => {
       if (res.ok) {
         const data = await res.json();
         localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify({ 
-          name: data.user?.name || name || email.split('@')[0], 
-          email 
-        }));
+        
+        try {
+          localStorage.setItem('user', JSON.stringify({ 
+            name: data.user?.name || name || email.split('@')[0], 
+            email 
+          }));
+        } catch (e) {
+          console.warn('Failed to save user info to localStorage');
+        }
         
         setReverseCanvasVisible(true);
         setTimeout(() => setInitialCanvasVisible(false), 50);
         setStep("success");
         if (onSuccess) setTimeout(onSuccess, 2000);
       } else {
-        const errorData = await res.json();
-        alert(errorData.message || "Authentication failed");
+        let errorMessage = "Authentication failed";
+        try {
+          const errorData = await res.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch (e) {
+          // Response was not JSON
+        }
+        alert(errorMessage);
       }
     } catch (err) {
       console.error('Auth error:', err);
-      alert("Connection to server failed");
+      alert("Connection to server failed. Please check your internet or try again later.");
     }
   };
 

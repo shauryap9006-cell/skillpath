@@ -5,10 +5,20 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 
+import { useTheme } from 'next-themes';
+import NeuralBackground from '@/components/ui/flow-field-background';
+
 export function LandingInputSection() {
   const [jd, setJd] = useState('');
   const router = useRouter();
   const { user, openAuthModal } = useAuth();
+  const { theme } = useTheme();
+
+  const isDark = theme === 'dark';
+  const particleColor = isDark ? '#6366f1' : '#ff4d8b';
+  const trailColor = isDark ? '0, 0, 0' : '255, 250, 240';
+
+
 
   const handleStart = () => {
     if (!user) {
@@ -23,14 +33,26 @@ export function LandingInputSection() {
   };
 
   return (
-    <section id="analyze" className="bg-canvas py-section px-8 flex justify-center border-t border-hairline">
+    <section id="analyze" className="relative bg-canvas py-section px-8 flex justify-center border-t border-hairline overflow-hidden">
+      {/* Background Shader */}
+      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+        <NeuralBackground 
+          color={particleColor}
+          trailColor={trailColor}
+          trailOpacity={0.1}
+          particleCount={1500}
+          speed={0.4}
+
+        />
+      </div>
+
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-[1280px] w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-start"
+        initial={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-[1280px] w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10"
       >
+
+
         <div className="lg:col-span-5 pt-8">
             <h2 className="font-display text-[56px] text-ink mb-6 tracking-tight leading-[1.05] drop-shadow-sm">
                 Ready to bridge the gap?
@@ -41,7 +63,7 @@ export function LandingInputSection() {
         </div>
         
         <div className="lg:col-span-7 p-md rounded-xl bg-surface-strong border border-hairline shadow-sm tactile-card">
-            <div className="bg-canvas rounded-lg overflow-hidden flex flex-col min-h-[400px] border border-ink/10 transition-all focus-within:border-ink/30 tactile-input">
+            <div className="bg-canvas rounded-lg overflow-hidden flex flex-col min-h-[400px] border border-ink/10 focus-within:border-ink/20 focus-within:ring-1 focus-within:ring-ink/5 transition-all tactile-input">
                 <textarea 
                   placeholder="Paste Job Description here..."
                   className="flex-1 p-lg font-sans text-body-md text-ink placeholder:text-muted bg-transparent focus:outline-none resize-none"

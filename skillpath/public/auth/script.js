@@ -18,7 +18,6 @@ const showMessage = (msg, type = 'error') => {
 // Helper to show/hide loader
 const setLoader = (btn, isLoading, text) => {
     if (!btn) return;
-    const btnText = btn.querySelector('#btnText');
     if (isLoading) {
         btn.disabled = true;
         btn.innerHTML = `<div class="loader"></div> Processing...`;
@@ -54,15 +53,15 @@ if (signupForm) {
                 body: JSON.stringify({ name, email, password, confirmPassword })
             });
 
-            const data = await res.json();
-
-            if (res.ok) {
-                showMessage('Registration successful! Redirecting...', 'success');
-                localStorage.setItem('token', data.token);
-                setTimeout(() => window.location.href = 'dashboard.html', 1500);
-            } else {
-                showMessage(data.message || 'Signup failed');
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                return showMessage(errorData.message || 'Signup failed');
             }
+
+            const data = await res.json();
+            showMessage('Registration successful! Redirecting...', 'success');
+            localStorage.setItem('token', data.token);
+            setTimeout(() => window.location.href = 'dashboard.html', 1500);
         } catch (err) {
             showMessage('Server error. Please try again.');
         } finally {
@@ -90,15 +89,15 @@ if (loginForm) {
                 body: JSON.stringify({ email, password })
             });
 
-            const data = await res.json();
-
-            if (res.ok) {
-                showMessage('Login successful! Redirecting...', 'success');
-                localStorage.setItem('token', data.token);
-                setTimeout(() => window.location.href = 'dashboard.html', 1000);
-            } else {
-                showMessage(data.message || 'Invalid credentials');
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                return showMessage(errorData.message || 'Invalid credentials');
             }
+
+            const data = await res.json();
+            showMessage('Login successful! Redirecting...', 'success');
+            localStorage.setItem('token', data.token);
+            setTimeout(() => window.location.href = 'dashboard.html', 1000);
         } catch (err) {
             showMessage('Server error. Please try again.');
         } finally {
@@ -122,17 +121,17 @@ if (welcomeTitle) {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 
-            const data = await res.json();
-
-            if (res.ok) {
-                document.getElementById('userName').textContent = data.user.name;
-                document.getElementById('userEmail').textContent = data.user.email;
-                document.getElementById('userId').textContent = data.user._id;
-                welcomeTitle.textContent = `Hello, ${data.user.name.split(' ')[0]}!`;
-            } else {
+            if (!res.ok) {
                 localStorage.removeItem('token');
                 window.location.href = 'index.html';
+                return;
             }
+
+            const data = await res.json();
+            document.getElementById('userName').textContent = data.user.name;
+            document.getElementById('userEmail').textContent = data.user.email;
+            document.getElementById('userId').textContent = data.user._id;
+            welcomeTitle.textContent = `Hello, ${data.user.name.split(' ')[0]}!`;
         } catch (err) {
             showMessage('Could not load user data');
         }

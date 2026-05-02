@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Hero } from '@/components/landing/Hero';
+import { ExplorationEngine } from '@/components/landing/ExplorationEngine';
 import { LandingInputSection } from '@/components/landing/LandingInputSection';
 import { HowItWorks } from '@/components/landing/HowItWorks';
 import { CtaSection, Footer } from '@/components/landing/CtaSection';
@@ -16,6 +17,7 @@ export default function Home() {
       <Hero />
       <LandingInputSection />
       <HowItWorks />
+      <ExplorationEngine />
       <FeatureAutoSlider />
       <CalibrationTable />
       <CtaSection />

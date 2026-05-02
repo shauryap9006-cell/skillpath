@@ -108,7 +108,6 @@ async function setCachedResources(key: string, data: SkillResources) {
 
 // ─── Fallback resources ───────────────────────────────────────────────────────
 function buildFallbackResources(skill: string): SkillResources {
-  const encoded = encodeURIComponent(skill);
   const encodedFull = encodeURIComponent(`${skill} full course tutorial 2024`);
   const encodedFireship = encodeURIComponent(`${skill} fireship`);
   const encodedTraversy = encodeURIComponent(`${skill} traversy media`);

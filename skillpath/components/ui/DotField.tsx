@@ -108,7 +108,7 @@ const DotField = memo(({
       m.prevY = m.y;
     }
 
-    const speedInterval = setInterval(updateMouseSpeed, 20);
+    const speedInterval = setInterval(updateMouseSpeed, 64); // Reduced frequency (approx 15fps for speed check)
 
     let frameCount = 0;
 
@@ -155,8 +155,8 @@ const DotField = memo(({
         const distSq = dx * dx + dy * dy;
 
         if (distSq < crSq && eng > 0.01) {
-          const dist = Math.sqrt(distSq);
           if (isBulge) {
+            const dist = Math.sqrt(distSq);
             const t = 1 - dist / cr;
             const push = t * t * p.bulgeStrength * eng;
             const angle = Math.atan2(dy, dx);
@@ -164,7 +164,7 @@ const DotField = memo(({
             d.sy += (d.ay - Math.sin(angle) * push - d.sy) * 0.15;
           } else {
             const angle = Math.atan2(dy, dx);
-            const move = (500 / dist) * (m.speed * p.cursorForce);
+            const move = (500 / (Math.sqrt(distSq) + 1)) * (m.speed * p.cursorForce);
             d.vx += Math.cos(angle) * -move;
             d.vy += Math.sin(angle) * -move;
           }
@@ -189,23 +189,12 @@ const DotField = memo(({
           drawX += Math.cos(d.ay * 0.03 + t * 0.7) * p.waveAmplitude * 0.5;
         }
 
-        if (p.sparkle) {
-          const hash = ((i * 2654435761) ^ (frameCount >> 3)) >>> 0;
-          if ((hash % 100) < 3) {
-            ctx!.moveTo(drawX + rad * 1.8, drawY);
-            ctx!.arc(drawX, drawY, rad * 1.8, 0, TWO_PI);
-          } else {
-            ctx!.moveTo(drawX + rad, drawY);
-            ctx!.arc(drawX, drawY, rad, 0, TWO_PI);
-          }
-        } else {
-          ctx!.moveTo(drawX + rad, drawY);
-          ctx!.arc(drawX, drawY, rad, 0, TWO_PI);
-        }
+        // Draw batch
+        ctx!.moveTo(drawX + rad, drawY);
+        ctx!.arc(drawX, drawY, rad, 0, TWO_PI);
       }
 
       ctx!.fill();
-
       rafRef.current = requestAnimationFrame(tick);
     }
 

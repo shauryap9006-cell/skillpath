@@ -42,13 +42,13 @@ const PriorityDots = ({ priority }: { priority: number }) => {
   );
 };
 
-const slide = {
+const slide: any = {
   hidden:  { opacity: 0, height: 0 },
   visible: { opacity: 1, height: 'auto', transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
   exit:    { opacity: 0, height: 0,      transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] } },
 };
 
-export const SkillCard: React.FC<SkillCardProps> = ({
+const SkillCardComponent: React.FC<SkillCardProps> = ({
   gap, index, analysisId, role, seniority, companyType,
   initialResources, autoGenerate = false,
 }) => {
@@ -91,7 +91,13 @@ export const SkillCard: React.FC<SkillCardProps> = ({
           click_count: next,
         }),
       });
-      if (!res.ok) throw new Error('Failed');
+      if (!res.ok) throw new Error('Generation failed');
+      
+      const contentType = res.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Invalid server response');
+      }
+
       const data = await res.json();
       setSkillResources(prev => {
         if (!prev) return data.skill_resources;
@@ -106,8 +112,9 @@ export const SkillCard: React.FC<SkillCardProps> = ({
       });
       setStatus('done');
       if (!isExpanded) setIsExpanded(true);
-    } catch {
-      setError('Connection failed');
+    } catch (err) {
+      console.error('Skill generation error:', err);
+      setError(err instanceof Error ? err.message : 'Connection failed');
       setStatus('error');
     }
   };
@@ -278,3 +285,5 @@ export const SkillCard: React.FC<SkillCardProps> = ({
     </MotionConfig>
   );
 };
+
+export const SkillCard = React.memo(SkillCardComponent);

@@ -41,11 +41,11 @@ export function Hero() {
   const path = "M 150 450 Q 300 450, 400 300 T 650 150";
 
   // Stagger container — children inherit delay via index
-  const stagger = {
+  const stagger: any = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
   };
-  const fadeUp = {
+  const fadeUp: any = {
     hidden: { opacity: 0, y: 24 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
   };
@@ -67,7 +67,7 @@ export function Hero() {
         >
           {/* Eyebrow */}
           <motion.div variants={fadeUp}>
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-hairline bg-surface-soft text-[11px] font-bold uppercase tracking-widest text-muted">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-hairline bg-surface-soft dark:bg-white/10 text-[11px] font-extrabold uppercase tracking-widest text-ink/80 dark:text-ink ml-1.5 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-teal animate-pulse" />
               Career Intelligence
             </span>
@@ -354,10 +354,10 @@ export function Hero() {
           {/* ── Floating labels ── positioned relative to nodes ── */}
           <div className="absolute inset-0 pointer-events-none">
             {[
-              { delay: 1.2, top: '85%',  left: '11%',  color: 'text-brand-pink',    label: 'Current State' },
-              { delay: 1.5, top: '61%',  left: '42.5%', color: 'text-brand-lavender', label: 'Learning Pipeline' },
-              { delay: 1.8, top: '8%',   left: '68%', color: 'text-brand-ochre',   label: 'Optimized Outcome' },
-            ].map(({ delay, top, left, color, label }) => (
+              { delay: 1.2, top: '78%',  left: '18.75%', x: '-50%', label: 'Current State' },
+              { delay: 1.5, top: '53%',  left: '52%',    x: '0',    label: 'Learning Pipeline' },
+              { delay: 1.8, top: '22%',  right: '12%',   x: '0',    label: 'Optimized Outcome' },
+            ].map(({ delay, top, left, right, x, label }) => (
               <motion.div
                 key={label}
                 variants={{
@@ -365,8 +365,8 @@ export function Hero() {
                   visible: { opacity: 1, y: 0 }
                 }}
                 transition={{ delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                style={{ top, left }}
-                className={`absolute text-[10px] font-bold uppercase tracking-[0.15em] ${color}`}
+                style={{ top, left, right, x }}
+                className="absolute text-[10px] font-black uppercase tracking-[0.15em] text-ink whitespace-nowrap"
               >
                 {label}
               </motion.div>
