@@ -8,6 +8,7 @@ import { saveToHistory } from '@/lib/history';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, FileText, Upload, ChevronRight, Target } from 'lucide-react';
 import { GenerativeArtScene } from '@/components/ui/anomalous-matter-hero';
+import { useAuth } from '@/context/AuthContext';
 
 const MOTIVATIONAL_QUOTES = [
   "Deep analyzing your profile...",
@@ -21,6 +22,7 @@ const MOTIVATIONAL_QUOTES = [
 
 export default function AnalyzePage() {
   const router = useRouter();
+  const { user, openAuthModal } = useAuth();
   const [mode, setMode] = useState<'job' | 'dream'>('job');
   const [jd, setJd] = useState('');
   const [file, setFile] = useState<File | null>(null);
@@ -62,6 +64,12 @@ export default function AnalyzePage() {
   };
 
   const handleAnalyze = async () => {
+    if (!user) {
+      setError('Please sign in to analyze your resume.');
+      openAuthModal();
+      return;
+    }
+
     if (!jd) {
       setError(mode === 'job' ? 'Please paste a job description.' : 'Please describe your career dream.');
       return;
@@ -83,16 +91,21 @@ export default function AnalyzePage() {
       }
 
       const token = localStorage.getItem('token');
+      const formData = new FormData();
+      formData.append('jd_text', jd);
+      
+      if (file) {
+        formData.append('resume_file', file);
+      } else {
+        formData.append('resume_text', resumeText);
+      }
+
       const response = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          jd_text: jd,
-          resume_text: finalResumeText,
-        }),
+        body: formData,
       });
 
       if (!response.ok) {

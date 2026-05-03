@@ -22,10 +22,10 @@ import { adminDb } from "@/lib/firebase-admin";
 import type { SkillGap } from "@/types/analysis";
 import crypto from "crypto";
 import Groq from "groq-sdk";
-import { PDFParse } from "pdf-parse";
+import pdf from "pdf-parse";
 import { getAuthUser } from "@/lib/auth-helpers";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || "fallback_key_not_set" });
 
 export async function POST(req: NextRequest) {
   try {
@@ -56,11 +56,9 @@ export async function POST(req: NextRequest) {
         console.log(`[Pipeline] Processing File: ${resumeFile.name}, Size: ${resumeFile.size} bytes`);
         const buffer = Buffer.from(await resumeFile.arrayBuffer());
         try {
-          const parser = new PDFParse({ data: buffer });
-          const pdfData = await parser.getText();
-          resume_text = pdfData.text;
+          const data = await pdf(buffer);
+          resume_text = data.text;
           console.log(`[Pipeline] Extracted ${resume_text.length} chars from PDF`);
-          await parser.destroy();
         } catch (pdfError) {
           console.error("[Pipeline] PDF Extraction Error:", pdfError);
           resume_text = rawResumeText;
