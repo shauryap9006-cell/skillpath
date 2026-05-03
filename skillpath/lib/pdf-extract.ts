@@ -8,13 +8,14 @@ import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
 
 export async function extractTextFromPDF(buffer: ArrayBuffer): Promise<string> {
   try {
+    // Cast to any to bypass strict type checking on pdfjs options —
+    // the properties are valid at runtime but missing from this version's types
     const loadingTask = pdfjsLib.getDocument({
-      data:             new Uint8Array(buffer),
-      useWorkerFetch:   false,
-      isEvalSupported:  false,
-      useSystemFonts:   true,
-      disableFontFace:  true,
-    });
+      data:            new Uint8Array(buffer),
+      useWorkerFetch:  false,
+      useSystemFonts:  true,
+      disableFontFace: true,
+    } as any);
 
     const pdf   = await loadingTask.promise;
     const texts: string[] = [];
@@ -27,15 +28,15 @@ export async function extractTextFromPDF(buffer: ArrayBuffer): Promise<string> {
         .join(' ')
         .replace(/\s+/g, ' ')
         .trim();
-      texts.push(text);
+      if (text) texts.push(text);
     }
 
-    const result = texts.filter(Boolean).join('\n\n').trim();
+    const result = texts.join('\n\n').trim();
     if (!result) throw new Error('No text found — PDF may be image/scanned');
     return result;
 
   } catch (err) {
-    console.error('[PDF Extract Error]:', err);
+    console.error('[PDF Extract]', err);
     throw new Error(err instanceof Error ? err.message : 'PDF extraction failed');
   }
 }
