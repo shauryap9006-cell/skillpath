@@ -247,10 +247,14 @@ export async function POST(req: NextRequest) {
         hint: process.env.NODE_ENV === 'development' 
           ? "Check your local server logs." 
           : message.includes("PDF") 
-            ? "Your PDF might be too large or complex for the serverless function. Try pasting the resume text directly."
+            ? "Your PDF might be too large or complex. Try pasting the resume text directly."
             : message.includes("GROQ") || message.includes("apiKey")
               ? "Check your GROQ_API_KEY in deployment settings."
-              : "Check your FIREBASE_SERVICE_ACCOUNT_KEY in deployment settings."
+              : message.includes("database") || message.includes("adminDb")
+                ? "Firestore connection failed. Check your FIREBASE_SERVICE_ACCOUNT_KEY."
+                : message.includes("unauthorized")
+                  ? "Authentication failed. Try signing out and back in."
+                  : "Check your Firebase and Groq environment variables."
       },
       { status: 500 }
     );
