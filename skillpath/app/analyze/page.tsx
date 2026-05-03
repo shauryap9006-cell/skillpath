@@ -79,13 +79,8 @@ export default function AnalyzePage() {
     setIsAnalyzing(true);
 
     try {
-      let finalResumeText = resumeText;
-      if (file && !resumeText) {
-        finalResumeText = await extractTextFromFile(file);
-      }
-
-      if (!finalResumeText.trim()) {
-        setError('Could not extract text from your resume. Please try pasting it as text instead.');
+      if (!file && !resumeText.trim()) {
+        setError('Please upload a resume or paste your resume text.');
         setIsAnalyzing(false);
         return;
       }
