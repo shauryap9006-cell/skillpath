@@ -49,6 +49,7 @@ export interface AnalysisResult {
   skill_gaps: SkillGap[];
   learning_plan?: LearningPlan;
   jd_preview: string;
+  summary?: string;
   created_at: string;
   generated_resources?: Record<string, SkillResources>;
 }

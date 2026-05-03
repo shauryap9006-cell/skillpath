@@ -70,8 +70,8 @@ export function AnalysisInsights({ data }: AnalysisInsightsProps) {
         </div>
 
         <div className="pt-6 border-t border-hairline">
-          <p className="font-sans text-body-sm text-muted leading-relaxed italic">
-            "Focus on high-priority gaps first to reach the 80% application readiness threshold faster."
+          <p className="font-sans text-body-sm text-ink leading-relaxed italic">
+            "{data.summary || "Focus on high-priority gaps first to reach the 80% application readiness threshold faster."}"
           </p>
         </div>
       </div>

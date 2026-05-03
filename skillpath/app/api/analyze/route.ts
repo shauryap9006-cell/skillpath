@@ -19,13 +19,14 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 import { scoreGap } from "@/lib/gap-scorer";
 import { getMVCProfile, getRoleStandardSkills, extractSkills, rankGapsLocally, getRoleLabel } from "@/lib/mvc-profiler";
-import { calculateCountdown } from "@/lib/countdown";
+import { calculateCountdown } from "@/lib/readiness";
 import { detectCompanyType } from "@/lib/company-detector";
 import { adminDb } from "@/lib/firebase-admin";
 import type { SkillGap } from "@/types/analysis";
 import crypto from "crypto";
 import Groq from "groq-sdk";
 import { getAuthUser } from "@/lib/auth-helpers";
+import { ANALYZE_SUMMARY_SYSTEM, buildAnalyzeSummaryPrompt } from "@/prompts/analyze-summary";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || "fallback_key_not_set" });
 
@@ -58,12 +59,36 @@ export async function POST(req: NextRequest) {
         console.log(`[Pipeline] Processing File: ${resumeFile.name}, Size: ${resumeFile.size} bytes`);
         const buffer = Buffer.from(await resumeFile.arrayBuffer());
         try {
-          const pdf = eval('require')('pdf-parse');
-          const data = await pdf(buffer);
-          if (!data || !data.text) {
-             throw new Error("PDF parser returned no text");
+          const pdfLib = eval('require')('pdf-parse');
+          let text = "";
+
+          // Support for modern pdf-parse v2+
+          if (pdfLib.PDFParse) {
+            console.log("[Pipeline] Using pdf-parse v2 API");
+            const parser = new pdfLib.PDFParse({ data: buffer });
+            try {
+              const result = await parser.getText();
+              text = result.text;
+            } finally {
+              await parser.destroy();
+            }
+          } 
+          // Support for classic pdf-parse v1
+          else {
+            const pdf = typeof pdfLib === 'function' ? pdfLib : pdfLib.default;
+            if (typeof pdf !== 'function') {
+               console.error("[Pipeline] pdf-parse resolved to unknown type:", typeof pdfLib, pdfLib);
+               throw new Error("PDF parser module is not a function or class. Check version compatibility.");
+            }
+            console.log("[Pipeline] Using pdf-parse v1 API");
+            const data = await pdf(buffer);
+            text = data.text;
           }
-          resume_text = data.text;
+
+          if (!text) {
+             throw new Error("PDF parser returned no text content");
+          }
+          resume_text = text;
           console.log(`[Pipeline] Extracted ${resume_text.length} chars from PDF`);
         } catch (pdfError) {
           console.error("[Pipeline] PDF Extraction Error:", pdfError);
@@ -136,13 +161,40 @@ export async function POST(req: NextRequest) {
     // ---- Step 6: Calculate ready-by date (local) ----
     const countdown = calculateCountdown(rankedGaps);
 
-    // ---- Step 7: Save to Firestore ----
+    // ---- Step 7: AI Synthesis Summary (Groq) ----
+    console.log("[Pipeline] Synthesizing professional summary...");
+    let aiSummary = "";
+    try {
+      const summaryResponse = await groq.chat.completions.create({
+        model: "llama-3.1-8b-instant",
+        messages: [
+          { role: "system", content: ANALYZE_SUMMARY_SYSTEM },
+          { role: "user", content: buildAnalyzeSummaryPrompt(
+            gapResult.gapScore,
+            rankedGaps.filter(g => g.in_mvc).map(g => g.skill),
+            countdown.readyByDate,
+            companyType,
+            getRoleLabel(roleCategory)
+          )}
+        ],
+        temperature: 0.3,
+        max_tokens: 150,
+      });
+      aiSummary = summaryResponse.choices[0]?.message?.content?.trim() || "";
+      console.log("[Pipeline] ✓ Summary synthesized");
+    } catch (aiError) {
+      console.error("[Pipeline] AI Summary Error:", aiError);
+      aiSummary = `You are ${countdown.weeksRequired} weeks away from being a competitive candidate for this ${getRoleLabel(roleCategory)} role.`;
+    }
+
+    // ---- Step 8: Save to Firestore ----
     const shareToken = crypto.randomUUID();
     const uniqueMvcSkills = Array.from(new Set(mvcSkills.map(s => s.trim())));
 
     const analysisDoc = {
       share_token: shareToken,
       gap_score: gapResult.gapScore,
+      summary: aiSummary,
       mvc_skills: uniqueMvcSkills,
       required_degree: requiredDegree,
       ready_by_date: countdown.readyByDate,
