@@ -36,10 +36,6 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || "fallback_key_not_se
 
 export async function POST(req: NextRequest) {
   try {
-    if (!adminDb) {
-      throw new Error("Critical: Firebase database connection is not established. Check FIREBASE_SERVICE_ACCOUNT_KEY.");
-    }
-
     const user = await getAuthUser(req);
     if (!user) {
       return NextResponse.json({ error: "unauthorized", message: "Please sign in to analyze your resume." }, { status: 401 });
