@@ -48,7 +48,3 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'write_failed' }, { status: 500 });
   }
 }
-console.error('[Timeline POST]', e);
-return NextResponse.json({ error: 'write_failed' }, { status: 500 });
-  }
-}
