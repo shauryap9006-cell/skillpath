@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useEffect, useState, use } from 'react';
-import { 
-  ArrowLeft, 
-  Share2, 
-  Sparkles, 
-  CheckCircle2, 
-  ChevronRight, 
-  Info, 
-  Zap, 
+import {
+  ArrowLeft,
+  Share2,
+  Sparkles,
+  CheckCircle2,
+  ChevronRight,
+  Info,
+  Zap,
   Clock,
   Target,
   FileText
@@ -25,10 +25,10 @@ import { PinJobButton } from '@/components/results/PinJobButton';
 import { ReadinessRing } from '@/components/results/ReadinessRing';
 import { AnalysisInsights } from '@/components/results/AnalysisInsights';
 
-export default function ResultsPage({ 
-  params, 
-  searchParams 
-}: { 
+export default function ResultsPage({
+  params,
+  searchParams
+}: {
   params: Promise<{ id: string }>,
   searchParams: Promise<{ skill?: string }>
 }) {
@@ -46,9 +46,10 @@ export default function ResultsPage({
           if (res.ok) {
             const json = await res.json();
             setData(json);
+            setLoading(false);
             return; // Success!
           }
-          
+
           if (res.status === 404 && i < retries - 1) {
             console.log(`[Results] Attempt ${i + 1} failed (404), retrying in 1s...`);
             await new Promise(r => setTimeout(r, 1000));
@@ -122,7 +123,7 @@ export default function ResultsPage({
     try {
       const res = await fetch('/api/active-job', {
         method: 'PATCH',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
@@ -153,7 +154,7 @@ export default function ResultsPage({
     setGeneratingPlan(true);
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`/api/results/${id}/plan`, { 
+      const res = await fetch(`/api/results/${id}/plan`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -263,12 +264,12 @@ export default function ResultsPage({
   }
 
   const currentScore = activeJob ? activeJob.readiness_score : data.gap_score;
-  
+
   // Calculate remaining weeks based on skills not yet learned
-  const remainingWeeks = activeJob 
+  const remainingWeeks = activeJob
     ? activeJob.skills
-        .filter((s: any) => s.state !== 'learned')
-        .reduce((sum: number, s: any) => sum + (s.weeks_to_learn || 1), 0)
+      .filter((s: any) => s.state !== 'learned')
+      .reduce((sum: number, s: any) => sum + (s.weeks_to_learn || 1), 0)
     : data.weeks_required;
 
   const readyDate = new Date();
@@ -285,8 +286,8 @@ export default function ResultsPage({
               {activeJob ? 'Learning Progress' : 'Analysis Complete'}
             </span>
             <h1 className="font-display text-display-lg leading-[1.1] mb-6">
-              {remainingWeeks > 0 
-                ? `You're ${remainingWeeks} weeks away.` 
+              {remainingWeeks > 0
+                ? `You're ${remainingWeeks} weeks away.`
                 : "You're ready to apply!"}
             </h1>
             <p className="font-sans text-body-lg text-muted">
@@ -412,8 +413,8 @@ export default function ResultsPage({
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ 
-                          duration: 0.5, 
+                        transition={{
+                          duration: 0.5,
                           delay: i * 0.1,
                           ease: [0.16, 1, 0.3, 1] as any
                         }}
@@ -454,7 +455,7 @@ export default function ResultsPage({
 
           <div className="lg:col-span-5 space-y-8">
             <AnalysisInsights data={data} />
-            
+
             <div className="sticky top-32 p-10 rounded-3xl border border-hairline bg-surface-card dark:bg-surface-soft shadow-[0_8px_32px_rgba(0,0,0,0.06)] overflow-hidden">
               {!data.learning_plan?.weeks?.length ? (
                 <div className="text-center py-8">
@@ -491,7 +492,7 @@ export default function ResultsPage({
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: wi * 0.05 }}
                         >
-                          <Accordion 
+                          <Accordion
                             title={
                               <div className="flex items-center justify-between w-full pr-4">
                                 <span>Week {week.week}: {week.skill}</span>

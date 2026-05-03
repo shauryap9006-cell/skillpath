@@ -3,15 +3,15 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ActiveJobCard }    from '@/components/profile/ActiveJobCard';
-import { JobHistoryRail }   from '@/components/profile/JobHistoryRail';
-import { ProfileHeader }    from '@/components/profile/ProfileHeader';
-import { StatsBar }         from '@/components/profile/StatsBar';
-import { DailyGoalWidget }  from '@/components/profile/DailyGoalWidget';
-import { ResumeSnapshot }   from '@/components/profile/ResumeSnapshot';
-import { SkillTimeline }    from '@/components/profile/SkillTimeline';
+import { ActiveJobCard } from '@/components/profile/ActiveJobCard';
+import { JobHistoryRail } from '@/components/profile/JobHistoryRail';
+import { ProfileHeader } from '@/components/profile/ProfileHeader';
+import { StatsBar } from '@/components/profile/StatsBar';
+import { DailyGoalWidget } from '@/components/profile/DailyGoalWidget';
+import { ResumeSnapshot } from '@/components/profile/ResumeSnapshot';
+import { SkillTimeline } from '@/components/profile/SkillTimeline';
 import { computeWeeksRemaining } from '@/lib/profile-utils';
-import type { ActiveJob }   from '@/types/active-job';
+import type { ActiveJob } from '@/types/active-job';
 import type { UserProfile } from '@/types/profile';
 import { useAuth } from '@/context/AuthContext';
 import { nameToColor } from '@/lib/profile-utils';
@@ -19,7 +19,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
 const fadeUp = {
-  hidden:  { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 16 },
   visible: (i: number) => ({
     opacity: 1, y: 0,
     transition: { delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] as any },
@@ -28,7 +28,7 @@ const fadeUp = {
 
 export default function ProfilePage() {
   const { user } = useAuth();
-  const [profile,   setProfile]   = useState<UserProfile | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [activeJob, setActiveJob] = useState<ActiveJob | null | 'loading'>('loading');
 
   // Local bootstrap from AuthContext to prevent blank states
@@ -54,13 +54,13 @@ export default function ProfilePage() {
       return;
     }
     const headers = { 'Authorization': `Bearer ${token}` };
-    const params  = new URLSearchParams();
-    if (user?.name)  params.append('name',  user.name);
+    const params = new URLSearchParams();
+    if (user?.name) params.append('name', user.name);
     if (user?.email) params.append('email', user.email);
 
     Promise.all([
       fetch(`/api/profile?${params.toString()}`, { headers }).then(r => r.json()),
-      fetch('/api/active-job',                    { headers }).then(r => r.json()),
+      fetch('/api/active-job', { headers }).then(r => r.json()),
     ]).then(([pData, jData]) => {
       if (pData.profile) setProfile(pData.profile);
       setActiveJob(jData.active_job ?? null);
@@ -71,16 +71,16 @@ export default function ProfilePage() {
   }, []);
 
   const stats = {
-    skills_learned:   profile?.total_skills_learned ?? 0,
-    streak_count:     profile?.streak_count         ?? 0,
-    market_fit:       activeJob && activeJob !== 'loading' ? activeJob.readiness_score : 0,
-    weeks_remaining:  activeJob && activeJob !== 'loading'
+    skills_learned: profile?.total_skills_learned ?? 0,
+    streak_count: profile?.streak_count ?? 0,
+    market_fit: activeJob && activeJob !== 'loading' ? activeJob.readiness_score : 0,
+    weeks_remaining: activeJob && activeJob !== 'loading'
       ? computeWeeksRemaining(activeJob.skills)
       : 0,
   };
 
   // Mocking existing skills for now - in a real app, this comes from the initial analysis data
-  const existingSkills: string[] = activeJob && activeJob !== 'loading' 
+  const existingSkills: string[] = activeJob && activeJob !== 'loading'
     ? activeJob.skills.slice(0, 3).map(s => s.skill) // Just as placeholder
     : [];
 
@@ -117,7 +117,7 @@ export default function ProfilePage() {
       {/* Active tracker */}
       <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible">
         <div className="flex items-center gap-3 mb-6">
-           <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
           <span className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-muted">
             Tactile Tracker
           </span>
@@ -132,7 +132,7 @@ export default function ProfilePage() {
             <p className="font-sans text-body-sm text-muted max-w-[280px] mx-auto mb-8">
               Run an analysis and pin a role to start tracking your professional growth.
             </p>
-            <Link 
+            <Link
               href="/analyze"
               className="flex items-center gap-3 px-8 py-4 bg-ink text-on-primary rounded-full transition-all duration-300 hover:shadow-xl active:scale-95 group"
             >
@@ -164,7 +164,7 @@ export default function ProfilePage() {
       {/* Skill timeline */}
       <motion.div custom={5} variants={fadeUp} initial="hidden" animate="visible">
         <div className="flex items-center gap-3 mb-8">
-           <div className="w-1.5 h-1.5 rounded-full bg-muted" />
+          <div className="w-1.5 h-1.5 rounded-full bg-muted" />
           <span className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-muted">
             Chronological Log
           </span>

@@ -10,12 +10,12 @@ export async function POST(req: NextRequest) {
   if (!user || !adminDb) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
 
   try {
-    const ref  = adminDb.collection('profiles').doc(user.uid);
+    const ref = adminDb.collection('profiles').doc(user.uid);
     const snap = await ref.get();
     if (!snap.exists) return NextResponse.json({ error: 'no_profile' }, { status: 404 });
 
     const profile = snap.data() as UserProfile;
-    const today   = todayISO();
+    const today = todayISO();
 
     // Already updated today — no change needed
     if (profile.streak_last_date === today) {
@@ -32,8 +32,8 @@ export async function POST(req: NextRequest) {
       : 1;
 
     await ref.update({
-      streak_count:      newStreak,
-      streak_last_date:  today,
+      streak_count: newStreak,
+      streak_last_date: today,
       total_skills_learned: (profile.total_skills_learned || 0) + 1,
     });
 

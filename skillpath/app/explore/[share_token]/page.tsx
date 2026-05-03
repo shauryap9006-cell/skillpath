@@ -27,7 +27,7 @@ export default async function ExploreResultsPage({ params }: { params: Promise<{
 
   return (
     <main className="min-h-screen bg-canvas text-ink selection:bg-brand-pink/20 font-sans">
-      
+
       <div className="max-w-[1280px] mx-auto px-8 lg:px-24 pt-48 pb-16">
         {/* Header Section */}
         <header className="mb-20">
@@ -46,16 +46,16 @@ export default async function ExploreResultsPage({ params }: { params: Promise<{
         <section className="mb-32">
           <div className="bg-surface-card border border-hairline rounded-[32px] p-10 md:p-16 relative overflow-hidden shadow-sm">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-teal/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-            
+
             <div className="relative z-10">
               <span className="font-bold text-[10px] text-brand-teal uppercase tracking-[0.2em] mb-8 block">The Interview Gatekeepers</span>
               <h2 className="font-display text-display-md text-ink mb-10 max-w-2xl leading-tight">
                 These {data.mvc_skills.length} skills appear in 80%+ of JDs for this role. Master these to get interviews.
               </h2>
-              
+
               <div className="flex flex-wrap gap-4">
                 {data.mvc_skills.map((skill: string, i: number) => (
-                  <span 
+                  <span
                     key={skill}
                     className="font-sans font-semibold text-body-md text-ink border border-hairline px-8 py-4 rounded-xl bg-canvas hover:bg-surface-soft transition-colors cursor-default"
                   >
@@ -78,7 +78,7 @@ export default async function ExploreResultsPage({ params }: { params: Promise<{
               Every technical competency and analytical requirement identified from thousands of market-active job descriptions.
             </p>
           </header>
-          
+
           <SkillMap categories={data.skill_map.categories} />
         </section>
 

@@ -7,14 +7,14 @@ export function computeReadiness(skills: TrackedSkill[]): number {
   console.log('[computeReadiness] skills:', skills.map(s => `${s.skill}:${s.state}`));
 
   const stateValue = (state: SkillState): number => {
-    if (state === 'learned')     return 1.0;
+    if (state === 'learned') return 1.0;
     if (state === 'in_progress') return 0.5;
     return 0;
   };
 
   const totalWeight = skills.reduce((sum, s) => {
     // Guard against priority=0 or negative
-    const w = Math.max(1, 6 - (s.priority || 3)); 
+    const w = Math.max(1, 6 - (s.priority || 3));
     return sum + w;
   }, 0);
 

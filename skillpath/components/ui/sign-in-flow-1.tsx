@@ -7,23 +7,23 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 
-import { 
-  Vector2, 
-  Vector3, 
-  ShaderMaterial, 
-  PlaneGeometry, 
-  Mesh, 
-  CustomBlending, 
-  SrcAlphaFactor, 
-  OneFactor, 
-  GLSL3 
+import {
+  Vector2,
+  Vector3,
+  ShaderMaterial,
+  PlaneGeometry,
+  Mesh,
+  CustomBlending,
+  SrcAlphaFactor,
+  OneFactor,
+  GLSL3
 } from "three";
-import { 
-  GoogleAuthProvider, 
-  signInWithPopup, 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  updateProfile 
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
@@ -49,7 +49,7 @@ interface SignInPageProps {
   className?: string;
   onSuccess?: () => void; // Added for modal integration
 }
-      
+
 export const CanvasRevealEffect = ({
   animationSpeed = 10,
   opacities = [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1],
@@ -85,13 +85,13 @@ export const CanvasRevealEffect = ({
         />
       </div>
       {showGradient && (
-         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
       )}
     </div>
   );
 };
 
-    
+
 interface DotMatrixProps {
   colors?: number[][];
   opacities?: number[];
@@ -191,16 +191,14 @@ const DotMatrix: React.FC<DotMatrixProps> = ({
 
         void main() {
             vec2 st = fragCoord.xy;
-            ${
-              center.includes("x")
-                ? "st.x -= abs(floor((mod(u_resolution.x, u_total_size) - u_dot_size) * 0.5));"
-                : ""
-            }
-            ${
-              center.includes("y")
-                ? "st.y -= abs(floor((mod(u_resolution.y, u_total_size) - u_dot_size) * 0.5));"
-                : ""
-            }
+            ${center.includes("x")
+          ? "st.x -= abs(floor((mod(u_resolution.x, u_total_size) - u_dot_size) * 0.5));"
+          : ""
+        }
+            ${center.includes("y")
+          ? "st.y -= abs(floor((mod(u_resolution.y, u_total_size) - u_dot_size) * 0.5));"
+          : ""
+        }
 
             float opacity = step(0.0, st.x);
             opacity *= step(0.0, st.y);
@@ -390,7 +388,7 @@ function MiniNavbar() {
           ))}
         </nav>
         <button className="sm:hidden text-gray-300" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X /> : <div className="w-6 h-6 flex flex-col justify-between p-1"><div className="h-0.5 bg-white"/><div className="h-0.5 bg-white"/><div className="h-0.5 bg-white"/></div>}
+          {isOpen ? <X /> : <div className="w-6 h-6 flex flex-col justify-between p-1"><div className="h-0.5 bg-white" /><div className="h-0.5 bg-white" /><div className="h-0.5 bg-white" /></div>}
         </button>
       </div>
     </header>
@@ -411,7 +409,7 @@ export const SignInPage = ({ className, onSuccess }: SignInPageProps) => {
   const handleAuthSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (loading) return;
-    
+
     if (mode === "signup" && password !== confirmPassword) {
       alert("Passwords do not match");
       return;
@@ -465,15 +463,15 @@ export const SignInPage = ({ className, onSuccess }: SignInPageProps) => {
     <div className={cn("relative w-full h-full bg-black overflow-hidden rounded-[2.5rem]", className)}>
       {/* Overscanned background to ensure total coverage */}
       <div className="absolute -inset-[5%] z-0 pointer-events-none">
-        <CanvasRevealEffect 
-          animationSpeed={1.5} 
-          containerClassName="bg-black w-full h-full" 
-          colors={[[255, 255, 255],[255, 255, 255]]} 
-          dotSize={2} 
+        <CanvasRevealEffect
+          animationSpeed={1.5}
+          containerClassName="bg-black w-full h-full"
+          colors={[[255, 255, 255], [255, 255, 255]]}
+          dotSize={2}
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>
-      
+
       {/* Scrollable content layer */}
       <div className="relative z-10 w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar">
         <div className="flex flex-col items-center justify-center min-h-full py-12 px-6">
@@ -484,39 +482,39 @@ export const SignInPage = ({ className, onSuccess }: SignInPageProps) => {
                   <h1 className="text-4xl font-bold text-white">{mode === "login" ? "Welcome Back" : "Create Account"}</h1>
                   <form onSubmit={handleAuthSubmit} className="space-y-4">
                     {mode === "signup" && (
-                      <input 
-                        type="text" 
-                        placeholder="Your Name" 
-                        value={name} 
-                        onChange={e => setName(e.target.value)} 
-                        className="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 text-white text-center focus:outline-none focus:border-white/30" 
-                        required 
+                      <input
+                        type="text"
+                        placeholder="Your Name"
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        className="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 text-white text-center focus:outline-none focus:border-white/30"
+                        required
                       />
                     )}
-                    <input 
-                      type="email" 
-                      placeholder="email@example.com" 
-                      value={email} 
-                      onChange={e => setEmail(e.target.value)} 
-                      className="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 text-white text-center focus:outline-none focus:border-white/30" 
-                      required 
+                    <input
+                      type="email"
+                      placeholder="email@example.com"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      className="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 text-white text-center focus:outline-none focus:border-white/30"
+                      required
                     />
-                    <input 
-                      type="password" 
-                      placeholder="Password" 
-                      value={password} 
-                      onChange={e => setPassword(e.target.value)} 
-                      className="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 text-white text-center focus:outline-none focus:border-white/30" 
-                      required 
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      className="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 text-white text-center focus:outline-none focus:border-white/30"
+                      required
                     />
                     {mode === "signup" && (
-                      <input 
-                        type="password" 
-                        placeholder="Confirm Password" 
-                        value={confirmPassword} 
-                        onChange={e => setConfirmPassword(e.target.value)} 
-                        className="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 text-white text-center focus:outline-none focus:border-white/30" 
-                        required 
+                      <input
+                        type="password"
+                        placeholder="Confirm Password"
+                        value={confirmPassword}
+                        onChange={e => setConfirmPassword(e.target.value)}
+                        className="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 text-white text-center focus:outline-none focus:border-white/30"
+                        required
                       />
                     )}
                     <button type="submit" className="w-full bg-white text-black font-bold py-3 rounded-full hover:bg-white/90 transition-colors mt-2">
@@ -530,14 +528,14 @@ export const SignInPage = ({ className, onSuccess }: SignInPageProps) => {
                       <p>Already have an account? <button onClick={() => setMode("login")} className="text-white hover:underline">Log in</button></p>
                     )}
                   </div>
-                  
+
                   <div className="pt-4">
                     <div className="relative flex items-center justify-center mb-6">
                       <div className="border-t border-white/10 w-full"></div>
                       <span className="bg-black px-4 text-xs text-white/30 uppercase tracking-widest absolute">Or</span>
                     </div>
-                    
-                    <button 
+
+                    <button
                       onClick={handleGoogleLogin}
                       className="w-full flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full py-3 text-white text-sm transition-all duration-300 group"
                     >

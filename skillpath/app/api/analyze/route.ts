@@ -36,6 +36,10 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || "fallback_key_not_se
 
 export async function POST(req: NextRequest) {
   try {
+    if (!adminDb) {
+      throw new Error("Critical: Firebase database connection is not established. Check FIREBASE_SERVICE_ACCOUNT_KEY.");
+    }
+
     const user = await getAuthUser(req);
     if (!user) {
       return NextResponse.json({ error: "unauthorized", message: "Please sign in to analyze your resume." }, { status: 401 });
@@ -145,13 +149,15 @@ export async function POST(req: NextRequest) {
         model: "llama-3.1-8b-instant",
         messages: [
           { role: "system", content: ANALYZE_SUMMARY_SYSTEM },
-          { role: "user", content: buildAnalyzeSummaryPrompt(
-            gapResult.gapScore,
-            rankedGaps.filter(g => g.in_mvc).map(g => g.skill),
-            countdown.readyByDate,
-            companyType,
-            getRoleLabel(roleCategory)
-          )}
+          {
+            role: "user", content: buildAnalyzeSummaryPrompt(
+              gapResult.gapScore,
+              rankedGaps.filter(g => g.in_mvc).map(g => g.skill),
+              countdown.readyByDate,
+              companyType,
+              getRoleLabel(roleCategory)
+            )
+          }
         ],
         temperature: 0.3,
         max_tokens: 150,
@@ -199,7 +205,7 @@ export async function POST(req: NextRequest) {
     }
 
     console.log("[Pipeline] ✓ Done! Gap score:", gapResult.gapScore, "| Weeks:", countdown.weeksRequired);
-    
+
     const response = NextResponse.json(analysisDoc);
     response.headers.set('X-Pipeline-Status', 'Success');
     response.headers.set('X-Database-Status', adminDb ? 'Connected' : 'Disconnected');
@@ -208,12 +214,12 @@ export async function POST(req: NextRequest) {
     console.error("Analysis pipeline crash:", error);
     const message = error instanceof Error ? error.message : "An unexpected error occurred during analysis.";
     const response = NextResponse.json(
-      { 
-        error: "analysis_failed", 
+      {
+        error: "analysis_failed",
         message: message,
-        hint: process.env.NODE_ENV === 'development' 
-          ? "Check your local server logs." 
-          : message.includes("PDF") 
+        hint: process.env.NODE_ENV === 'development'
+          ? "Check your local server logs."
+          : message.includes("PDF")
             ? "Your PDF might be too large or complex. Try pasting the resume text directly."
             : message.includes("GROQ") || message.includes("apiKey")
               ? "Check your GROQ_API_KEY in deployment settings."

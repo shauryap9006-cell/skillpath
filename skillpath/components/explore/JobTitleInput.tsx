@@ -71,9 +71,8 @@ export default function JobTitleInput() {
           <button
             type="submit"
             disabled={!jobTitle.trim() || isExploring}
-            className={`flex items-center justify-center gap-3 px-10 py-6 md:py-0 bg-primary dark:bg-brand-pink text-on-primary dark:text-white rounded-lg font-sans font-semibold text-button transition-all hover:bg-primary-active dark:hover:opacity-90 active:scale-[0.98] tactile-button ${
-              isExploring ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
+            className={`flex items-center justify-center gap-3 px-10 py-6 md:py-0 bg-primary dark:bg-brand-pink text-on-primary dark:text-white rounded-lg font-sans font-semibold text-button transition-all hover:bg-primary-active dark:hover:opacity-90 active:scale-[0.98] tactile-button ${isExploring ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
           >
             {isExploring ? 'MAPPING...' : 'START EXPLORATION'}
             <ArrowRight size={18} />

@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   catch { return NextResponse.json({ error: 'invalid_json' }, { status: 400 }); }
 
   try {
-    const id  = `entry_${Date.now()}`;
+    const id = `entry_${Date.now()}`;
     const entry: TimelineEntry = { ...body, id };
     await adminDb
       .collection('skill_timeline')
@@ -46,5 +46,9 @@ export async function POST(req: NextRequest) {
   } catch (e) {
     console.error('[Timeline POST]', e);
     return NextResponse.json({ error: 'write_failed' }, { status: 500 });
+  }
+}
+console.error('[Timeline POST]', e);
+return NextResponse.json({ error: 'write_failed' }, { status: 500 });
   }
 }

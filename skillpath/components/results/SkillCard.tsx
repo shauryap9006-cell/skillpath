@@ -28,10 +28,10 @@ interface SkillCardProps {
 type Status = 'idle' | 'loading' | 'done' | 'error';
 
 const statusConfig: Record<Status, { accent: string; border: string; bg: string }> = {
-  idle:    { accent: 'bg-muted/40',         border: 'border-hairline',       bg: 'bg-surface-card' },
-  loading: { accent: 'bg-primary',           border: 'border-primary/20',     bg: 'bg-surface-soft' },
-  done:    { accent: 'bg-brand-teal',        border: 'border-hairline',       bg: 'bg-surface-card' },
-  error:   { accent: 'bg-brand-pink',        border: 'border-brand-pink/20',  bg: 'bg-brand-pink/5' },
+  idle: { accent: 'bg-muted/40', border: 'border-hairline', bg: 'bg-surface-card' },
+  loading: { accent: 'bg-primary', border: 'border-primary/20', bg: 'bg-surface-soft' },
+  done: { accent: 'bg-brand-teal', border: 'border-hairline', bg: 'bg-surface-card' },
+  error: { accent: 'bg-brand-pink', border: 'border-brand-pink/20', bg: 'bg-brand-pink/5' },
 };
 
 const LEVELS = ['Basic', 'Intermediate', 'Advanced', 'Expert'] as const;
@@ -48,9 +48,9 @@ const PriorityDots = ({ priority }: { priority: number }) => {
 };
 
 const slide: any = {
-  hidden:  { opacity: 0, height: 0 },
+  hidden: { opacity: 0, height: 0 },
   visible: { opacity: 1, height: 'auto', transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as any } },
-  exit:    { opacity: 0, height: 0,      transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] as any } },
+  exit: { opacity: 0, height: 0, transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] as any } },
 };
 
 const SkillCardComponent: React.FC<SkillCardProps> = ({
@@ -68,14 +68,14 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
     };
     return initialResources;
   });
-  const [error, setError]       = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [clickCount, setClickCount] = useState(() =>
     skillResources ? Math.floor(skillResources.resources.length / 4) : 0
   );
 
   const level = LEVELS[Math.min(clickCount, 3)];
-  const cfg   = statusConfig[status];
+  const cfg = statusConfig[status];
 
   const generate = async (e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -98,7 +98,7 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
         }),
       });
       if (!res.ok) throw new Error('Generation failed');
-      
+
       const data = await res.json();
       setSkillResources(prev => {
         if (!prev) return data.skill_resources;
@@ -127,13 +127,13 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
   const handleToggle = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!onTrackingChange) return;
-    
+
     const next = {
       not_started: 'in_progress',
       in_progress: 'learned',
       learned: 'not_started'
     }[trackingState] as any;
-    
+
     await onTrackingChange(gap.skill, next);
   };
 
@@ -149,21 +149,20 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
 
           {/* Header: grid */}
           <div className="flex gap-6 items-start">
-            
+
             {/* Tracking Toggle */}
             <div className="pt-1.5">
               <button
                 onClick={handleToggle}
-                className={`w-9 h-9 rounded-full border-2 flex items-center justify-center transition-all active:scale-90 ${
-                  trackingState === 'learned' ? 'bg-brand-teal border-brand-teal text-on-primary' :
-                  trackingState === 'in_progress' ? 'bg-primary/10 border-primary text-primary' :
-                  'bg-transparent border-hairline text-muted hover:border-muted/50'
-                } ${!onTrackingChange ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'}`}
+                className={`w-9 h-9 rounded-full border-2 flex items-center justify-center transition-all active:scale-90 ${trackingState === 'learned' ? 'bg-brand-teal border-brand-teal text-on-primary' :
+                    trackingState === 'in_progress' ? 'bg-primary/10 border-primary text-primary' :
+                      'bg-transparent border-hairline text-muted hover:border-muted/50'
+                  } ${!onTrackingChange ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'}`}
                 title={onTrackingChange ? `Status: ${trackingState.replace('_', ' ')}` : 'Pin job to track progress'}
               >
                 {trackingState === 'learned' ? <CheckCircle2 size={18} /> :
-                 trackingState === 'in_progress' ? <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" /> :
-                 <div className="w-2.5 h-2.5 rounded-full border-2 border-hairline" />}
+                  trackingState === 'in_progress' ? <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" /> :
+                    <div className="w-2.5 h-2.5 rounded-full border-2 border-hairline" />}
               </button>
             </div>
 

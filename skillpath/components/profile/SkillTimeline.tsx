@@ -25,17 +25,17 @@ export function SkillTimeline() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    fetch('/api/profile/timeline', { 
+    fetch('/api/profile/timeline', {
       headers: { 'Authorization': `Bearer ${token}` }
     })
       .then(r => r.json())
-      .then(d => { 
+      .then(d => {
         // Sort entries by date descending to ensure latest are first
-        const sorted = (d.entries ?? []).sort((a: TimelineEntry, b: TimelineEntry) => 
+        const sorted = (d.entries ?? []).sort((a: TimelineEntry, b: TimelineEntry) =>
           new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
         );
-        setEntries(sorted); 
-        setLoading(false); 
+        setEntries(sorted);
+        setLoading(false);
       })
       .catch(() => setLoading(false));
   }, []);
@@ -108,16 +108,16 @@ export function SkillTimeline() {
             className="px-8 pt-2 pb-8 flex flex-col gap-2"
           >
             {entries.slice(0, 2).map((entry, i) => (
-              <motion.div 
-                key={entry.id} 
+              <motion.div
+                key={entry.id}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.1 }}
                 className="flex items-center gap-4 px-5 py-3 rounded-2xl border border-hairline bg-surface-soft/20 group hover:bg-surface-soft/40 transition-colors"
               >
-                <div 
-                  className="w-2 h-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.1)]" 
-                  style={{ background: entry.state === 'learned' ? entry.job_color : 'var(--color-primary)' }} 
+                <div
+                  className="w-2 h-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.1)]"
+                  style={{ background: entry.state === 'learned' ? entry.job_color : 'var(--color-primary)' }}
                 />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-4">
@@ -201,7 +201,7 @@ export function SkillTimeline() {
                                     </span>
                                   </div>
                                 </div>
-                                
+
                                 <div className="flex flex-col items-end shrink-0 gap-1">
                                   <span
                                     className="font-mono text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-md border border-hairline bg-surface-soft"

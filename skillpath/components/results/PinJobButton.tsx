@@ -41,7 +41,7 @@ export function PinJobButton({
       const token = localStorage.getItem('token');
       const res = await fetch('/api/active-job', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
@@ -82,16 +82,16 @@ export function PinJobButton({
       className={[
         'group relative flex items-center gap-2.5 px-6 py-3 rounded-md font-sans font-semibold text-button transition-all duration-300 tactile-button overflow-hidden',
         status === 'idle' &&
-          'border border-brand-lavender/30 bg-brand-lavender/5 hover:bg-brand-lavender/15 text-brand-lavender',
+        'border border-brand-lavender/30 bg-brand-lavender/5 hover:bg-brand-lavender/15 text-brand-lavender',
         status === 'loading' &&
-          'border border-hairline bg-surface-soft text-muted cursor-wait',
+        'border border-hairline bg-surface-soft text-muted cursor-wait',
         status === 'done' &&
-          'border border-brand-teal/30 bg-brand-teal/10 text-brand-teal cursor-default',
+        'border border-brand-teal/30 bg-brand-teal/10 text-brand-teal cursor-default',
       ].filter(Boolean).join(' ')}
     >
-      {status === 'idle'    && <><Bookmark size={15} />Track This Job</>}
+      {status === 'idle' && <><Bookmark size={15} />Track This Job</>}
       {status === 'loading' && <><Loader2 size={15} className="animate-spin" />Pinning...</>}
-      {status === 'done'    && <><BookmarkCheck size={15} />Pinned — Go to Profile</>}
+      {status === 'done' && <><BookmarkCheck size={15} />Pinned — Go to Profile</>}
     </button>
   );
 }

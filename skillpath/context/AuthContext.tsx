@@ -27,13 +27,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // User is signed in
         const idToken = await firebaseUser.getIdToken();
         localStorage.setItem('token', idToken);
-        
+
         const userData = {
           name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
           email: firebaseUser.email || '',
           uid: firebaseUser.uid
         };
-        
+
         setUser(userData);
         localStorage.setItem('user', JSON.stringify(userData));
       } else {
@@ -61,13 +61,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      user, 
+    <AuthContext.Provider value={{
+      user,
       loading,
-      isAuthModalOpen, 
-      openAuthModal, 
-      closeAuthModal, 
-      logout 
+      isAuthModalOpen,
+      openAuthModal,
+      closeAuthModal,
+      logout
     }}>
       {!loading && children}
     </AuthContext.Provider>

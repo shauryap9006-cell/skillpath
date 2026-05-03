@@ -13,9 +13,9 @@ export async function getAuthUser(req: NextRequest) {
       console.warn("[Auth Helper] Firebase Admin Auth not initialized");
       return null;
     }
-    
+
     const decoded = await adminAuth.verifyIdToken(token);
-    return { 
+    return {
       uid: decoded.uid,
       email: decoded.email,
       name: decoded.name || (decoded.email ? decoded.email.split('@')[0] : 'User')

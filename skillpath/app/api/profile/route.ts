@@ -10,11 +10,11 @@ export async function GET(req: NextRequest) {
   if (!user || !adminDb) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
 
   const { searchParams } = new URL(req.url);
-  const nameHint  = searchParams.get('name')  || user.name  || 'Skill Explorer';
+  const nameHint = searchParams.get('name') || user.name || 'Skill Explorer';
   const emailHint = searchParams.get('email') || user.email || '';
 
   try {
-    const ref  = adminDb.collection('profiles').doc(user.uid);
+    const ref = adminDb.collection('profiles').doc(user.uid);
     const snap = await ref.get();
 
     if (snap.exists) {
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
     if (adminAuth && !email) {
       try {
         const authUser = await adminAuth.getUser(user.uid);
-        name  = authUser.displayName || authUser.email?.split('@')[0] || name;
+        name = authUser.displayName || authUser.email?.split('@')[0] || name;
         email = authUser.email ?? email;
       } catch (e) {
         console.warn('[Profile GET] Could not find user in Firebase Auth, using fallback info.');
@@ -42,14 +42,14 @@ export async function GET(req: NextRequest) {
     }
 
     const profile: UserProfile = {
-      uid:                  user.uid,
-      display_name:         name,
-      email:                email,
-      avatar_color:         nameToColor(name),
-      streak_count:         0,
-      streak_last_date:     '',
+      uid: user.uid,
+      display_name: name,
+      email: email,
+      avatar_color: nameToColor(name),
+      streak_count: 0,
+      streak_last_date: '',
       total_skills_learned: 0,
-      created_at:           new Date().toISOString(),
+      created_at: new Date().toISOString(),
     };
 
     await ref.set(profile);
@@ -71,8 +71,8 @@ export async function PATCH(req: NextRequest) {
   try {
     const update: Partial<UserProfile> = {};
     if (body.display_name?.trim()) {
-      update.display_name  = body.display_name.trim().slice(0, 60);
-      update.avatar_color  = nameToColor(update.display_name);
+      update.display_name = body.display_name.trim().slice(0, 60);
+      update.avatar_color = nameToColor(update.display_name);
     }
     if (body.target_role !== undefined) {
       update.target_role = body.target_role.trim().slice(0, 80);

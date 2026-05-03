@@ -15,12 +15,12 @@ interface ProfileHeaderProps {
 
 export function ProfileHeader({ profile, onUpdate }: ProfileHeaderProps) {
   const { logout } = useAuth();
-  const [editing, setEditing]   = useState(false);
+  const [editing, setEditing] = useState(false);
   // ... (keeping other states)
-  const [name, setName]         = useState(profile.display_name);
-  const [role, setRole]         = useState(profile.target_role ?? '');
-  const [saving, setSaving]     = useState(false);
-  const [copied, setCopied]     = useState(false);
+  const [name, setName] = useState(profile.display_name);
+  const [role, setRole] = useState(profile.target_role ?? '');
+  const [saving, setSaving] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [shareLoading, setShareLoading] = useState(false);
 
   const handleSave = async () => {
@@ -28,7 +28,7 @@ export function ProfileHeader({ profile, onUpdate }: ProfileHeaderProps) {
     const token = localStorage.getItem('token');
     const res = await fetch('/api/profile', {
       method: 'PATCH',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
@@ -44,7 +44,7 @@ export function ProfileHeader({ profile, onUpdate }: ProfileHeaderProps) {
   const handleShare = async () => {
     setShareLoading(true);
     const token = localStorage.getItem('token');
-    const res  = await fetch('/api/profile/share', { 
+    const res = await fetch('/api/profile/share', {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${token}` }
     });
@@ -130,7 +130,7 @@ export function ProfileHeader({ profile, onUpdate }: ProfileHeaderProps) {
                     <Pencil size={18} className="group-hover:rotate-12 transition-transform" />
                   </button>
                 </div>
-                
+
                 {/* Row 2: Target Pill & Email (Perfectly Aligned) */}
                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
                   <div className="flex items-center gap-2.5 px-4 py-1.5 bg-surface-card border border-hairline rounded-full shadow-sm">
@@ -139,7 +139,7 @@ export function ProfileHeader({ profile, onUpdate }: ProfileHeaderProps) {
                       {profile.target_role || 'No Target Locked'}
                     </span>
                   </div>
-                  
+
                   {profile.email && (
                     <>
                       <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-hairline/60" />
@@ -173,7 +173,7 @@ export function ProfileHeader({ profile, onUpdate }: ProfileHeaderProps) {
             <><Link size={16} className="group-hover:rotate-12 transition-transform" /> {shareLoading ? 'Syncing...' : 'Share Profile'}</>
           )}
         </button>
-        
+
         <button
           onClick={logout}
           className="flex items-center justify-center gap-2 px-6 py-2 text-muted/50 hover:text-brand-pink font-sans text-[9px] font-bold uppercase tracking-[0.35em] transition-all group"

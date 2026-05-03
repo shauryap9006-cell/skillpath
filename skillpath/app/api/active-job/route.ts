@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
 
     const doc = await adminDb.collection('active_jobs').doc(user.uid).get();
     if (!doc.exists) return NextResponse.json({ active_job: null });
-    
+
     return NextResponse.json({ active_job: doc.data() as ActiveJob });
   } catch (e: any) {
     console.error('[ActiveJob GET] Crash:', e);
@@ -35,10 +35,10 @@ export async function POST(req: NextRequest) {
     }
 
     let body: any;
-    try { 
-      body = await req.json(); 
-    } catch { 
-      return NextResponse.json({ error: 'invalid_json' }, { status: 400 }); 
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json({ error: 'invalid_json' }, { status: 400 });
     }
 
     if (!body.analysis_id || !body.job_title || !body.skills?.length) {
@@ -54,10 +54,10 @@ export async function POST(req: NextRequest) {
         .doc(user.uid)
         .collection('jobs')
         .doc(prev.id)
-        .set({ 
-          ...prev, 
-          archived_at: new Date().toISOString(), 
-          final_score: prev.readiness_score 
+        .set({
+          ...prev,
+          archived_at: new Date().toISOString(),
+          final_score: prev.readiness_score
         });
     }
 
@@ -101,7 +101,7 @@ export async function PATCH(req: NextRequest) {
   try {
     const user = await getAuthUser(req);
     console.log('[Skill PATCH] user:', user?.uid ?? 'NULL');
-    
+
     if (!user) {
       return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
     }
@@ -112,13 +112,13 @@ export async function PATCH(req: NextRequest) {
     }
 
     let body: { skill: string; state: SkillState };
-    try { 
+    try {
       const rawText = await req.text();
       console.log('[Skill PATCH] raw body:', rawText);
       body = JSON.parse(rawText);
-    } catch (parseErr) { 
+    } catch (parseErr) {
       console.error('[Skill PATCH] Parse error:', parseErr);
-      return NextResponse.json({ error: 'invalid_json' }, { status: 400 }); 
+      return NextResponse.json({ error: 'invalid_json' }, { status: 400 });
     }
 
     if (!body.skill || !body.state) {
@@ -128,7 +128,7 @@ export async function PATCH(req: NextRequest) {
 
     const ref = adminDb.collection('active_jobs').doc(user.uid);
     const doc = await ref.get();
-    
+
     console.log('[Skill PATCH] doc exists:', doc.exists, 'uid:', user.uid);
     if (!doc.exists) {
       return NextResponse.json({ error: 'no_active_job' }, { status: 404 });
@@ -137,9 +137,9 @@ export async function PATCH(req: NextRequest) {
     const job = doc.data() as ActiveJob;
     const updatedSkills = job.skills.map(s => {
       if (s.skill !== body.skill) return s;
-      
-      const updated: TrackedSkill = { 
-        ...s, 
+
+      const updated: TrackedSkill = {
+        ...s,
         state: body.state,
       };
 
@@ -151,7 +151,7 @@ export async function PATCH(req: NextRequest) {
         // Actually, let's keep the object clean
         delete updated.learned_at;
       }
-      
+
       return updated;
     });
 
@@ -164,9 +164,9 @@ export async function PATCH(req: NextRequest) {
       .sort((a, b) => (a.priority || 3) - (b.priority || 3))[0] ?? null;
 
     console.log('[Skill PATCH] committing update to Firestore...');
-    await ref.update({ 
-      skills: updatedSkills, 
-      readiness_score: newScore 
+    await ref.update({
+      skills: updatedSkills,
+      readiness_score: newScore
     });
 
     console.log('[Skill PATCH] SUCCESS');
@@ -177,8 +177,8 @@ export async function PATCH(req: NextRequest) {
     });
   } catch (e: any) {
     console.error('[Skill PATCH] EXCEPTION:', e);
-    return NextResponse.json({ 
-      error: 'update_failed', 
+    return NextResponse.json({
+      error: 'update_failed',
       message: e instanceof Error ? e.message : String(e),
       stack: e instanceof Error ? e.stack : undefined
     }, { status: 500 });

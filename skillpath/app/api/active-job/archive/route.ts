@@ -21,10 +21,10 @@ export async function POST(req: NextRequest) {
     await adminDb
       .collection('job_history').doc(user.uid)
       .collection('jobs').doc(job.id)
-      .set({ 
-        ...job, 
-        archived_at: new Date().toISOString(), 
-        final_score: job.readiness_score 
+      .set({
+        ...job,
+        archived_at: new Date().toISOString(),
+        final_score: job.readiness_score
       });
 
     await ref.delete();

@@ -88,7 +88,7 @@ export default function AnalyzePage() {
       const token = localStorage.getItem('token');
       const formData = new FormData();
       formData.append('jd_text', jd);
-      
+
       if (file) {
         formData.append('resume_file', file);
       } else {
@@ -97,7 +97,7 @@ export default function AnalyzePage() {
 
       const response = await fetch('/api/analyze', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Authorization': `Bearer ${token}`
         },
         body: formData,
@@ -201,8 +201,8 @@ export default function AnalyzePage() {
                   <div className="relative group/info">
                     <div className="w-4 h-4 rounded-full border border-ink/20 flex items-center justify-center text-[10px] text-ink/40 cursor-help hover:border-ink/40 hover:text-ink/60 transition-colors">?</div>
                     <div className="absolute left-0 top-6 w-48 p-3 rounded-xl bg-[#EBE9DC] dark:bg-surface-strong border border-black/10 dark:border-hairline shadow-2xl opacity-0 invisible group-hover/info:opacity-100 group-hover/info:visible transition-all z-50 text-[10px] text-ink/60 leading-relaxed">
-                      {mode === 'job' 
-                        ? "Analyze a specific role you're applying for right now." 
+                      {mode === 'job'
+                        ? "Analyze a specific role you're applying for right now."
                         : "Analyze your profile against long-term industry leadership benchmarks."}
                     </div>
                   </div>
@@ -211,7 +211,7 @@ export default function AnalyzePage() {
               </div>
 
               <div className="relative flex-1 rounded-[20px] overflow-hidden bg-black/[0.03] dark:bg-white/[0.02] shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.5)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)] border border-black/5 dark:border-white/5 transition-all focus-within:border-brand-teal/20">
-                <textarea 
+                <textarea
                   placeholder={mode === 'job' ? "Paste the full job description here..." : "Describe your ultimate career goal..."}
                   className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/20 bg-transparent focus:outline-none resize-none leading-relaxed"
                   value={jd}
@@ -242,7 +242,7 @@ export default function AnalyzePage() {
                   <span className="text-[11px] text-ink font-bold uppercase tracking-widest">Career History</span>
                 </div>
                 <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-[16px] shadow-[inset_1px_1px_3px_rgba(0,0,0,0.1),inset_-1px_-1px_3px_rgba(255,255,255,0.5)] dark:shadow-[inset_0_0_5px_rgba(0,0,0,0.3)] border border-black/5 dark:border-white/5 relative">
-                  <button 
+                  <button
                     onClick={() => setResumeText('')}
                     className={`relative px-4 md:px-5 py-1.5 md:py-2 rounded-[10px] md:rounded-[12px] text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 z-10 ${!resumeText ? 'text-ink dark:text-white' : 'text-ink/30 hover:text-ink/50'}`}
                   >
@@ -255,8 +255,8 @@ export default function AnalyzePage() {
                     )}
                     <span className="relative z-20">PDF</span>
                   </button>
-                  <button 
-                    onClick={() => { if(!resumeText) setResumeText(' '); }}
+                  <button
+                    onClick={() => { if (!resumeText) setResumeText(' '); }}
                     className={`relative px-4 md:px-5 py-1.5 md:py-2 rounded-[10px] md:rounded-[12px] text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 z-10 ${resumeText ? 'text-ink dark:text-white' : 'text-ink/30 hover:text-ink/50'}`}
                   >
                     {resumeText && (
@@ -270,7 +270,7 @@ export default function AnalyzePage() {
                   </button>
                 </div>
               </div>
-              
+
               <div className="flex-1 flex flex-col">
                 <AnimatePresence mode="wait">
                   {!resumeText ? (
@@ -281,8 +281,8 @@ export default function AnalyzePage() {
                       exit={{ opacity: 0, scale: 0.98 }}
                       className="h-full"
                     >
-                      <DropZone 
-                        onFileSelect={(f) => setFile(f)} 
+                      <DropZone
+                        onFileSelect={(f) => setFile(f)}
                         className="h-full min-h-[320px]"
                       />
                     </motion.div>
@@ -294,7 +294,7 @@ export default function AnalyzePage() {
                       exit={{ opacity: 0, scale: 0.98 }}
                       className="flex-1 rounded-[20px] overflow-hidden bg-black/[0.03] dark:bg-white/[0.02] shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.5)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)] border border-black/5 dark:border-white/5 transition-all focus-within:border-brand-teal/20"
                     >
-                      <textarea 
+                      <textarea
                         placeholder="Paste your raw resume text here..."
                         className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/20 bg-transparent focus:outline-none resize-none leading-relaxed"
                         value={resumeText === ' ' ? '' : resumeText}
@@ -375,7 +375,7 @@ export default function AnalyzePage() {
                   )}
                 </AnimatePresence>
               </button>
-              
+
               <div className="mt-6 text-center">
                 <p className="text-[9px] md:text-[10px] text-ink/30 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] leading-relaxed max-w-[280px] md:max-w-none mx-auto">
                   Encryption Secured · AI-Powered Insights · Real-time Market Mapping

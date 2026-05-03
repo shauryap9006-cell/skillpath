@@ -79,22 +79,22 @@ export function ActiveJobCard({ job, onJobUpdate, onUnpin }: ActiveJobCardProps)
       // 4. Update Profile Systems (Streak, Timeline, Daily Goal)
       incrementDailyTick();
       Promise.all([
-        fetch('/api/profile/streak', { 
+        fetch('/api/profile/streak', {
           method: 'POST',
           headers: { 'Authorization': `Bearer ${token}` }
         }),
         fetch('/api/profile/timeline', {
           method: 'POST',
-          headers: { 
+          headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({
             skill,
             state,
-            job_title:  job.job_title,
-            job_color:  job.color,
-            timestamp:  new Date().toISOString(),
+            job_title: job.job_title,
+            job_color: job.color,
+            timestamp: new Date().toISOString(),
           }),
         }),
       ]).catch(e => console.warn('[Profile Sync Error]', e));

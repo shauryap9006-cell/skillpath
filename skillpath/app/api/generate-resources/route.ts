@@ -15,8 +15,8 @@ interface GenerateResourcesBody {
 // ─── Validation ───────────────────────────────────────────────────────────────
 function validateBody(body: Partial<GenerateResourcesBody>): string | null {
   if (!body.analysis_id?.trim()) return "analysis_id is required.";
-  if (!body.skill?.trim())       return "skill is required.";
-  if (!body.role?.trim())        return "role is required.";
+  if (!body.skill?.trim()) return "skill is required.";
+  if (!body.role?.trim()) return "role is required.";
   if (!body.company_type?.trim()) return "company_type is required.";
 
   if (body.existing_urls !== undefined && !Array.isArray(body.existing_urls)) {
@@ -63,10 +63,10 @@ export async function POST(req: NextRequest) {
   }
 
   // ── Sanitize ───────────────────────────────────────────────────────────────
-  const analysisId  = sanitizeString(body.analysis_id!);
-  const skill       = sanitizeString(body.skill!);
-  const role        = sanitizeString(body.role!);
-  const seniority   = sanitizeString(body.seniority || "entry");
+  const analysisId = sanitizeString(body.analysis_id!);
+  const skill = sanitizeString(body.skill!);
+  const role = sanitizeString(body.role!);
+  const seniority = sanitizeString(body.seniority || "entry");
   const companyType = sanitizeString(body.company_type!);
   const existingUrls = (body.existing_urls ?? [])
     .filter((u) => typeof u === "string" && u.startsWith("https://www.youtube.com"))
