@@ -39,18 +39,30 @@ export default function ResultsPage({
   const [error, setError] = useState('');
 
   useEffect(() => {
-    async function fetchResults() {
-      try {
-        const res = await fetch(`/api/results/${id}`);
-        if (!res.ok) {
+    async function fetchResults(retries = 3) {
+      for (let i = 0; i < retries; i++) {
+        try {
+          const res = await fetch(`/api/results/${id}`);
+          if (res.ok) {
+            const json = await res.json();
+            setData(json);
+            return; // Success!
+          }
+          
+          if (res.status === 404 && i < retries - 1) {
+            console.log(`[Results] Attempt ${i + 1} failed (404), retrying in 1s...`);
+            await new Promise(r => setTimeout(r, 1000));
+            continue;
+          }
+
           throw new Error('Analysis not found');
+        } catch (err) {
+          if (i === retries - 1) {
+            setError(err instanceof Error ? err.message : 'Failed to load results');
+          }
+        } finally {
+          if (i === retries - 1) setLoading(false);
         }
-        const json = await res.json();
-        setData(json);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load results');
-      } finally {
-        setLoading(false);
       }
     }
     fetchResults();
