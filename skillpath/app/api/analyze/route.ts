@@ -28,6 +28,10 @@ import Groq from "groq-sdk";
 import { getAuthUser } from "@/lib/auth-helpers";
 import { ANALYZE_SUMMARY_SYSTEM, buildAnalyzeSummaryPrompt } from "@/prompts/analyze-summary";
 
+// Force bundlers (like Vercel NFT) to include pdf-parse in the serverless bundle
+// by providing a static reference that isn't stripped during build.
+const _forceInclude = () => require("pdf-parse");
+
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || "fallback_key_not_set" });
 
 export async function POST(req: NextRequest) {
@@ -229,12 +233,17 @@ export async function POST(req: NextRequest) {
     response.headers.set('X-Database-Status', adminDb ? 'Connected' : 'Disconnected');
     return response;
   } catch (error) {
-    console.error("Analysis pipeline error:", error);
+    console.error("Analysis pipeline crash:", error);
+    const message = error instanceof Error ? error.message : "An unexpected error occurred during analysis.";
     const response = NextResponse.json(
-      { error: "analysis_failed", message: error instanceof Error ? error.message : "An error occurred during analysis." },
+      { 
+        error: "analysis_failed", 
+        message: message,
+        hint: process.env.NODE_ENV === 'development' ? "Check your server logs for details." : "Verify your environment variables and PDF file compatibility."
+      },
       { status: 500 }
     );
-    response.headers.set('X-Pipeline-Error', error instanceof Error ? error.message : 'Unknown');
+    response.headers.set('X-Pipeline-Error', message.slice(0, 50));
     return response;
   }
 }
