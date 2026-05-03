@@ -66,13 +66,18 @@ export async function POST(req: NextRequest) {
           const pdfLib = eval('require')('pdf-parse');
           let text = "";
 
-          // Support for modern pdf-parse v2+
+          // Support for modern pdf-parse v2+ with 8s timeout
           if (pdfLib.PDFParse) {
             console.log("[Pipeline] Using pdf-parse v2 API");
             const parser = new pdfLib.PDFParse({ data: buffer });
             try {
-              const result = await parser.getText();
-              text = result.text;
+              const result = await Promise.race([
+                parser.getText(),
+                new Promise<never>((_, reject) => 
+                  setTimeout(() => reject(new Error("PDF Parsing timed out (10s)")), 10000)
+                )
+              ]);
+              text = (result as any).text;
             } finally {
               await parser.destroy();
             }
@@ -239,7 +244,13 @@ export async function POST(req: NextRequest) {
       { 
         error: "analysis_failed", 
         message: message,
-        hint: process.env.NODE_ENV === 'development' ? "Check your server logs for details." : "Verify your environment variables and PDF file compatibility."
+        hint: process.env.NODE_ENV === 'development' 
+          ? "Check your local server logs." 
+          : message.includes("PDF") 
+            ? "Your PDF might be too large or complex for the serverless function. Try pasting the resume text directly."
+            : message.includes("GROQ") || message.includes("apiKey")
+              ? "Check your GROQ_API_KEY in deployment settings."
+              : "Check your FIREBASE_SERVICE_ACCOUNT_KEY in deployment settings."
       },
       { status: 500 }
     );

@@ -105,7 +105,9 @@ export default function AnalyzePage() {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Analysis failed');
+        const err = new Error(errorData.message || 'Analysis failed') as any;
+        err.hint = errorData.hint;
+        throw err;
       }
 
       const data = await response.json();
@@ -121,9 +123,11 @@ export default function AnalyzePage() {
       });
 
       router.push(`/results/${data.share_token}`);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Analysis error:', err);
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+      const msg = err.message || 'Something went wrong';
+      const hint = err.hint ? `\n\nHint: ${err.hint}` : '';
+      setError(`${msg}${hint}`);
       setIsAnalyzing(false);
     }
   };

@@ -8,13 +8,25 @@ function getFirebaseAdmin() {
   }
 
   try {
-    const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
-
+    let serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
+    
     if (serviceAccount) {
-      const parsed: ServiceAccount = JSON.parse(serviceAccount);
-      return initializeApp({
-        credential: cert(parsed),
-      });
+      try {
+        // Handle cases where Vercel might add extra quotes or escape characters
+        if (serviceAccount.startsWith('"') && serviceAccount.endsWith('"')) {
+          serviceAccount = serviceAccount.slice(1, -1);
+        }
+        // Handle escaped newlines if the JSON was pasted as a single line
+        const sanitized = serviceAccount.replace(/\\n/g, '\n');
+        const parsed: ServiceAccount = JSON.parse(sanitized);
+        
+        return initializeApp({
+          credential: cert(parsed),
+        });
+      } catch (parseErr) {
+        console.error("❌ Firebase Service Account Parse Error:", parseErr);
+        // Fall through to project ID check
+      }
     }
 
     const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
