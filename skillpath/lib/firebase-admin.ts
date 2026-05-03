@@ -22,11 +22,22 @@ function getFirebaseAdmin() {
 
     // Sanitize and Parse
     let sanitized = serviceAccountKey.trim();
+    
+    // Auto-detect Base64 encoding
+    if (!sanitized.startsWith('{') && !sanitized.startsWith('"')) {
+      try {
+        console.log("[Firebase Admin] Base64 encoding detected, decoding...");
+        sanitized = Buffer.from(sanitized, 'base64').toString('utf8');
+      } catch (e) {
+        console.error("[Firebase Admin] Failed to decode Base64 key");
+      }
+    }
+
     if (sanitized.startsWith('"') && sanitized.endsWith('"')) {
       sanitized = sanitized.slice(1, -1);
     }
     
-    // Parse the JSON first
+    // Parse the JSON
     const parsed = JSON.parse(sanitized);
 
     // ONLY replace newlines in the private_key field after parsing
