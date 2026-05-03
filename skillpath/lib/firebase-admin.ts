@@ -1,65 +1,63 @@
-import { initializeApp, getApps, cert, type ServiceAccount } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
-import { getAuth } from "firebase-admin/auth";
+import { initializeApp, getApps, cert, type App } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
+import { getAuth } from 'firebase-admin/auth';
 
-function getFirebaseAdmin() {
-  if (getApps().length > 0) {
-    return getApps()[0];
+let app: App | null = null;
+
+function initAdmin(): App | null {
+  if (getApps().length > 0) return getApps()[0];
+
+  // ── Strategy 1: full service account JSON as base64 (recommended) ──
+  const b64 = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64;
+  if (b64) {
+    try {
+      const json = Buffer.from(b64, 'base64').toString('utf-8');
+      const sa   = JSON.parse(json);
+      console.log('[Firebase Admin] Initializing via base64 service account');
+      return initializeApp({ credential: cert(sa) });
+    } catch (e) {
+      console.error('[Firebase Admin] Base64 init failed:', e);
+    }
   }
 
-  try {
-    const serviceAccountKey = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
-    
-    if (!serviceAccountKey) {
-      if (process.env.NODE_ENV === "production") {
-        throw new Error("FIREBASE_SERVICE_ACCOUNT_KEY is missing from environment variables.");
+  // ── Strategy 2: individual env vars with proper key handling ──
+  const projectId   = process.env.FIREBASE_PROJECT_ID;
+  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+  const rawKey      = process.env.FIREBASE_PRIVATE_KEY;
+
+  if (projectId && clientEmail && rawKey) {
+    try {
+      // Handle every possible encoding Vercel might apply
+      let privateKey = rawKey;
+
+      // Remove surrounding quotes if Vercel added them
+      if (privateKey.startsWith('"') && privateKey.endsWith('"')) {
+        privateKey = privateKey.slice(1, -1);
       }
-      // In development, we can fallback to project ID if ADC is available locally
+
+      // Replace escaped newlines with real newlines
+      privateKey = privateKey.replace(/\\n/g, '\n');
+
+      // Verify it looks like a PEM key
+      if (!privateKey.includes('-----BEGIN PRIVATE KEY-----')) {
+        throw new Error('Key does not look like a valid PEM private key');
+      }
+
+      console.log('[Firebase Admin] Initializing via individual env vars');
       return initializeApp({
-        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+        credential: cert({ projectId, clientEmail, privateKey }),
       });
+    } catch (e) {
+      console.error('[Firebase Admin] Individual vars init failed:', e);
     }
-
-    // Sanitize and Parse
-    let sanitized = serviceAccountKey.trim();
-    
-    // Auto-detect Base64 encoding
-    if (!sanitized.startsWith('{') && !sanitized.startsWith('"')) {
-      try {
-        console.log("[Firebase Admin] Base64 encoding detected, decoding...");
-        sanitized = Buffer.from(sanitized, 'base64').toString('utf8');
-      } catch (e) {
-        console.error("[Firebase Admin] Failed to decode Base64 key");
-      }
-    }
-
-    if (sanitized.startsWith('"') && sanitized.endsWith('"')) {
-      sanitized = sanitized.slice(1, -1);
-    }
-    
-    // Parse the JSON
-    const parsed = JSON.parse(sanitized);
-
-    // ONLY replace newlines in the private_key field after parsing
-    if (parsed.private_key) {
-      parsed.private_key = parsed.private_key.replace(/\\n/g, '\n');
-    }
-
-    return initializeApp({
-      credential: cert(parsed),
-      projectId: parsed.project_id || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    });
-  } catch (err) {
-    console.error("CRITICAL: Firebase Admin failed to initialize:", err instanceof Error ? err.message : err);
-    // Don't return null silently in production, as it causes race conditions later
-    if (process.env.NODE_ENV === "production") {
-      throw err;
-    }
-    return null;
   }
+
+  console.error('[Firebase Admin] No valid credentials found. Set FIREBASE_SERVICE_ACCOUNT_BASE64');
+  return null;
 }
 
-const adminApp = getFirebaseAdmin();
-export const adminDb = adminApp ? getFirestore(adminApp) : null;
-export const adminAuth = adminApp ? getAuth(adminApp) : null;
-export default adminApp;
+app = initAdmin();
+
+export const adminDb   = app ? getFirestore(app) : null;
+export const adminAuth = app ? getAuth(app)      : null;
+export default app;
