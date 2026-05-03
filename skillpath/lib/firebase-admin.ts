@@ -25,11 +25,11 @@ function getFirebaseAdmin() {
     if (sanitized.startsWith('"') && sanitized.endsWith('"')) {
       sanitized = sanitized.slice(1, -1);
     }
-    sanitized = sanitized.replace(/\\n/g, '\n');
     
+    // Parse the JSON first
     const parsed = JSON.parse(sanitized);
 
-    // Deep sanitize the private key specifically
+    // ONLY replace newlines in the private_key field after parsing
     if (parsed.private_key) {
       parsed.private_key = parsed.private_key.replace(/\\n/g, '\n');
     }
