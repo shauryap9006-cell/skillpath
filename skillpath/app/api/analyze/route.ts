@@ -171,12 +171,18 @@ export async function POST(req: NextRequest) {
     }
 
     console.log("[Pipeline] ✓ Done! Gap score:", gapResult.gapScore, "| Weeks:", countdown.weeksRequired);
-    return NextResponse.json(analysisDoc);
+    
+    const response = NextResponse.json(analysisDoc);
+    response.headers.set('X-Pipeline-Status', 'Success');
+    response.headers.set('X-Database-Status', adminDb ? 'Connected' : 'Disconnected');
+    return response;
   } catch (error) {
     console.error("Analysis pipeline error:", error);
-    return NextResponse.json(
+    const response = NextResponse.json(
       { error: "analysis_failed", message: error instanceof Error ? error.message : "An error occurred during analysis." },
       { status: 500 }
     );
+    response.headers.set('X-Pipeline-Error', error instanceof Error ? error.message : 'Unknown');
+    return response;
   }
 }
