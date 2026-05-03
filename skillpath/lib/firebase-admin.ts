@@ -14,7 +14,9 @@ function getFirebaseAdmin(): App | null {
     // Support either normal JSON or Base64
     if (serviceAccountKey) {
       let sanitized = serviceAccountKey.trim();
-      if (sanitized.startsWith('"') && sanitized.endsWith('"')) {
+      // Handle both single and double quotes from .env files
+      if ((sanitized.startsWith('"') && sanitized.endsWith('"')) || 
+          (sanitized.startsWith("'") && sanitized.endsWith("'"))) {
         sanitized = sanitized.slice(1, -1);
       }
       sa = JSON.parse(sanitized);
