@@ -8,38 +8,42 @@ function getFirebaseAdmin() {
   }
 
   try {
-    let serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
+    const serviceAccountKey = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
     
-    if (serviceAccount) {
-      try {
-        // Handle cases where Vercel might add extra quotes or escape characters
-        if (serviceAccount.startsWith('"') && serviceAccount.endsWith('"')) {
-          serviceAccount = serviceAccount.slice(1, -1);
-        }
-        // Handle escaped newlines if the JSON was pasted as a single line
-        const sanitized = serviceAccount.replace(/\\n/g, '\n');
-        const parsed: ServiceAccount = JSON.parse(sanitized);
-        
-        return initializeApp({
-          credential: cert(parsed),
-        });
-      } catch (parseErr) {
-        console.error("❌ Firebase Service Account Parse Error:", parseErr);
-        // Fall through to project ID check
+    if (!serviceAccountKey) {
+      if (process.env.NODE_ENV === "production") {
+        throw new Error("FIREBASE_SERVICE_ACCOUNT_KEY is missing from environment variables.");
       }
+      // In development, we can fallback to project ID if ADC is available locally
+      return initializeApp({
+        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+      });
     }
 
-    const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
-    if (!projectId) {
-      console.warn("⚠️ Firebase Admin: No Project ID or Service Account found. Database features will be disabled.");
-      return null;
+    // Sanitize and Parse
+    let sanitized = serviceAccountKey.trim();
+    if (sanitized.startsWith('"') && sanitized.endsWith('"')) {
+      sanitized = sanitized.slice(1, -1);
+    }
+    sanitized = sanitized.replace(/\\n/g, '\n');
+    
+    const parsed = JSON.parse(sanitized);
+
+    // Deep sanitize the private key specifically
+    if (parsed.private_key) {
+      parsed.private_key = parsed.private_key.replace(/\\n/g, '\n');
     }
 
     return initializeApp({
-      projectId,
+      credential: cert(parsed),
+      projectId: parsed.project_id || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
     });
   } catch (err) {
-    console.error("❌ Firebase Admin initialization error:", err);
+    console.error("CRITICAL: Firebase Admin failed to initialize:", err instanceof Error ? err.message : err);
+    // Don't return null silently in production, as it causes race conditions later
+    if (process.env.NODE_ENV === "production") {
+      throw err;
+    }
     return null;
   }
 }
