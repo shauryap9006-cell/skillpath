@@ -1,42 +1,36 @@
 // lib/pdf-extract.ts
-// Must use the legacy build — the default pdfjs-dist entry
-// tries to load workers which don't exist in serverless
-import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
-
-// Disable worker entirely — mandatory for serverless/Node environments
-(pdfjsLib as any).GlobalWorkerOptions.workerSrc = '';
+import PDFParser from 'pdf2json';
 
 export async function extractTextFromPDF(buffer: ArrayBuffer): Promise<string> {
-  try {
-    // Cast to any to bypass strict type checking on pdfjs options —
-    // the properties are valid at runtime but missing from this version's types
-    const loadingTask = pdfjsLib.getDocument({
-      data:            new Uint8Array(buffer),
-      useWorkerFetch:  false,
-      useSystemFonts:  true,
-      disableFontFace: true,
-    } as any);
+  return new Promise((resolve, reject) => {
+    // pdf2json constructor options
+    const parser = new (PDFParser as any)(null, true);
 
-    const pdf   = await loadingTask.promise;
-    const texts: string[] = [];
+    parser.on('pdfParser_dataReady', (data: any) => {
+      try {
+        const text = data.Pages
+          .flatMap((page: any) => page.Texts)
+          .map((t: any) => decodeURIComponent(t.R.map((r: any) => r.T).join('')))
+          .join(' ')
+          .replace(/\s+/g, ' ')
+          .trim();
 
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page    = await pdf.getPage(i);
-      const content = await page.getTextContent();
-      const text    = content.items
-        .map((item: any) => ('str' in item ? item.str : ''))
-        .join(' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-      if (text) texts.push(text);
-    }
+        if (!text) {
+          reject(new Error('No text found — PDF may be image/scanned'));
+          return;
+        }
+        resolve(text);
+      } catch (e) {
+        reject(new Error('Failed to parse PDF structure'));
+      }
+    });
 
-    const result = texts.join('\n\n').trim();
-    if (!result) throw new Error('No text found — PDF may be image/scanned');
-    return result;
+    parser.on('pdfParser_dataError', (err: any) => {
+      console.error('[PDF Parser Error]:', err);
+      reject(new Error(err?.parserError ?? 'PDF parse error'));
+    });
 
-  } catch (err) {
-    console.error('[PDF Extract]', err);
-    throw new Error(err instanceof Error ? err.message : 'PDF extraction failed');
-  }
+    // Use Buffer.from for Node-based pdf2json
+    parser.parseBuffer(Buffer.from(buffer));
+  });
 }

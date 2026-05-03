@@ -1,16 +1,15 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ['pdfjs-dist'],
+  serverExternalPackages: ['pdf2json'],
 
-  // Turbopack config replaces webpack in Next.js 16
-  // Note: Using 'as any' if the type definition hasn't caught up to the latest beta/RC
-  turbopack: {
-    resolveAlias: {
-      // Prevents pdfjs-dist from trying to load canvas in serverless
-      canvas: { browser: './empty-module.ts' },
+  // Turbopack configuration for Next.js 16
+  experimental: {
+    turbo: {
+      // Empty or defaults — removing pdfjs-dist specific aliases
+      resolveAlias: {},
     },
-  } as any,
+  },
 };
 
 export default nextConfig;
