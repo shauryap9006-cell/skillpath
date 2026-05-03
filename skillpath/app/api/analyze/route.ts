@@ -27,10 +27,7 @@ import crypto from "crypto";
 import Groq from "groq-sdk";
 import { getAuthUser } from "@/lib/auth-helpers";
 import { ANALYZE_SUMMARY_SYSTEM, buildAnalyzeSummaryPrompt } from "@/prompts/analyze-summary";
-
-// Force bundlers (like Vercel NFT) to include pdf-parse in the serverless bundle
-// by providing a static reference that isn't stripped during build.
-const _forceInclude = () => require("pdf-parse");
+import { PDFParse } from "pdf-parse";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || "fallback_key_not_set" });
 
@@ -63,35 +60,20 @@ export async function POST(req: NextRequest) {
         console.log(`[Pipeline] Processing File: ${resumeFile.name}, Size: ${resumeFile.size} bytes`);
         const buffer = Buffer.from(await resumeFile.arrayBuffer());
         try {
-          const pdfLib = eval('require')('pdf-parse');
           let text = "";
 
-          // Support for modern pdf-parse v2+ with 8s timeout
-          if (pdfLib.PDFParse) {
-            console.log("[Pipeline] Using pdf-parse v2 API");
-            const parser = new pdfLib.PDFParse({ data: buffer });
-            try {
-              const result = await Promise.race([
-                parser.getText(),
-                new Promise<never>((_, reject) => 
-                  setTimeout(() => reject(new Error("PDF Parsing timed out (10s)")), 10000)
-                )
-              ]);
-              text = (result as any).text;
-            } finally {
-              await parser.destroy();
-            }
-          } 
-          // Support for classic pdf-parse v1
-          else {
-            const pdf = typeof pdfLib === 'function' ? pdfLib : pdfLib.default;
-            if (typeof pdf !== 'function') {
-               console.error("[Pipeline] pdf-parse resolved to unknown type:", typeof pdfLib, pdfLib);
-               throw new Error("PDF parser module is not a function or class. Check version compatibility.");
-            }
-            console.log("[Pipeline] Using pdf-parse v1 API");
-            const data = await pdf(buffer);
-            text = data.text;
+          console.log("[Pipeline] Using pdf-parse v2 API (Standard Import)");
+          const parser = new PDFParse({ data: buffer });
+          try {
+            const result = await Promise.race([
+              parser.getText(),
+              new Promise<never>((_, reject) => 
+                setTimeout(() => reject(new Error("PDF Parsing timed out (10s)")), 10000)
+              )
+            ]);
+            text = (result as any).text;
+          } finally {
+            await parser.destroy();
           }
 
           if (!text) {
