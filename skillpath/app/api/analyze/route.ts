@@ -17,17 +17,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
+export const runtime = 'nodejs';
+
 import { scoreGap } from "@/lib/gap-scorer";
 import { getMVCProfile, getRoleStandardSkills, extractSkills, rankGapsLocally, getRoleLabel } from "@/lib/mvc-profiler";
 import { calculateCountdown } from "@/lib/readiness";
 import { detectCompanyType } from "@/lib/company-detector";
 import { adminDb } from "@/lib/firebase-admin";
+import { extractTextFromPDF } from "@/lib/pdf-extract";
 import type { SkillGap } from "@/types/analysis";
 import crypto from "crypto";
 import Groq from "groq-sdk";
 import { getAuthUser } from "@/lib/auth-helpers";
 import { ANALYZE_SUMMARY_SYSTEM, buildAnalyzeSummaryPrompt } from "@/prompts/analyze-summary";
-import { PDFParse } from "pdf-parse";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || "fallback_key_not_set" });
 
@@ -58,28 +60,10 @@ export async function POST(req: NextRequest) {
 
       if (resumeFile && resumeFile.size > 0) {
         console.log(`[Pipeline] Processing File: ${resumeFile.name}, Size: ${resumeFile.size} bytes`);
-        const buffer = Buffer.from(await resumeFile.arrayBuffer());
+        const buffer = await resumeFile.arrayBuffer();
         try {
-          let text = "";
-
-          console.log("[Pipeline] Using pdf-parse v2 API (Standard Import)");
-          const parser = new PDFParse({ data: buffer });
-          try {
-            const result = await Promise.race([
-              parser.getText(),
-              new Promise<never>((_, reject) => 
-                setTimeout(() => reject(new Error("PDF Parsing timed out (10s)")), 10000)
-              )
-            ]);
-            text = (result as any).text;
-          } finally {
-            await parser.destroy();
-          }
-
-          if (!text) {
-             throw new Error("PDF parser returned no text content");
-          }
-          resume_text = text;
+          console.log("[Pipeline] Using pdfjs-dist extraction (Robust)");
+          resume_text = await extractTextFromPDF(buffer);
           console.log(`[Pipeline] Extracted ${resume_text.length} chars from PDF`);
         } catch (pdfError) {
           console.error("[Pipeline] PDF Extraction Error:", pdfError);
