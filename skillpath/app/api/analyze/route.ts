@@ -13,11 +13,12 @@
  * This is INSTANT — no rate limits for extraction, minimal latency for summary.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-
+export const runtime = 'nodejs';
+export const maxDuration = 30;
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
-export const runtime = 'nodejs';
+
+import { NextRequest, NextResponse } from "next/server";
 
 import { scoreGap } from "@/lib/gap-scorer";
 import { getMVCProfile, getRoleStandardSkills, extractSkills, rankGapsLocally, getRoleLabel } from "@/lib/mvc-profiler";

@@ -1,45 +1,41 @@
-import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
+// lib/pdf-extract.ts
+// Must use the legacy build — the default pdfjs-dist entry
+// tries to load workers which don't exist in serverless
+import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
 
-// Disable the worker — required for serverless/Node environments
-// where there's no browser worker thread available
-if (typeof window === 'undefined') {
-  GlobalWorkerOptions.workerSrc = '';
-}
+// Disable worker entirely — mandatory for serverless/Node environments
+(pdfjsLib as any).GlobalWorkerOptions.workerSrc = '';
 
 export async function extractTextFromPDF(buffer: ArrayBuffer): Promise<string> {
   try {
-    const loadingTask = getDocument({
-      data: new Uint8Array(buffer),
-      // Disable worker explicitly for server environments
-      useWorkerFetch: false,
-      isEvalSupported: false,
-      useSystemFonts: true,
+    const loadingTask = pdfjsLib.getDocument({
+      data:             new Uint8Array(buffer),
+      useWorkerFetch:   false,
+      isEvalSupported:  false,
+      useSystemFonts:   true,
+      disableFontFace:  true,
     });
 
     const pdf   = await loadingTask.promise;
-    const pages = pdf.numPages;
     const texts: string[] = [];
 
-    for (let i = 1; i <= pages; i++) {
+    for (let i = 1; i <= pdf.numPages; i++) {
       const page    = await pdf.getPage(i);
       const content = await page.getTextContent();
-      const pageText = content.items
+      const text    = content.items
         .map((item: any) => ('str' in item ? item.str : ''))
         .join(' ')
         .replace(/\s+/g, ' ')
         .trim();
-      texts.push(pageText);
+      texts.push(text);
     }
 
-    const fullText = texts.join('\n\n').trim();
+    const result = texts.filter(Boolean).join('\n\n').trim();
+    if (!result) throw new Error('No text found — PDF may be image/scanned');
+    return result;
 
-    if (!fullText) throw new Error('No text extracted — PDF may be image-based');
-
-    return fullText;
   } catch (err) {
     console.error('[PDF Extract Error]:', err);
-    throw new Error(
-      err instanceof Error ? err.message : 'Failed to extract text from PDF'
-    );
+    throw new Error(err instanceof Error ? err.message : 'PDF extraction failed');
   }
 }
