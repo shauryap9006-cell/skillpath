@@ -14,6 +14,9 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 import { scoreGap } from "@/lib/gap-scorer";
 import { getMVCProfile, getRoleStandardSkills, extractSkills, rankGapsLocally, getRoleLabel } from "@/lib/mvc-profiler";
 import { calculateCountdown } from "@/lib/countdown";
@@ -57,11 +60,19 @@ export async function POST(req: NextRequest) {
         try {
           const pdf = eval('require')('pdf-parse');
           const data = await pdf(buffer);
+          if (!data || !data.text) {
+             throw new Error("PDF parser returned no text");
+          }
           resume_text = data.text;
           console.log(`[Pipeline] Extracted ${resume_text.length} chars from PDF`);
         } catch (pdfError) {
           console.error("[Pipeline] PDF Extraction Error:", pdfError);
-          resume_text = rawResumeText;
+          // If we have a backup text, use it, otherwise throw
+          if (rawResumeText) {
+            resume_text = rawResumeText;
+          } else {
+            throw new Error("Failed to extract text from PDF: " + (pdfError instanceof Error ? pdfError.message : "Unknown error"));
+          }
         }
       } else {
         resume_text = rawResumeText;
