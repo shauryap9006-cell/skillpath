@@ -1,11 +1,12 @@
 /**
  * GET /api/results/[id]
- * 
+ *
  * Fetch a saved analysis by its share token.
+ * Uses lazy Firebase init so a transient boot failure doesn't permanently block reads.
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { adminDb } from "@/lib/firebase-admin";
+import { getDb } from "@/lib/firebase-admin";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -24,12 +25,19 @@ export async function GET(
       );
     }
 
-    if (!adminDb) {
-      return NextResponse.json({ error: "database_unavailable" }, { status: 500 });
+    let db;
+    try {
+      db = getDb();
+    } catch (e) {
+      console.error("[Results] Firebase unavailable:", e instanceof Error ? e.message : e);
+      return NextResponse.json(
+        { error: "database_unavailable", message: "Database temporarily unavailable. Please try again." },
+        { status: 503 }
+      );
     }
 
     // Fetch from Firestore
-    const doc = await adminDb.collection("analyses").doc(id).get();
+    const doc = await db.collection("analyses").doc(id).get();
 
     if (!doc.exists) {
       return NextResponse.json(

@@ -120,7 +120,11 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
                   <SkipForward size={10} className="text-brand-pink" />
                   What to Skip
                 </span>
-                <p className="font-sans text-body-sm text-muted leading-relaxed italic border-l-2 border-brand-pink/30 pl-3">
+                <p 
+                  className="font-sans text-body-sm text-muted leading-relaxed italic border-l-2 border-brand-pink/30 pl-3 overflow-hidden line-clamp-3"
+                  title={resource.skip_note}
+                  style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}
+                >
                   {resource.skip_note}
                 </p>
               </div>
@@ -144,7 +148,13 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
                   <Zap size={10} className="text-brand-teal" />
                   Why It Matters
                 </span>
-                <p className="font-sans text-body-sm text-muted leading-relaxed">{resource.why}</p>
+                <p 
+                  className="font-sans text-body-sm text-muted leading-relaxed overflow-hidden line-clamp-3"
+                  title={resource.why}
+                  style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}
+                >
+                  {resource.why}
+                </p>
               </div>
             )}
           </div>

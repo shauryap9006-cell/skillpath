@@ -6,6 +6,8 @@
 
 import type { MVCProfiles, SkillGap } from "@/types/analysis";
 import mvcData from "./data/mvc_model.json";
+import skillTrends from "./data/skill_trends.json";
+import { findFuzzyMatch } from "./utils/fuzzy";
 
 // Mapping of internal role slugs to user-friendly labels for UI display
 const ROLE_LABELS: Record<string, string> = {
@@ -68,123 +70,147 @@ const ROLE_LABELS: Record<string, string> = {
   "healthcare-practitioner": "Healthcare Practitioner",
   "scientist": "Scientist",
   "educator": "Educator",
-  "it-admin": "IT Admin",
   "software-engineer": "Software Engineer",
   "other": "Other"
 };
 
-/**
- * Returns a formatted label for a given role slug.
- */
-export function getRoleLabel(slug: string): string {
-  return ROLE_LABELS[slug] ?? slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
-
 const mvcProfiles: MVCProfiles = mvcData as MVCProfiles;
+const DYNAMIC_ROLES = Object.keys(mvcProfiles);
+
+export function getRoleLabel(slug: string): string {
+  if (ROLE_LABELS[slug]) return ROLE_LABELS[slug];
+  if (mvcProfiles[slug] && !Array.isArray(mvcProfiles[slug])) {
+    return (mvcProfiles[slug] as any).role || slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  }
+  return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
 
 /**
  * Detect the role category from the JD text.
+ * Combines the 62 curated high-fidelity roles with the dynamic Mega-Model fallback.
  */
-function detectRoleCategory(jdText: string): string {
+export function detectRoleCategory(jdText: string): string {
   const t = jdText.toLowerCase();
 
-  // 1. Executive / C-Suite
-  if (t.includes("chief executive") || t.includes(" ceo") || t.includes("founder") || t.includes("managing director") || t.includes("president")) return "executive";
-  if (t.includes("chief technology") || t.includes(" cto") || t.includes("chief architect") || t.includes("vp engineering") || t.includes("head of engineering")) return "engineering-leadership";
-  if (t.includes("chief product") || t.includes(" cpo") || t.includes("vp product") || t.includes("head of product")) return "product-leadership";
-  if (t.includes("chief marketing") || t.includes(" cmo") || t.includes("vp marketing") || t.includes("head of marketing")) return "marketing-leadership";
-  if (t.includes("chief financial") || t.includes(" cfo") || t.includes("vp finance") || t.includes("head of finance")) return "finance-leadership";
-  if (t.includes("chief operating") || t.includes(" coo") || t.includes("vp operations") || t.includes("head of operations")) return "operations-leadership";
-  if (t.includes("chief data") || t.includes(" cdo") || t.includes("chief ai") || t.includes("vp data") || t.includes("head of data") || t.includes("head of ai")) return "data-leadership";
-  if (t.includes("chief information") || t.includes(" cio") || t.includes("chief security") || t.includes(" ciso")) return "it-leadership";
-  if (t.includes("chief people") || t.includes("chief hr") || t.includes("vp people") || t.includes("vp hr") || t.includes("head of hr") || t.includes("head of people")) return "hr-leadership";
+  // Extract Seniority
+  let seniority = "mid";
+  if (t.includes("junior") || t.includes("jr") || t.includes("entry") || t.includes("associate")) seniority = "junior";
+  else if (t.includes("senior") || t.includes("sr") || t.includes("lead") || t.includes("staff") || t.includes("principal")) seniority = "senior";
+  else if (t.includes("vp") || t.includes("director") || t.includes("head of") || t.includes("chief") || t.includes("executive")) seniority = "executive";
 
-  // 2. Highly Specific Niche Roles
-  if (t.includes("machine learning scientist") || t.includes("ai researcher") || t.includes("deep learning") || t.includes("llm researcher")) return "ai-researcher";
-  if (t.includes("machine learning engineer") || t.includes("ml engineer") || t.includes("mle") || t.includes("mlops")) return "ml-engineer";
-  if (t.includes("talent acquisition") || t.includes("recruiter") || t.includes("headhunter")) return "recruiter";
-  if (t.includes("growth hacker") || t.includes("growth engineer")) return "growth-hacker";
-  if (t.includes("solutions architect") || t.includes("cloud architect") || t.includes("enterprise architect")) return "solutions-architect";
-  if (t.includes("blockchain") || t.includes("solidity") || t.includes("web3") || t.includes("crypto") || t.includes("smart contract")) return "blockchain-developer";
-  if (t.includes("game") || t.includes("unity") || t.includes("unreal") || t.includes("gameplay")) return "game-developer";
-  if (t.includes("cyber") || t.includes("security engineer") || t.includes("infosec") || t.includes("penetration") || t.includes("pentester")) return "cybersecurity";
-  if (t.includes("robotics") || t.includes("ros engineer") || t.includes("mechatronics")) return "robotics-engineer";
-  if (t.includes("hardware engineer") || t.includes("vlsi") || t.includes("circuit design") || t.includes("electrical engineer")) return "hardware-engineer";
-  if (t.includes("network engineer") || t.includes("network administrator") || t.includes("cisco")) return "network-engineer";
-  if (t.includes("database administrator") || t.includes("dba") || t.includes("database engineer")) return "database-admin";
+  let baseRole = "other";
 
-  // 3. Specialized Engineering
-  if (t.includes("mobile") || t.includes("ios") || t.includes("android") || t.includes("swift") || t.includes("kotlin") || t.includes("flutter")) return "mobile-developer";
-  if (t.includes("frontend") || t.includes("front-end") || t.includes("react") || t.includes("next.js") || t.includes("vue") || t.includes("angular")) return "frontend-developer";
-  if (t.includes("backend") || t.includes("back-end") || t.includes("node.js") || t.includes("go engineer") || t.includes("django")) return "backend-developer";
-  if (t.includes("full stack") || t.includes("fullstack") || t.includes("full-stack")) return "fullstack-developer";
-  if (t.includes("devops") || t.includes("sre") || t.includes("site reliability") || t.includes("platform engineer")) return "devops";
-  if (t.includes("qa") || t.includes("quality assurance") || t.includes("test engineer") || t.includes("automation") || t.includes("sdet")) return "qa-engineer";
-  if (t.includes("embedded") || t.includes("firmware") || t.includes("microcontroller") || t.includes("rtos")) return "embedded-systems";
-  if (t.includes("cloud") || t.includes("infrastructure") || t.includes("aws") || t.includes("azure") || t.includes("kubernetes")) return "cloud-infra";
-  if (t.includes("data engineer") || t.includes("etl") || t.includes("data pipeline") || t.includes("analytics engineer")) return "data-engineer";
+  // 1. Executive / Leadership
+  if (t.includes("chief executive") || t.includes(" ceo") || t.includes("founder") || t.includes("managing director") || t.includes("president")) baseRole = "executive";
+  else if (t.includes("chief technology") || t.includes(" cto") || t.includes("chief architect") || t.includes("vp engineering") || t.includes("head of engineering")) baseRole = "engineering-leadership";
+  else if (t.includes("chief product") || t.includes(" cpo") || t.includes("vp product") || t.includes("head of product")) baseRole = "product-leadership";
+  else if (t.includes("chief marketing") || t.includes(" cmo") || t.includes("vp marketing") || t.includes("head of marketing")) baseRole = "marketing-leadership";
+  else if (t.includes("chief financial") || t.includes(" cfo") || t.includes("vp finance") || t.includes("head of finance")) baseRole = "finance-leadership";
+  else if (t.includes("chief operating") || t.includes(" coo") || t.includes("vp operations") || t.includes("head of operations")) baseRole = "operations-leadership";
+  else if (t.includes("chief data") || t.includes(" cdo") || t.includes("chief ai") || t.includes("vp data") || t.includes("head of data")) baseRole = "data-leadership";
+  else if (t.includes("chief information") || t.includes(" cio") || t.includes("chief security") || t.includes(" ciso")) baseRole = "it-leadership";
+  else if (t.includes("chief people") || t.includes("chief hr") || t.includes("vp people") || t.includes("head of hr")) baseRole = "hr-leadership";
 
-  // 4. Specialized Business / Management
-  if (t.includes("product manager") || t.includes("product owner") || t.includes("product lead")) return "product-manager";
-  if (t.includes("technical program manager") || t.includes("tpm")) return "technical-program-manager";
-  if (t.includes("scrum master") || t.includes("agile coach")) return "scrum-master";
-  if (t.includes("project manager") || t.includes("pmp") || t.includes("program manager")) return "project-manager";
-  if (t.includes("operations manager") || t.includes("operations lead") || t.includes("biz ops") || t.includes("business operations")) return "operations-manager";
-  if (t.includes("business analyst") || t.includes("business systems analyst")) return "business-analyst";
-  if (t.includes("financial planning") || t.includes("finance manager") || t.includes("accounting") || t.includes("fp&a") || t.includes("analyst finance")) return "finance";
-  if (t.includes("risk analyst") || t.includes("risk manager") || t.includes("compliance officer")) return "risk-compliance";
-  if (t.includes("supply chain") || t.includes("logistics") || t.includes("procurement")) return "supply-chain";
+  // 2. Specialized Engineering / Science
+  else if (t.includes("machine learning scientist") || t.includes("ai researcher") || t.includes("deep learning") || t.includes("llm researcher")) baseRole = "ai-researcher";
+  else if (t.includes("machine learning engineer") || t.includes("ml engineer") || t.includes("mle") || t.includes("mlops") || t.includes("ai engineer")) baseRole = "ml-engineer";
+  else if (t.includes("talent acquisition") || t.includes("recruiter") || t.includes("headhunter")) baseRole = "recruiter";
+  else if (t.includes("growth hacker") || t.includes("growth engineer")) baseRole = "growth-hacker";
+  else if (t.includes("solutions architect") || t.includes("cloud architect") || t.includes("enterprise architect")) baseRole = "solutions-architect";
+  else if (t.includes("blockchain") || t.includes("solidity") || t.includes("web3") || t.includes("crypto") || t.includes("smart contract")) baseRole = "blockchain-developer";
+  else if (t.includes("game") || t.includes("unity") || t.includes("unreal") || t.includes("gameplay")) baseRole = "game-developer";
+  else if (t.includes("cyber") || t.includes("security engineer") || t.includes("infosec") || t.includes("penetration") || t.includes("pentester") || t.includes("hacker")) baseRole = "cybersecurity";
+  else if (t.includes("robotics") || t.includes("ros engineer") || t.includes("mechatronics")) baseRole = "robotics-engineer";
+  else if (t.includes("hardware engineer") || t.includes("vlsi") || t.includes("circuit design") || t.includes("electrical engineer")) baseRole = "hardware-engineer";
+  else if (t.includes("network engineer") || t.includes("network administrator") || t.includes("cisco")) baseRole = "network-engineer";
+  else if (t.includes("database administrator") || t.includes("dba") || t.includes("database engineer")) baseRole = "database-admin";
 
-  // 5. Data / Analytics
-  if (t.includes("data analyst") || t.includes("data scientist") || t.includes("machine learning") || t.includes("bi analyst")) return "data-professional";
+  // 3. Mainstream Development
+  else if (t.includes("mobile") || t.includes("ios") || t.includes("android") || t.includes("swift") || t.includes("kotlin") || t.includes("flutter")) baseRole = "mobile-developer";
+  else if (t.includes("frontend") || t.includes("front-end") || t.includes("react") || t.includes("next.js") || t.includes("vue") || t.includes("angular")) baseRole = "frontend-developer";
+  else if (t.includes("backend") || t.includes("back-end") || t.includes("node.js") || t.includes("go engineer") || t.includes("django") || t.includes("laravel")) baseRole = "backend-developer";
+  else if (t.includes("full stack") || t.includes("fullstack") || t.includes("full-stack")) baseRole = "fullstack-developer";
+  else if (t.includes("devops") || t.includes("sre") || t.includes("site reliability") || t.includes("platform engineer")) baseRole = "devops";
+  else if (t.includes("qa") || t.includes("quality assurance") || t.includes("test engineer") || t.includes("automation") || t.includes("sdet")) baseRole = "qa-engineer";
+  else if (t.includes("embedded") || t.includes("firmware") || t.includes("microcontroller") || t.includes("rtos")) baseRole = "embedded-systems";
+  else if (t.includes("cloud") || t.includes("infrastructure") || t.includes("aws") || t.includes("azure") || t.includes("kubernetes")) baseRole = "cloud-infra";
+  else if (t.includes("data engineer") || t.includes("etl") || t.includes("data pipeline") || t.includes("analytics engineer")) baseRole = "data-engineer";
+
+  // 4. Product / Management
+  else if (t.includes("product manager") || t.includes("product owner") || t.includes("product lead")) baseRole = "product-manager";
+  else if (t.includes("technical program manager") || t.includes("tpm")) baseRole = "technical-program-manager";
+  else if (t.includes("scrum master") || t.includes("agile coach")) baseRole = "scrum-master";
+  else if (t.includes("project manager") || t.includes("pmp") || t.includes("program manager")) baseRole = "project-manager";
+  else if (t.includes("operations manager") || t.includes("operations lead") || t.includes("biz ops")) baseRole = "operations-manager";
+  else if (t.includes("business analyst") || t.includes("business systems analyst")) baseRole = "business-analyst";
+
+  // 5. Finance / Data Analysis
+  else if (t.includes("financial planning") || t.includes("finance manager") || t.includes("accounting") || t.includes("fp&a")) baseRole = "finance";
+  else if (t.includes("risk analyst") || t.includes("risk manager") || t.includes("compliance officer")) baseRole = "risk-compliance";
+  else if (t.includes("supply chain") || t.includes("logistics") || t.includes("procurement")) baseRole = "supply-chain";
+  else if (t.includes("data analyst") || t.includes("data scientist") || t.includes("machine learning") || t.includes("bi analyst")) baseRole = "data-professional";
 
   // 6. Sales
-  if (t.includes("sales engineer") || t.includes("presales") || t.includes("solution engineer")) return "sales-engineer";
-  if (t.includes("sales manager") || t.includes("sales director") || t.includes("vp sales") || t.includes("head of sales")) return "sales-manager";
-  if (t.includes("sales") || t.includes("account executive") || t.includes("sdr") || t.includes("bdr")) return "sales";
+  else if (t.includes("sales engineer") || t.includes("presales") || t.includes("solution engineer")) baseRole = "sales-engineer";
+  else if (t.includes("sales manager") || t.includes("sales director") || t.includes("vp sales") || t.includes("head of sales")) baseRole = "sales-manager";
+  else if (t.includes("sales") || t.includes("account executive") || t.includes("sdr") || t.includes("bdr")) baseRole = "sales";
 
   // 7. Marketing
-  if (t.includes("demand generation") || t.includes("performance marketing") || t.includes("paid media") || t.includes("seo") || t.includes("email marketing")) return "performance-marketer";
-  if (t.includes("brand manager") || t.includes("brand strategist") || t.includes("brand director")) return "brand-manager";
-  if (t.includes("marketing manager") || t.includes("marketing director") || t.includes("vp marketing") || t.includes("marketing") || t.includes("growth") || t.includes("social media manager")) return "marketing";
+  else if (t.includes("demand generation") || t.includes("performance marketing") || t.includes("paid media") || t.includes("seo") || t.includes("email marketing")) baseRole = "performance-marketer";
+  else if (t.includes("brand manager") || t.includes("brand strategist") || t.includes("brand director")) baseRole = "brand-manager";
+  else if (t.includes("marketing manager") || t.includes("marketing director") || t.includes("vp marketing") || t.includes("marketing") || t.includes("growth") || t.includes("social media manager")) baseRole = "marketing";
 
   // 8. Customer-Facing
-  if (t.includes("customer success") || t.includes("customer success manager") || t.includes("csm") || t.includes("account manager")) return "customer-success";
-  if (t.includes("customer support") || t.includes("support engineer") || t.includes("technical support") || t.includes("helpdesk")) return "support";
+  else if (t.includes("customer success") || t.includes("customer success manager") || t.includes("csm") || t.includes("account manager")) baseRole = "customer-success";
+  else if (t.includes("customer support") || t.includes("support engineer") || t.includes("technical support") || t.includes("helpdesk")) baseRole = "support";
 
   // 9. Consulting / Strategy
-  if (t.includes("management consultant") || t.includes("strategy consultant") || t.includes("consultant") || t.includes("consulting") || t.includes("strategy analyst")) return "consultant";
+  else if (t.includes("management consultant") || t.includes("strategy consultant") || t.includes("consultant") || t.includes("consulting") || t.includes("strategy analyst")) baseRole = "consultant";
 
   // 10. People / HR
-  if (t.includes("hr") || t.includes("human resources") || t.includes("people operations") || t.includes("people partner") || t.includes("compensation")) return "hr";
+  else if (t.includes("hr") || t.includes("human resources") || t.includes("people operations") || t.includes("people partner") || t.includes("compensation")) baseRole = "hr";
 
   // 11. Legal
-  if (t.includes("legal") || t.includes("lawyer") || t.includes("attorney") || t.includes("counsel") || t.includes("compliance") || t.includes("paralegal")) return "legal";
+  else if (t.includes("legal") || t.includes("lawyer") || t.includes("attorney") || t.includes("counsel") || t.includes("compliance") || t.includes("paralegal")) baseRole = "legal";
 
   // 12. Design / Creative
-  if (t.includes("product designer") || t.includes("ux designer") || t.includes("ui designer") || t.includes("designer") || t.includes("ux") || t.includes("ui") || t.includes("figma")) return "designer";
-  if (t.includes("content creator") || t.includes("content writer") || t.includes("video editor") || t.includes("copywriter")) return "content-creator";
-  if (t.includes("technical writer") || t.includes("documentation engineer") || t.includes("api writer")) return "technical-writer";
-  if (t.includes("motion designer") || t.includes("graphic designer") || t.includes("animator") || t.includes("creative director")) return "graphic-designer";
+  else if (t.includes("product designer") || t.includes("ux designer") || t.includes("ui designer") || t.includes("designer") || t.includes("ux") || t.includes("ui") || t.includes("figma")) baseRole = "designer";
+  else if (t.includes("content creator") || t.includes("content writer") || t.includes("video editor") || t.includes("copywriter")) baseRole = "content-creator";
+  else if (t.includes("technical writer") || t.includes("documentation engineer") || t.includes("api writer")) baseRole = "technical-writer";
+  else if (t.includes("motion designer") || t.includes("graphic designer") || t.includes("animator") || t.includes("creative director")) baseRole = "graphic-designer";
 
   // 13. Healthcare / Science
-  if (t.includes("healthcare analyst") || t.includes("clinical analyst") || t.includes("health informatics")) return "healthcare-analyst";
-  if (t.includes("nurse") || t.includes("physician") || t.includes("clinician") || t.includes("pharmacist") || t.includes("therapist")) return "healthcare-practitioner";
-  if (t.includes("research scientist") || t.includes("scientist") || t.includes("bioinformatics") || t.includes("chemist")) return "scientist";
+  else if (t.includes("healthcare analyst") || t.includes("clinical analyst") || t.includes("health informatics")) baseRole = "healthcare-analyst";
+  else if (t.includes("nurse") || t.includes("physician") || t.includes("clinician") || t.includes("pharmacist") || t.includes("therapist")) baseRole = "healthcare-practitioner";
+  else if (t.includes("research scientist") || t.includes("scientist") || t.includes("bioinformatics") || t.includes("chemist")) baseRole = "scientist";
 
   // 14. Education / Training
-  if (t.includes("teacher") || t.includes("instructor") || t.includes("professor") || t.includes("lecturer") || t.includes("trainer") || t.includes("coach")) return "educator";
+  else if (t.includes("teacher") || t.includes("instructor") || t.includes("professor") || t.includes("lecturer") || t.includes("trainer") || t.includes("coach")) baseRole = "educator";
 
-  // 15. IT / System Administration
-  if (t.includes("it manager") || t.includes("sysadmin") || t.includes("system administrator") || t.includes("systems engineer") || t.includes("it specialist")) return "it-admin";
+  // 16. Fallback Search in Dynamic Roles
+  else {
+    const sortedDynamic = [...DYNAMIC_ROLES].sort((a, b) => b.length - a.length);
+    for (const role of sortedDynamic) {
+        if (role.length < 5) continue;
+        const normRole = role.toLowerCase().replace(/-/g, " ");
+        const regex = new RegExp(`\\b${normRole.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+        if (regex.test(t.replace(/-/g, " "))) {
+            baseRole = role;
+            break;
+        }
+    }
+  }
 
-  // 16. Generic Fallback
-  if (t.includes("software") || t.includes("developer") || t.includes("engineer") || t.includes("programmer") || t.includes("coder")) return "software-engineer";
+  // 17. Final Prefixed Match
+  const fullKey = `${seniority}-${baseRole}`;
+  const midKey = `mid-${baseRole}`;
+  
+  if (mvcData[fullKey as keyof typeof mvcData]) return fullKey;
+  if (mvcData[midKey as keyof typeof mvcData]) return midKey;
+  if (mvcData[baseRole as keyof typeof mvcData]) return baseRole;
 
-  return "other";
+  return "mid-software-engineer";
 }
-
 
 /**
  * Instantly get the standard skills for a role based on JD text,
@@ -192,10 +218,12 @@ function detectRoleCategory(jdText: string): string {
  */
 export function getRoleStandardSkills(jdText: string): string[] {
   const roleCategory = detectRoleCategory(jdText);
-  const roleData = mvcProfiles[roleCategory] ?? mvcProfiles["other"];
-  const skills = Array.isArray(roleData) ? roleData : (roleData?.skills ?? []);
+  const roleData = (mvcData as any)[roleCategory] || (mvcData as any)["mid-software-engineer"];
   
-  return skills.map(entry => entry.skill);
+  if (!roleData) return [];
+  
+  const skills = Array.isArray(roleData) ? roleData : (roleData.skills || []);
+  return skills.map((entry: any) => entry.skill);
 }
 
 /**
@@ -205,12 +233,21 @@ export function getRoleStandardSkills(jdText: string): string[] {
  */
 export function extractSkills(text: string): string[] {
   const lower = text.toLowerCase();
-  
+
   // 1. Build a unique list of all skills we track in our model
   const allKnownSkills = new Set<string>();
   Object.values(mvcProfiles).forEach(roleData => {
     const skills = Array.isArray(roleData) ? roleData : (roleData?.skills ?? []);
     skills.forEach(s => allKnownSkills.add(s.skill.toLowerCase()));
+  });
+
+  // 2. Add skills from trends model (ensures legacy skills are extracted too)
+  const trendSkills = (skillTrends as any).skills;
+  Object.keys(trendSkills).forEach(skillKey => {
+    allKnownSkills.add(skillKey.toLowerCase());
+    if (trendSkills[skillKey].display) {
+      allKnownSkills.add(trendSkills[skillKey].display.toLowerCase());
+    }
   });
 
   const found: string[] = [];
@@ -240,7 +277,7 @@ export function getMVCProfile(
 ): { mvcSkills: string[]; roleCategory: string; requiredDegree?: string } {
   const roleCategory = detectRoleCategory(jdText);
   const roleData = mvcProfiles[roleCategory] ?? mvcProfiles["other"];
-  
+
   const skills = Array.isArray(roleData) ? roleData : (roleData?.skills ?? []);
   const requiredDegree = Array.isArray(roleData) ? undefined : roleData?.required_degree;
 
@@ -273,19 +310,23 @@ export function rankGapsLocally(
   roleCategory: string
 ): SkillGap[] {
   const mvcSet = new Set(mvcSkills.map(s => s.toLowerCase()));
-  const roleData = mvcProfiles[roleCategory] ?? mvcProfiles["other"];
+  const roleData = (mvcData as any)[roleCategory] || (mvcData as any)["mid-software-engineer"];
   const skills = Array.isArray(roleData) ? roleData : (roleData?.skills ?? []);
-  
-  const freqMap: Record<string, number> = {};
-  skills.forEach(item => {
-    freqMap[item.skill.toLowerCase()] = item.count;
+
+  const metaMap: Record<string, { count: number, premium: number, trend: Record<string, number> }> = {};
+  skills.forEach((item: any) => {
+    metaMap[item.skill.toLowerCase()] = {
+      count: item.count || 0,
+      premium: item.premium || 0,
+      trend: item.trend || {}
+    };
   });
-  
+
   return missingSkills.map((skill, index) => {
     const sNorm = skill.toLowerCase();
     const isMvc = mvcSet.has(sNorm);
-    const frequency = freqMap[sNorm] || 0;
-    
+    const meta = metaMap[sNorm] || { count: 0, premium: 0, trend: {} };
+
     let weeks = 2;
     if (["python", "java", "c++", "c#", "rust", "go", "machine learning", "deep learning", "kubernetes", "terraform"].includes(sNorm)) {
       weeks = 4;
@@ -294,27 +335,115 @@ export function rankGapsLocally(
     } else if (["git", "agile", "html", "css"].includes(sNorm)) {
       weeks = 1;
     }
-    
+
     let reason = `${skill} is a relevant skill for this career path.`;
     if (isMvc) {
-      const freqPercent = frequency > 0 ? `found in ${Math.round((frequency/10000)*100)}% of JDs` : "a must-have skill";
+      const freqPercent = meta.count > 0 ? `found in ${Math.round((meta.count / 10000) * 100)}% of JDs` : "a must-have skill";
       reason = `${skill} is a core "Minimum Viable Candidate" skill (${freqPercent}).`;
     }
-    
+
     return {
       skill,
       priority: isMvc ? 1 : 2,
-      frequency,
+      frequency: meta.count,
+      premium: meta.premium,
+      trend: meta.trend,
       weeks_to_learn: weeks,
       reason,
       in_mvc: isMvc,
     };
   })
-  .sort((a, b) => {
-    if (a.in_mvc && !b.in_mvc) return -1;
-    if (!a.in_mvc && b.in_mvc) return 1;
-    if (a.frequency !== b.frequency) return b.frequency - a.frequency;
-    return 0;
-  })
-  .map((gap, i) => ({ ...gap, priority: i + 1 }));
+    .sort((a, b) => {
+      // Prioritize by Premium (Salary ROI) then Frequency
+      if (a.in_mvc && !b.in_mvc) return -1;
+      if (!a.in_mvc && b.in_mvc) return 1;
+      
+      // If both are MVC, sort by Premium
+      if (a.premium !== b.premium) return (b.premium || 0) - (a.premium || 0);
+      
+      if (a.frequency !== b.frequency) return b.frequency - a.frequency;
+      return 0;
+    })
+    .map((gap, i) => ({ ...gap, priority: i + 1 }));
+}
+
+/**
+ * Predict the next step in the career path and calculate the jump.
+ */
+/**
+ * Predict the next step in the career path and provide the full path context.
+ */
+export function getTrajectoryInfo(currentRoleKey: string) {
+  let seniority = "mid";
+  let baseRole = currentRoleKey;
+
+  const levels = ["junior", "mid", "senior", "executive"];
+  const parts = currentRoleKey.split("-");
+  
+  if (levels.includes(parts[0])) {
+    seniority = parts[0];
+    baseRole = parts.slice(1).join("-");
+  } else {
+    // Try to find if the role key contains any level words
+    for (const lvl of levels) {
+      if (currentRoleKey.startsWith(lvl + " ")) {
+         seniority = lvl;
+         baseRole = currentRoleKey.replace(lvl + " ", "").replace(/ /g, "-");
+         break;
+      }
+    }
+  }
+
+  const full_path: any[] = [];
+
+  levels.forEach(lvl => {
+    const key = `${lvl}-${baseRole}`;
+    const data = (mvcData as any)[key];
+    if (data) {
+      full_path.push({
+        level: lvl,
+        label: data.role,
+        salary: data.salary_avg || 0,
+        skills: data.skills.map((s: any) => s.skill)
+      });
+    }
+  });
+
+  const currentIdx = levels.indexOf(parts[0]);
+  const nextLvl = levels[currentIdx + 1];
+  const nextKey = nextLvl ? `${nextLvl}-${baseRole}` : null;
+  const nextData = nextKey ? (mvcData as any)[nextKey] : null;
+  const currentData = (mvcData as any)[currentRoleKey];
+
+  if (!currentData) return null;
+
+  let deltaSkills: string[] = [];
+  if (nextData) {
+    const currentSkills = new Set(currentData.skills.map((s: any) => s.skill.toLowerCase()));
+    deltaSkills = nextData.skills
+      .filter((s: any) => !currentSkills.has(s.skill.toLowerCase()))
+      .slice(0, 5)
+      .map((s: any) => s.skill);
+    
+    if (deltaSkills.length < 3) {
+      deltaSkills = [
+        ...deltaSkills,
+        ...nextData.skills
+          .filter((s: any) => !deltaSkills.includes(s.skill))
+          .slice(0, 3 - deltaSkills.length)
+          .map((s: any) => s.skill)
+      ];
+    }
+  }
+
+  return {
+    current_level: parts[0],
+    current_role_label: currentData.role,
+    next_role_label: nextData?.role || null,
+    salary_jump: nextData ? (nextData.salary_avg || 0) - (currentData.salary_avg || 0) : 0,
+    delta_skills: deltaSkills,
+    current_salary: currentData.salary_avg || 0,
+    next_salary: nextData?.salary_avg || 0,
+    full_path
+  };
 }

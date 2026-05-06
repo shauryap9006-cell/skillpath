@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { onAuthStateChanged, User, signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 
@@ -11,6 +11,8 @@ interface AuthContextType {
   openAuthModal: () => void;
   closeAuthModal: () => void;
   logout: () => Promise<void>;
+  /** Get a fresh Firebase ID token. Always use this for API calls — never localStorage. */
+  getToken: () => Promise<string | null>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -19,14 +21,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<{ name: string; email: string; uid: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const firebaseUserRef = useRef<User | null>(null);
 
   useEffect(() => {
     // Listen for Firebase Auth state changes
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        // User is signed in
-        const idToken = await firebaseUser.getIdToken();
-        localStorage.setItem('token', idToken);
+        firebaseUserRef.current = firebaseUser;
 
         const userData = {
           name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
@@ -35,9 +36,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         };
 
         setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData));
+
+        // Store for SSR hydration fallback only
+        try {
+          const idToken = await firebaseUser.getIdToken();
+          localStorage.setItem('token', idToken);
+          localStorage.setItem('user', JSON.stringify(userData));
+        } catch {
+          // Ignore localStorage errors
+        }
       } else {
-        // User is signed out
+        firebaseUserRef.current = null;
         setUser(null);
         localStorage.removeItem('token');
         localStorage.removeItem('user');
@@ -46,6 +55,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     return () => unsubscribe();
+  }, []);
+
+  /**
+   * Get a fresh Firebase ID token.
+   * Forces refresh to avoid stale/expired tokens.
+   * This is the ONLY way API calls should get their auth token.
+   */
+  const getToken = useCallback(async (): Promise<string | null> => {
+    const fbUser = firebaseUserRef.current;
+    if (!fbUser) return null;
+
+    try {
+      const token = await fbUser.getIdToken(/* forceRefresh */ true);
+      // Update localStorage as a side-effect for hydration
+      localStorage.setItem('token', token);
+      return token;
+    } catch (error) {
+      console.error('[AuthContext] Failed to refresh token:', error);
+      return null;
+    }
   }, []);
 
   const openAuthModal = () => setIsAuthModalOpen(true);
@@ -67,7 +96,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       isAuthModalOpen,
       openAuthModal,
       closeAuthModal,
-      logout
+      logout,
+      getToken,
     }}>
       {!loading && children}
     </AuthContext.Provider>

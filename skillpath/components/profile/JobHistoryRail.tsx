@@ -4,25 +4,29 @@
 import { useEffect, useState } from 'react';
 import { Clock, CheckCircle2 } from 'lucide-react';
 import type { ArchivedJob } from '@/types/active-job';
+import { useAuth } from '@/context/AuthContext';
 
 export function JobHistoryRail() {
+  const { getToken } = useAuth();
   const [history, setHistory] = useState<ArchivedJob[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setLoading(false);
-      return;
-    }
+    (async () => {
+      const token = await getToken();
+      if (!token) {
+        setLoading(false);
+        return;
+      }
 
-    fetch('/api/active-job/history', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    })
-      .then(r => r.json())
-      .then(d => setHistory(d.history ?? []))
-      .catch(err => console.error("History fetch error:", err))
-      .finally(() => setLoading(false));
+      fetch('/api/active-job/history', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+        .then(r => r.json())
+        .then(d => setHistory(d.history ?? []))
+        .catch(err => console.error('History fetch error:', err))
+        .finally(() => setLoading(false));
+    })();
   }, []);
 
   if (loading) return (

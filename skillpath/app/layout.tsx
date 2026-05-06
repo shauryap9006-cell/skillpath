@@ -36,6 +36,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Preloader } from "@/components/ui/Preloader";
 import { UIProvider, useUI } from "@/context/UIContext";
 import { AppWrapper } from "@/components/ui/AppWrapper";
+import { ThemeTransition } from "@/components/providers/theme-transition";
 
 export default function RootLayout({
   children,
@@ -54,14 +55,16 @@ export default function RootLayout({
 
           <AuthProvider>
             <UIProvider>
-              <Preloader />
-              <AppWrapper>
-                <SmoothScrolling>
-                  <Navbar />
-                  <AuthModal />
-                  {children}
-                </SmoothScrolling>
-              </AppWrapper>
+              <ThemeTransition>
+                <Preloader />
+                <AppWrapper>
+                  <SmoothScrolling>
+                    <Navbar />
+                    <AuthModal />
+                    {children}
+                  </SmoothScrolling>
+                </AppWrapper>
+              </ThemeTransition>
             </UIProvider>
           </AuthProvider>
         </ThemeProvider>

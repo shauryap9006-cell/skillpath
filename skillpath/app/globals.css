@@ -53,7 +53,7 @@ html {
   --color-muted-soft: #9a9a9a;
   --color-hairline: rgba(26, 25, 23, 0.1);
   --color-hairline-soft: #f0f0f0;
-  --color-canvas: #fffaf0;
+  --color-canvas: #e1dfea;
   --color-surface-soft: #faf5e8;
   --color-surface-card: #f5f0e0;
   --color-surface-strong: #ebe6d6;
@@ -89,31 +89,55 @@ html {
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
+
+  /* Anomalous Matter Hero Variables */
+  --background: 249, 21%, 90%;
+  --foreground: 0, 0%, 0%;
+  --sky-300: 203, 92%, 53%;
+  --gray-300: 0, 0%, 70%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .dark {
+  --background: 240, 10%, 4%;
+  --foreground: 0, 0%, 98%;
+  --sky-300: 217, 91%, 60%;
+  --gray-300: 240, 4%, 16%;
   --color-primary: #ffffff;
-  --color-primary-active: #f0f0f0;
-  --color-primary-disabled: #1a1a1a;
-  --color-ink: #fcfcfc;
-  --color-body: #a0a0a0;
-  --color-body-strong: #ffffff;
-  --color-muted: #707070;
-  --color-muted-soft: #404040;
-  --color-hairline: #333333;
-  --color-hairline-soft: #1f1f1f;
-  --color-canvas: #000000;
-  /* Pure black for maximum depth */
-  --color-surface-soft: #0a0a0a;
-  --color-surface-card: #121212;
-  --color-surface-strong: #1a1a1a;
+  --color-primary-active: #e2e2e2;
+  --color-primary-disabled: #1a1a1e;
+  --color-ink: #f8fafc;
+  --color-body: #94a3b8;
+  --color-body-strong: #f1f5f9;
+  --color-muted: #64748b;
+  --color-muted-soft: #334155;
+  --color-hairline: rgba(255, 255, 255, 0.08);
+  --color-hairline-soft: #1e1e24;
+  --color-canvas: #060608; /* Premium deep onyx with slight blue tint */
+  --color-surface-soft: #0c0c0f;
+  --color-surface-card: #111116;
+  --color-surface-strong: #1a1a22;
   --color-surface-dark: #fffaf0;
   --color-surface-dark-elevated: #faf5e8;
-  --color-on-primary: #000000;
-  --color-on-dark: #000000;
-  --color-on-dark-soft: #707070;
+  --color-on-primary: #020617;
+  --color-on-dark: #020617;
+  --color-on-dark-soft: #64748b;
   
-  --color-bulb-glow: rgba(232, 185, 74, 0.4); /* Reduced intensity for dark mode */
+  --color-bulb-glow: rgba(232, 185, 74, 0.35);
 }
 
 body {
@@ -182,10 +206,10 @@ body {
     inset 2px 2px 4px rgba(255, 255, 255, 0.5),
     inset -2px -2px 4px rgba(0, 0, 0, 0.01);
   /* Optimize: Do not transition 'all'. Only transition what changes. */
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 0.3s ease,
-              background-color 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 0.2s ease,
+              background-color 0.2s ease;
   will-change: transform, box-shadow;
 }
 
@@ -234,10 +258,10 @@ body {
 }
 
 .tactile-button:active {
-  transform: scale(0.97);
+  transform: scale(0.95);
   box-shadow:
-    inset 4px 4px 8px rgba(0, 0, 0, 0.15),
-    inset -2px -2px 6px rgba(255, 255, 255, 0.1);
+    inset 6px 6px 12px rgba(0, 0, 0, 0.2),
+    inset -3px -3px 8px rgba(255, 255, 255, 0.1);
 }
 
 .tactile-input {

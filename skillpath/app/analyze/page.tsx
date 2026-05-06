@@ -6,9 +6,12 @@ import { Navbar } from '@/components/landing/Navbar';
 import { DropZone } from '@/components/ui/DropZone';
 import { saveToHistory } from '@/lib/history';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, FileText, Upload, ChevronRight, Target } from 'lucide-react';
+import { Sparkles, FileText, Upload, ChevronRight, Target, Star } from 'lucide-react';
 import { GenerativeArtScene } from '@/components/ui/anomalous-matter-hero';
 import { useAuth } from '@/context/AuthContext';
+import { DreamOnboarding, type DreamContext } from '@/components/analyze/DreamOnboarding';
+import { Button } from '@/components/ui/Button';
+
 
 const MOTIVATIONAL_QUOTES = [
   "Deep analyzing your profile...",
@@ -20,48 +23,46 @@ const MOTIVATIONAL_QUOTES = [
   "Almost there. Polishing your roadmap...",
 ];
 
+class AnalysisError extends Error {
+  hint?: string;
+  constructor(message: string, hint?: string) {
+    super(message);
+    this.name = 'AnalysisError';
+    this.hint = hint;
+  }
+}
+
 export default function AnalyzePage() {
   const router = useRouter();
-  const { user, openAuthModal } = useAuth();
+  const { user, openAuthModal, getToken } = useAuth();
   const [mode, setMode] = useState<'job' | 'dream'>('job');
   const [jd, setJd] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [resumeText, setResumeText] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [showDreamOnboarding, setShowDreamOnboarding] = useState(false);
+  const [dreamContext, setDreamContext] = useState<DreamContext | null>(null);
   const [quoteIndex, setQuoteIndex] = useState(0);
   const [error, setError] = useState('');
 
+  const [autoTrigger, setAutoTrigger] = useState(false);
+
   useEffect(() => {
     const pendingJd = sessionStorage.getItem('pending_jd');
-    if (pendingJd) {
+    const pendingResume = sessionStorage.getItem('pending_resume');
+    
+    if (pendingJd && pendingResume) {
       setJd(pendingJd);
+      setResumeText(pendingResume);
+      setAutoTrigger(true);
+      
+      // Clean up storage immediately
       sessionStorage.removeItem('pending_jd');
+      sessionStorage.removeItem('pending_resume');
     }
   }, []);
 
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isAnalyzing) {
-      interval = setInterval(() => {
-        setQuoteIndex((prev) => (prev + 1) % MOTIVATIONAL_QUOTES.length);
-      }, 4000);
-    } else {
-      setQuoteIndex(0);
-    }
-    return () => clearInterval(interval);
-  }, [isAnalyzing]);
-
-  const extractTextFromFile = async (file: File): Promise<string> => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const text = reader.result as string;
-        resolve(text);
-      };
-      reader.onerror = () => resolve('');
-      reader.readAsText(file);
-    });
-  };
+  const isFormValid = jd.trim().length > 0 && (file !== null || resumeText.trim().length > 0);
 
   const handleAnalyze = async () => {
     if (!user) {
@@ -85,9 +86,17 @@ export default function AnalyzePage() {
         return;
       }
 
-      const token = localStorage.getItem('token');
+      const token = await getToken();
       const formData = new FormData();
       formData.append('jd_text', jd);
+
+      // Pass structured dream context to API for personalized results
+      if (mode === 'dream' && dreamContext) {
+        formData.append('dream_role', dreamContext.dreamRole);
+        formData.append('current_role', dreamContext.currentRole);
+        formData.append('experience_level', dreamContext.experience);
+        formData.append('target_company', dreamContext.companyType);
+      }
 
       if (file) {
         formData.append('resume_file', file);
@@ -105,14 +114,13 @@ export default function AnalyzePage() {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        const err = new Error(errorData.message || 'Analysis failed') as any;
-        err.hint = errorData.hint;
-        throw err;
+        throw new AnalysisError(errorData.message || 'Analysis failed', errorData.hint);
       }
 
       const data = await response.json();
 
       saveToHistory({
+        type: 'analyze',
         share_token: data.share_token,
         gap_score: data.gap_score,
         weeks_required: data.weeks_required,
@@ -120,40 +128,63 @@ export default function AnalyzePage() {
         mvc_skills: data.mvc_skills || [],
         created_at: data.created_at,
         jd_preview: jd.slice(0, 80),
+        resume_text: data.resume_text || resumeText
       });
 
-      router.push(`/results/${data.share_token}`);
+      router.push(`/results/${data.share_token}?new=true`);
     } catch (err: any) {
       console.error('Analysis error:', err);
       const msg = err.message || 'Something went wrong';
-      const hint = err.hint ? `\n\nHint: ${err.hint}` : '';
+      const hint = err instanceof AnalysisError && err.hint ? `\n\nHint: ${err.hint}` : '';
       setError(`${msg}${hint}`);
       setIsAnalyzing(false);
     }
   };
 
-  const isFormValid = jd.trim().length > 0 && (file !== null || resumeText.trim().length > 0);
+  // Reliability check: trigger when form is definitely ready
+  useEffect(() => {
+    if (autoTrigger && isFormValid && !isAnalyzing) {
+      const timer = setTimeout(() => {
+        handleAnalyze();
+        setAutoTrigger(false);
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [autoTrigger, isFormValid, isAnalyzing]);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isAnalyzing) {
+      interval = setInterval(() => {
+        setQuoteIndex((prev) => (prev + 1) % MOTIVATIONAL_QUOTES.length);
+      }, 4000);
+    } else {
+      setQuoteIndex(0);
+    }
+    return () => clearInterval(interval);
+  }, [isAnalyzing]);
+
   const bars = Array.from({ length: 12 }, (_, i) => i);
 
   return (
     <main className="flex flex-col min-h-screen bg-[#F5F4EE] dark:bg-canvas text-ink relative font-sans overflow-hidden">
       {/* Generative Background */}
-      <div className="absolute inset-0 z-0 opacity-40">
+      <div className="fixed inset-0 z-0 bg-canvas pointer-events-none" />
+      <div className="fixed inset-0 z-[1] pointer-events-none opacity-40">
         <GenerativeArtScene />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-canvas/60 via-transparent to-canvas z-0" />
+      <div className="fixed inset-0 z-[2] bg-gradient-to-b from-canvas/20 via-transparent to-canvas/80 pointer-events-none" />
 
       <div className="relative z-10 flex flex-col items-center pt-24 md:pt-32 pb-32 px-4 md:px-8">
         <motion.div
-
+          key="analyze-form"
           className="w-full max-w-[800px]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }}
         >
-
           <div className="text-center mb-12 md:mb-20">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-brand-teal/10 border border-brand-teal/20 text-[10px] md:text-[11px] text-brand-teal font-bold tracking-widest uppercase mb-6">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-brand-teal/10 border border-brand-teal/20 text-xs text-brand-teal font-bold tracking-widest uppercase mb-6">
               <Sparkles size={12} className="fill-current" />
               Vector Analysis Phase 01
             </span>
@@ -165,109 +196,81 @@ export default function AnalyzePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 transition-opacity duration-500 ${isAnalyzing ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
             {/* Target Job Section */}
-            <div className="flex flex-col h-full bg-[#EBE9DC] dark:bg-[#0A0A0A] border border-black/5 dark:border-white/5 rounded-[24px] md:rounded-[32px] p-5 md:p-8 shadow-[12px_12px_24px_rgba(0,0,0,0.05),-12px_-12px_24px_rgba(255,255,255,0.9),inset_1px_1px_1px_rgba(255,255,255,0.8)] dark:shadow-[0_0_40px_rgba(0,0,0,0.2)] relative group transition-all">
+            <div className="flex flex-col h-full bg-[#EBE9DC] dark:bg-[#0A0A0A] border border-black/5 dark:border-white/5 rounded-[24px] md:rounded-[32px] p-5 md:p-8 shadow-[12px_12px_24px_rgba(0,0,0,0.05),-8px_-8px_20px_rgba(255,255,255,0.4),inset_1px_1px_1px_rgba(255,255,255,0.4)] dark:shadow-[0_0_40px_rgba(0,0,0,0.2)] relative group transition-all">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-[16px] shadow-[inset_1px_1px_3px_rgba(0,0,0,0.1),inset_-1px_-1px_3px_rgba(255,255,255,0.5)] dark:shadow-[inset_0_0_5px_rgba(0,0,0,0.3)] border border-black/5 dark:border-white/5 relative">
+                  <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-[16px] shadow-[inset_1px_1px_3px_rgba(0,0,0,0.1),inset_-1px_-1px_3px_rgba(255,255,255,0.25)] dark:shadow-[inset_0_0_5px_rgba(0,0,0,0.3)] border border-black/5 dark:border-white/5 relative">
                     <button
+                      disabled={isAnalyzing}
                       onClick={() => setMode('job')}
-                      className={`relative px-3 md:px-5 py-1.5 md:py-2 rounded-[10px] md:rounded-[12px] text-[10px] md:text-[11px] font-bold uppercase tracking-wider transition-colors duration-300 z-10 ${mode === 'job' ? 'text-ink dark:text-white' : 'text-ink/30 hover:text-ink/50'}`}
+                      className={`relative px-3 md:px-5 py-1.5 md:py-2 rounded-[10px] md:rounded-[12px] text-xs font-bold uppercase tracking-wider transition-colors duration-300 z-10 ${mode === 'job' ? 'text-ink dark:text-white' : 'text-ink/60 hover:text-ink/80'}`}
                     >
                       {mode === 'job' && (
                         <motion.div
                           layoutId="target-mode-pill"
-                          className="absolute inset-0 bg-[#EBE9DC] dark:bg-[#1A1A1A] rounded-[10px] md:rounded-[12px] shadow-[2px_2px_5px_rgba(0,0,0,0.1),-1px_-1px_3px_rgba(255,255,255,0.8)] dark:shadow-none"
+                          className="absolute inset-0 bg-[#EBE9DC] dark:bg-[#1A1A1A] rounded-[10px] md:rounded-[12px] shadow-[2px_2px_5px_rgba(0,0,0,0.1),-1px_-1px_3px_rgba(255,255,255,0.3)] dark:shadow-none"
                           transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                         />
                       )}
                       <span className="relative z-20">Target Job</span>
                     </button>
                     <button
+                      disabled={isAnalyzing}
                       onClick={() => setMode('dream')}
-                      className={`relative px-3 md:px-5 py-1.5 md:py-2 rounded-[10px] md:rounded-[12px] text-[10px] md:text-[11px] font-bold uppercase tracking-wider transition-colors duration-300 z-10 ${mode === 'dream' ? 'text-ink dark:text-white' : 'text-ink/30 hover:text-ink/50'}`}
+                      className={`relative px-3 md:px-5 py-1.5 md:py-2 rounded-[10px] md:rounded-[12px] text-xs font-bold uppercase tracking-wider transition-colors duration-300 z-10 ${mode === 'dream' ? 'text-ink dark:text-white' : 'text-ink/60 hover:text-ink/80'}`}
                     >
                       {mode === 'dream' && (
                         <motion.div
                           layoutId="target-mode-pill"
-                          className="absolute inset-0 bg-[#EBE9DC] dark:bg-[#1A1A1A] rounded-[10px] md:rounded-[12px] shadow-[2px_2px_5px_rgba(0,0,0,0.1),-1px_-1px_3px_rgba(255,255,255,0.8)] dark:shadow-none"
+                          className="absolute inset-0 bg-[#EBE9DC] dark:bg-[#1A1A1A] rounded-[10px] md:rounded-[12px] shadow-[2px_2px_5px_rgba(0,0,0,0.1),-1px_-1px_3px_rgba(255,255,255,0.3)] dark:shadow-none"
                           transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                         />
                       )}
                       <span className="relative z-20">Dream</span>
                     </button>
                   </div>
-                  <div className="relative group/info">
-                    <div className="w-4 h-4 rounded-full border border-ink/20 flex items-center justify-center text-[10px] text-ink/40 cursor-help hover:border-ink/40 hover:text-ink/60 transition-colors">?</div>
-                    <div className="absolute left-0 top-6 w-48 p-3 rounded-xl bg-[#EBE9DC] dark:bg-surface-strong border border-black/10 dark:border-hairline shadow-2xl opacity-0 invisible group-hover/info:opacity-100 group-hover/info:visible transition-all z-50 text-[10px] text-ink/60 leading-relaxed">
-                      {mode === 'job'
-                        ? "Analyze a specific role you're applying for right now."
-                        : "Analyze your profile against long-term industry leadership benchmarks."}
-                    </div>
-                  </div>
                 </div>
                 <Target size={16} className="text-ink/20" />
               </div>
 
-              <div className="relative flex-1 rounded-[20px] overflow-hidden bg-black/[0.03] dark:bg-white/[0.02] shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.5)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)] border border-black/5 dark:border-white/5 transition-all focus-within:border-brand-teal/20">
-                <textarea
-                  placeholder={mode === 'job' ? "Paste the full job description here..." : "Describe your ultimate career goal..."}
-                  className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/20 bg-transparent focus:outline-none resize-none leading-relaxed"
-                  value={jd}
-                  onChange={(e) => setJd(e.target.value)}
-                />
-              </div>
-
-              <div className="flex items-center justify-between mt-4">
-                <p className="text-[10px] text-ink/30 font-medium uppercase tracking-[0.2em]">Clinical Extraction</p>
-                {mode === 'job' && (
-                  <button
-                    onClick={() => setJd("Job Title: \nCompany: \n\nAbout the role: \nRequirements: \nTech Stack: ")}
-                    className="text-[10px] text-brand-teal hover:text-brand-teal/80 font-bold uppercase tracking-widest transition-colors"
-                  >
-                    + Template
-                  </button>
+              <div className="relative flex-1 rounded-[20px] overflow-hidden bg-black/[0.03] dark:bg-white/[0.02] shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.25)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)] border border-black/5 dark:border-white/5 transition-all focus-within:border-brand-teal/20">
+                {mode === 'dream' && !jd ? (
+                  <div className="h-full min-h-[300px] flex flex-col items-center justify-center p-8 text-center bg-canvas/30 backdrop-blur-sm">
+                    <Star className="text-brand-pink mb-4 animate-pulse" size={32} />
+                    <h3 className="font-display text-xl font-bold mb-2">Define Your Career Dream</h3>
+                    <p className="text-sm text-muted mb-6">Use our guided calibration to refine your long-term vision.</p>
+                    <Button
+                      variant="brand"
+                      disabled={isAnalyzing}
+                      onClick={() => setShowDreamOnboarding(true)}
+                      className="w-full h-[54px] rounded-2xl"
+                    >
+                      Start Calibration
+                    </Button>
+                  </div>
+                ) : (
+                  <textarea
+                    disabled={isAnalyzing}
+                    aria-label={mode === 'job' ? "Job Description" : "Career Dream Description"}
+                    placeholder={mode === 'job' ? "Paste the full job description here..." : "Describe your ultimate career goal..."}
+                    className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/50 bg-transparent focus:outline-none resize-none leading-relaxed"
+                    value={jd}
+                    onChange={(e) => setJd(e.target.value)}
+                  />
                 )}
               </div>
             </div>
 
             {/* Career History Section */}
-            <div className="flex flex-col h-full bg-[#EBE9DC] dark:bg-[#0A0A0A] border border-black/5 dark:border-white/5 rounded-[32px] p-8 shadow-[12px_12px_24px_rgba(0,0,0,0.05),-12px_-12px_24px_rgba(255,255,255,0.9),inset_1px_1px_1px_rgba(255,255,255,0.8)] dark:shadow-[0_0_40px_rgba(0,0,0,0.2)] relative group transition-all">
+            <div className="flex flex-col h-full bg-[#EBE9DC] dark:bg-[#0A0A0A] border border-black/5 dark:border-white/5 rounded-[32px] p-8 shadow-[12px_12px_24px_rgba(0,0,0,0.05),-8px_-8px_20px_rgba(255,255,255,0.4),inset_1px_1px_1px_rgba(255,255,255,0.4)] dark:shadow-[0_0_40px_rgba(0,0,0,0.2)] relative group transition-all">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-brand-teal/10 flex items-center justify-center border border-brand-teal/20">
                     <Upload size={14} className="text-brand-teal" />
                   </div>
-                  <span className="text-[11px] text-ink font-bold uppercase tracking-widest">Career History</span>
-                </div>
-                <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-[16px] shadow-[inset_1px_1px_3px_rgba(0,0,0,0.1),inset_-1px_-1px_3px_rgba(255,255,255,0.5)] dark:shadow-[inset_0_0_5px_rgba(0,0,0,0.3)] border border-black/5 dark:border-white/5 relative">
-                  <button
-                    onClick={() => setResumeText('')}
-                    className={`relative px-4 md:px-5 py-1.5 md:py-2 rounded-[10px] md:rounded-[12px] text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 z-10 ${!resumeText ? 'text-ink dark:text-white' : 'text-ink/30 hover:text-ink/50'}`}
-                  >
-                    {!resumeText && (
-                      <motion.div
-                        layoutId="resume-mode-pill"
-                        className="absolute inset-0 bg-[#EBE9DC] dark:bg-[#1A1A1A] rounded-[10px] md:rounded-[12px] shadow-[2px_2px_5px_rgba(0,0,0,0.1),-1px_-1px_3px_rgba(255,255,255,0.8)] dark:shadow-none"
-                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                      />
-                    )}
-                    <span className="relative z-20">PDF</span>
-                  </button>
-                  <button
-                    onClick={() => { if (!resumeText) setResumeText(' '); }}
-                    className={`relative px-4 md:px-5 py-1.5 md:py-2 rounded-[10px] md:rounded-[12px] text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 z-10 ${resumeText ? 'text-ink dark:text-white' : 'text-ink/30 hover:text-ink/50'}`}
-                  >
-                    {resumeText && (
-                      <motion.div
-                        layoutId="resume-mode-pill"
-                        className="absolute inset-0 bg-[#EBE9DC] dark:bg-[#1A1A1A] rounded-[10px] md:rounded-[12px] shadow-[2px_2px_5px_rgba(0,0,0,0.1),-1px_-1px_3px_rgba(255,255,255,0.8)] dark:shadow-none"
-                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                      />
-                    )}
-                    <span className="relative z-20">Text</span>
-                  </button>
+                  <span className="text-xs text-ink font-bold uppercase tracking-widest">Career History</span>
                 </div>
               </div>
 
@@ -282,6 +285,7 @@ export default function AnalyzePage() {
                       className="h-full"
                     >
                       <DropZone
+                        disabled={isAnalyzing}
                         onFileSelect={(f) => setFile(f)}
                         className="h-full min-h-[320px]"
                       />
@@ -292,11 +296,13 @@ export default function AnalyzePage() {
                       initial={{ opacity: 0, scale: 0.98 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.98 }}
-                      className="flex-1 rounded-[20px] overflow-hidden bg-black/[0.03] dark:bg-white/[0.02] shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.5)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)] border border-black/5 dark:border-white/5 transition-all focus-within:border-brand-teal/20"
+                      className="flex-1 rounded-[20px] overflow-hidden bg-black/[0.03] dark:bg-white/[0.02] shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.25)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)] border border-black/5 dark:border-white/5 transition-all focus-within:border-brand-teal/20"
                     >
                       <textarea
+                        disabled={isAnalyzing}
+                        aria-label="Resume Text"
                         placeholder="Paste your raw resume text here..."
-                        className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/20 bg-transparent focus:outline-none resize-none leading-relaxed"
+                        className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/50 bg-transparent focus:outline-none resize-none leading-relaxed"
                         value={resumeText === ' ' ? '' : resumeText}
                         onChange={(e) => setResumeText(e.target.value)}
                         autoFocus
@@ -304,18 +310,6 @@ export default function AnalyzePage() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
-
-              <div className="mt-4 flex items-center justify-between">
-                <p className="text-[10px] text-ink/30 font-medium uppercase tracking-[0.2em]">Identity Mapping</p>
-                {resumeText && (
-                  <button
-                    onClick={() => setResumeText('')}
-                    className="text-[10px] text-ink/40 hover:text-ink/60 font-bold uppercase tracking-widest transition-colors"
-                  >
-                    Back to Upload
-                  </button>
-                )}
               </div>
             </div>
           </div>
@@ -327,7 +321,7 @@ export default function AnalyzePage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  className="mb-8 px-6 py-3 rounded-full bg-brand-pink/10 border border-brand-pink/20 text-brand-pink text-[11px] font-bold uppercase tracking-widest"
+                  className="mb-8 px-6 py-3 rounded-full bg-brand-pink/10 border border-brand-pink/20 text-brand-pink text-xs font-bold uppercase tracking-widest"
                 >
                   {error}
                 </motion.div>
@@ -337,9 +331,10 @@ export default function AnalyzePage() {
             <div className="w-full max-w-[480px] relative group">
               <div className="absolute inset-0 bg-brand-teal/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
               <button
+                id="analyze-trigger-btn"
                 disabled={!isFormValid || isAnalyzing}
                 onClick={handleAnalyze}
-                className="relative w-full h-[56px] md:h-[64px] bg-ink text-canvas font-display font-bold text-[13px] md:text-[15px] uppercase tracking-[0.15em] rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-20 shadow-[0_15px_30px_rgba(0,0,0,0.15)] flex items-center justify-center gap-3"
+                className="relative w-full h-[56px] md:h-[64px] bg-brand-pink text-black font-display font-bold text-[13px] md:text-[15px] uppercase tracking-[0.15em] rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:bg-brand-pink/90 active:scale-[0.98] disabled:opacity-20 shadow-[0_15px_30px_rgba(255,107,157,0.3)] flex items-center justify-center gap-3"
               >
                 <AnimatePresence mode="wait">
                   {isAnalyzing ? (
@@ -360,7 +355,19 @@ export default function AnalyzePage() {
                           />
                         ))}
                       </div>
-                      <span className="text-[13px]">Processing Neural Map</span>
+                      <span className="text-[13px] relative overflow-hidden h-[20px] min-w-[250px] flex items-center" aria-live="polite">
+                        <AnimatePresence mode="popLayout">
+                          <motion.span
+                            key={quoteIndex}
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: -20, opacity: 0 }}
+                            className="absolute left-0 whitespace-nowrap"
+                          >
+                            {MOTIVATIONAL_QUOTES[quoteIndex]}
+                          </motion.span>
+                        </AnimatePresence>
+                      </span>
                     </motion.div>
                   ) : (
                     <motion.span
@@ -377,7 +384,7 @@ export default function AnalyzePage() {
               </button>
 
               <div className="mt-6 text-center">
-                <p className="text-[9px] md:text-[10px] text-ink/30 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] leading-relaxed max-w-[280px] md:max-w-none mx-auto">
+                <p className="text-xs text-ink/60 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] leading-relaxed max-w-[280px] md:max-w-none mx-auto">
                   Encryption Secured · AI-Powered Insights · Real-time Market Mapping
                 </p>
               </div>

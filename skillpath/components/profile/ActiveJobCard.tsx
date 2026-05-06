@@ -10,6 +10,7 @@ import { computeReadiness } from '@/lib/readiness';
 import type { ActiveJob, SkillState, TrackedSkill } from '@/types/active-job';
 import Link from 'next/link';
 import { incrementDailyTick } from './DailyGoalWidget';
+import { useAuth } from '@/context/AuthContext';
 
 
 interface ActiveJobCardProps {
@@ -19,12 +20,13 @@ interface ActiveJobCardProps {
 }
 
 export function ActiveJobCard({ job, onJobUpdate, onUnpin }: ActiveJobCardProps) {
+  const { getToken } = useAuth();
   const [expanded, setExpanded] = useState(true);
   const [nextSkill, setNextSkill] = useState<TrackedSkill | null>(null);
   const [showResources, setShowResources] = useState(false);
 
   const handleStateChange = useCallback(async (skill: string, state: SkillState) => {
-    const token = localStorage.getItem('token');
+    const token = await getToken();
     if (!token) {
       console.error('[SkillTrack] No auth token found');
       return;
@@ -105,7 +107,7 @@ export function ActiveJobCard({ job, onJobUpdate, onUnpin }: ActiveJobCardProps)
   }, [job, onJobUpdate]);
 
   const handleUnpin = async () => {
-    const token = localStorage.getItem('token');
+    const token = await getToken();
     await fetch('/api/active-job/archive', {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${token}` }

@@ -2,10 +2,13 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import { NeuralSocialProof } from './NeuralSocialProof';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring, useScroll } from 'framer-motion';
 import { ArrowRight, FileText, Sparkles, Lightbulb, X } from 'lucide-react';
 import { useUI } from '@/context/UIContext';
+import { Button } from '@/components/ui/Button';
+import { GenerativeArtScene } from '@/components/ui/anomalous-matter-hero';
 
 export function Hero() {
   const { loaded } = useUI();
@@ -26,6 +29,10 @@ export function Hero() {
     mouseX.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
     mouseY.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
   };
+
+  const { scrollY } = useScroll();
+  const bgY = useTransform(scrollY, [0, 1000], [0, 300]);
+  const bgSpringY = useSpring(bgY, { stiffness: 100, damping: 30 });
 
   const handleAction = () => {
     if (user) setIsAnalyzing(true);
@@ -53,13 +60,14 @@ export function Hero() {
   return (
     <section
       onMouseMove={handleMouseMove}
-      className="relative bg-canvas text-ink py-section px-8 lg:px-24 w-full flex justify-center min-h-[90vh] items-center overflow-hidden dot-grid"
+      className="relative bg-transparent text-ink py-section px-8 lg:px-24 w-full flex justify-center min-h-[95vh] items-center overflow-hidden dot-grid"
     >
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-canvas via-transparent to-canvas pointer-events-none" />
       {/* ── Main grid ────────────────────────────────────────────────── */}
       <div className="max-w-[1280px] w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
 
         {/* Left column */}
-          <motion.div 
+        <motion.div
           variants={stagger}
           initial="hidden"
           animate="visible"
@@ -72,7 +80,7 @@ export function Hero() {
               Career Intelligence
             </span>
           </motion.div>
-          
+
           {/* Headline */}
           <motion.div variants={fadeUp} style={{ willChange: 'transform, opacity' }}>
             <h1 className="font-display text-display-md lg:text-[72px] font-extrabold leading-[1.05] tracking-tighter text-ink">
@@ -80,16 +88,16 @@ export function Hero() {
               <span className="text-muted">with precision.</span>
             </h1>
           </motion.div>
-          
+
           {/* Body */}
-          <motion.p 
+          <motion.p
             variants={fadeUp}
             className="font-sans text-body-md lg:text-[18px] text-ink/70 max-w-md font-medium leading-relaxed"
             style={{ willChange: 'transform, opacity' }}
           >
             Analyze your current resume to uncover potential gaps and map your professional growth with deep learning insights.
           </motion.p>
-          
+
           {/* CTA */}
           <motion.div variants={fadeUp} style={{ willChange: 'transform, opacity' }}>
             <button
@@ -110,23 +118,8 @@ export function Hero() {
           </motion.div>
 
           {/* Social proof */}
-          <motion.div
-            variants={fadeUp}
-            className="flex items-center gap-5"
-            style={{ willChange: 'opacity' }}
-          >
-            <div className="flex -space-x-2.5">
-              {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className="h-9 w-9 rounded-full border-2 border-canvas bg-surface-strong"
-                  style={{ boxShadow: '0 2px 6px rgba(0,0,0,0.08)' }}
-                />
-              ))}
-            </div>
-            <p className="font-sans text-sm font-semibold text-muted">
-              Trusted by 2,000+ professionals.
-            </p>
+          <motion.div variants={fadeUp}>
+            <NeuralSocialProof />
           </motion.div>
         </motion.div>
 
@@ -137,13 +130,13 @@ export function Hero() {
           animate={loaded ? "visible" : "hidden"}
         >
           {/* Big Animated Glow - Optimized with Radial Gradient */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={loaded ? { 
+            animate={loaded ? {
               opacity: [0.15, 0.35, 0.15],
               scale: [1, 1.15, 1]
             } : {}}
-            transition={{ 
+            transition={{
               opacity: { duration: 4, repeat: Infinity, ease: "easeInOut" },
               scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
               delay: 1.5
@@ -351,12 +344,13 @@ export function Hero() {
             </motion.g>
           </svg>
 
+
           {/* ── Floating labels ── positioned relative to nodes ── */}
           <div className="absolute inset-0 pointer-events-none">
             {[
-              { delay: 1.2, top: '78%',  left: '18.75%', x: '-50%', label: 'Current State' },
-              { delay: 1.5, top: '53%',  left: '52%',    x: '0',    label: 'Learning Pipeline' },
-              { delay: 1.8, top: '22%',  right: '12%',   x: '0',    label: 'Optimized Outcome' },
+              { delay: 1.2, top: '78%', left: '18.75%', x: '-50%', label: 'Current State' },
+              { delay: 1.5, top: '53%', left: '52%', x: '0', label: 'Learning Pipeline' },
+              { delay: 1.8, top: '22%', right: '12%', x: '0', label: 'Optimized Outcome' },
             ].map(({ delay, top, left, right, x, label }) => (
               <motion.div
                 key={label}
@@ -373,14 +367,14 @@ export function Hero() {
             ))}
           </div>
         </motion.div>
-          </div>
-          
+      </div>
+
 
 
       {/* ── Analysis overlay ────────────────────────────────────────── */}
       <AnimatePresence>
         {isAnalyzing && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -393,8 +387,8 @@ export function Hero() {
 
             <motion.div
               initial={{ opacity: 0, scale: 0.94, y: 16 }}
-              animate={{ opacity: 1, scale: 1,    y: 0  }}
-              exit={{   opacity: 0, scale: 0.94, y: 16  }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 16 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as any }}
               className="relative w-full max-w-md mx-4 bg-surface-card rounded-2xl border border-hairline text-center"
               style={{
@@ -426,7 +420,7 @@ export function Hero() {
                     transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
                     className="absolute inset-1.5 rounded-full border-[2px] border-transparent border-t-muted/40"
                   />
-            </div>
+                </div>
 
                 <h2 className="font-display text-[26px] font-bold tracking-tight mb-3 text-ink">
                   Analyze Your Journey
@@ -462,9 +456,9 @@ export function Hero() {
                 >
                   Cancel
                 </button>
-            </div>
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
         )}
       </AnimatePresence>
     </section>

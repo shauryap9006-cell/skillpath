@@ -97,7 +97,7 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = ''
       onDrop={handleDrop}
       whileHover={{ scale: 1.005 }}
       whileTap={{ scale: 0.995 }}
-      className={`h-full min-h-[140px] w-full border-2 border-dashed rounded-[16px] flex items-center justify-center cursor-pointer transition-all duration-300 shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.5)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)]
+      className={`h-full min-h-[140px] w-full border-2 border-dashed rounded-[16px] flex items-center justify-center cursor-pointer transition-all duration-300 shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.25)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)]
         ${isDragging ? 'border-brand-teal bg-brand-teal/5' : 'border-ink/5 dark:border-white/5 bg-ink/[0.01] dark:bg-white/[0.01]'}
         hover:border-ink/20 dark:hover:border-white/20 hover:bg-ink/[0.03] dark:hover:bg-white/[0.03]
         ${className}

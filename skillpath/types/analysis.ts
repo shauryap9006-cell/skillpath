@@ -1,11 +1,19 @@
 // ---- Analysis Types ----
 
+export type ConfidenceLevel = 'never_used' | 'heard_of_it' | 'used_it' | 'comfortable' | 'strong';
+
 export interface SkillGap {
   skill: string;
   priority: number;
   weeks_to_learn: number;
   reason: string;
   in_mvc: boolean;
+  premium?: number;
+  trend?: Record<string, number>;
+  // Confidence self-assessment (optional — only set after user rates)
+  confidence_level?: ConfidenceLevel;
+  confidence_weight?: number;
+  adjusted_priority?: number;
 }
 
 export interface Resource {
@@ -35,6 +43,22 @@ export interface LearningPlan {
   weeks: WeekPlan[];
 }
 
+export interface TrajectoryInfo {
+  current_level: string;
+  current_role_label: string;
+  next_role_label: string | null;
+  salary_jump: number;
+  delta_skills: string[];
+  current_salary: number;
+  next_salary: number;
+  full_path: Array<{
+    level: string;
+    label: string;
+    salary: number;
+    skills: string[];
+  }>;
+}
+
 export interface AnalysisResult {
   share_token: string;
   gap_score: number;
@@ -52,6 +76,10 @@ export interface AnalysisResult {
   summary?: string;
   created_at: string;
   generated_resources?: Record<string, SkillResources>;
+  assessments?: Record<string, ConfidenceLevel>;
+  user_skills?: string[];
+  matched_skills?: string[];
+  trajectory?: TrajectoryInfo;
 }
 
 export interface AnalysisRequest {
@@ -70,7 +98,8 @@ export interface NormalizedSkill {
 
 export interface MVCSkillEntry {
   skill: string;
-  count: number;
+  count?: number;
+  frequency?: number;
 }
 
 export interface MVCRoleData {

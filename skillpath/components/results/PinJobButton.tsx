@@ -25,7 +25,7 @@ export function PinJobButton({
     isPinned ? 'done' : 'idle'
   );
   const router = useRouter();
-  const { user, openAuthModal } = useAuth();
+  const { user, openAuthModal, getToken } = useAuth();
 
   const handlePin = async () => {
     if (status !== 'idle') return;
@@ -38,7 +38,7 @@ export function PinJobButton({
     setStatus('loading');
 
     try {
-      const token = localStorage.getItem('token');
+      const token = await getToken();
       const res = await fetch('/api/active-job', {
         method: 'POST',
         headers: {

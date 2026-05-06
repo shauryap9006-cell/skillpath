@@ -1,20 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { adminDb } from '@/lib/firebase-admin';
-import { getAuthUser } from '@/lib/auth-helpers';
+import { getDb } from '@/lib/firebase-admin';
+import { getAuthUserSafe } from '@/lib/auth-helpers';
 import { computeReadiness, nextPinColor } from '@/lib/readiness';
 import type { ActiveJob, TrackedSkill, SkillState } from '@/types/active-job';
 
 // ── GET — fetch active job ──────────────────────────────────────────────────
 export async function GET(req: NextRequest) {
   try {
-    const user = await getAuthUser(req);
+    const user = await getAuthUserSafe(req);
     if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
 
-    if (!adminDb) {
-      return NextResponse.json({ error: 'database_unavailable' }, { status: 500 });
+    let db;
+    try { db = getDb(); } catch {
+      return NextResponse.json({ error: 'database_unavailable' }, { status: 503 });
     }
 
-    const doc = await adminDb.collection('active_jobs').doc(user.uid).get();
+    const doc = await db.collection('active_jobs').doc(user.uid).get();
     if (!doc.exists) return NextResponse.json({ active_job: null });
 
     return NextResponse.json({ active_job: doc.data() as ActiveJob });
@@ -27,11 +28,12 @@ export async function GET(req: NextRequest) {
 // ── POST — pin a job ────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
   try {
-    const user = await getAuthUser(req);
+    const user = await getAuthUserSafe(req);
     if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
 
-    if (!adminDb) {
-      return NextResponse.json({ error: 'database_unavailable' }, { status: 500 });
+    let db;
+    try { db = getDb(); } catch {
+      return NextResponse.json({ error: 'database_unavailable' }, { status: 503 });
     }
 
     let body: any;
@@ -46,10 +48,10 @@ export async function POST(req: NextRequest) {
     }
 
     // Archive the existing active job first
-    const existing = await adminDb.collection('active_jobs').doc(user.uid).get();
+    const existing = await db.collection('active_jobs').doc(user.uid).get();
     if (existing.exists) {
       const prev = existing.data() as ActiveJob;
-      await adminDb
+      await db
         .collection('job_history')
         .doc(user.uid)
         .collection('jobs')
@@ -62,7 +64,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Get history to pick a fresh color
-    const historySnap = await adminDb
+    const historySnap = await db
       .collection('job_history').doc(user.uid).collection('jobs')
       .orderBy('archived_at', 'desc').limit(10).get();
     const usedColors = historySnap.docs.map(d => d.data().color as string);
@@ -86,7 +88,7 @@ export async function POST(req: NextRequest) {
       readiness_score: computeReadiness(skills),
     };
 
-    await adminDb.collection('active_jobs').doc(user.uid).set(activeJob);
+    await db.collection('active_jobs').doc(user.uid).set(activeJob);
 
     return NextResponse.json({ active_job: activeJob }, { status: 201 });
   } catch (e: any) {
@@ -99,16 +101,17 @@ export async function POST(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
   console.log('--- [Skill PATCH] Request Started ---');
   try {
-    const user = await getAuthUser(req);
+    const user = await getAuthUserSafe(req);
     console.log('[Skill PATCH] user:', user?.uid ?? 'NULL');
 
     if (!user) {
       return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
     }
 
-    if (!adminDb) {
+    let db;
+    try { db = getDb(); } catch {
       console.error('[Skill PATCH] Database not initialized');
-      return NextResponse.json({ error: 'database_unavailable' }, { status: 500 });
+      return NextResponse.json({ error: 'database_unavailable' }, { status: 503 });
     }
 
     let body: { skill: string; state: SkillState };
@@ -126,7 +129,7 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: 'missing_fields' }, { status: 400 });
     }
 
-    const ref = adminDb.collection('active_jobs').doc(user.uid);
+    const ref = db.collection('active_jobs').doc(user.uid);
     const doc = await ref.get();
 
     console.log('[Skill PATCH] doc exists:', doc.exists, 'uid:', user.uid);

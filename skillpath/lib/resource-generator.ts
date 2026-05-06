@@ -1,4 +1,4 @@
-import { adminDb } from './firebase-admin';
+import { getDb } from './firebase-admin';
 import Groq from 'groq-sdk';
 import { generateResourcesPrompt } from '../prompts/generate-resources';
 import type { Resource, SkillResources } from '../types/analysis';
@@ -78,19 +78,18 @@ async function getCachedResources(key: string): Promise<SkillResources | null> {
   const cached = globalCache.get(key);
   if (cached && cached.expiresAt > Date.now()) return cached.data;
 
-  if (adminDb) {
-    try {
-      const doc = await adminDb.collection('resources_cache').doc(key).get();
-      if (doc.exists) {
-        const data = doc.data();
-        if (data && data.expiresAt > Date.now()) {
-          globalCache.set(key, { data: data.data, expiresAt: data.expiresAt });
-          return data.data as SkillResources;
-        }
+  try {
+    const db = getDb();
+    const doc = await db.collection('resources_cache').doc(key).get();
+    if (doc.exists) {
+      const data = doc.data();
+      if (data && data.expiresAt > Date.now()) {
+        globalCache.set(key, { data: data.data, expiresAt: data.expiresAt });
+        return data.data as SkillResources;
       }
-    } catch (e) {
-      console.warn('Error reading from Firestore cache:', e);
     }
+  } catch (e) {
+    console.warn('Error reading from Firestore cache:', e);
   }
 
   return null;
@@ -100,16 +99,15 @@ async function setCachedResources(key: string, data: SkillResources) {
   const expiresAt = Date.now() + 7 * 24 * 60 * 60 * 1000;
   globalCache.set(key, { data, expiresAt });
 
-  if (adminDb) {
-    try {
-      await adminDb.collection('resources_cache').doc(key).set({
-        data,
-        expiresAt,
-        createdAt: new Date().toISOString(),
-      });
-    } catch (e) {
-      console.warn('Error writing to Firestore cache:', e);
-    }
+  try {
+    const db = getDb();
+    await db.collection('resources_cache').doc(key).set({
+      data,
+      expiresAt,
+      createdAt: new Date().toISOString(),
+    });
+  } catch (e) {
+    console.warn('Error writing to Firestore cache:', e);
   }
 }
 
@@ -167,23 +165,22 @@ export async function generateResources(
 
   // ── Fetch optional DB entries ──────────────────────────────────────────────
   let resourceDbEntries = 'No static entries found.';
-  if (adminDb) {
-    try {
-      const snapshot = await adminDb
-        .collection('resources')
-        .where('skill', '==', skill)
-        .limit(10)
-        .get();
-      if (!snapshot.empty) {
-        resourceDbEntries = JSON.stringify(
-          snapshot.docs.map((doc) => doc.data()),
-          null,
-          2
-        );
-      }
-    } catch (e) {
-      console.warn('Error reading resource DB:', e);
+  try {
+    const db = getDb();
+    const snapshot = await db
+      .collection('resources')
+      .where('skill', '==', skill)
+      .limit(10)
+      .get();
+    if (!snapshot.empty) {
+      resourceDbEntries = JSON.stringify(
+        snapshot.docs.map((doc) => doc.data()),
+        null,
+        2
+      );
     }
+  } catch (e) {
+    console.warn('Error reading resource DB:', e);
   }
 
   const prompt = generateResourcesPrompt(
@@ -251,9 +248,10 @@ export async function generateResources(
     // ── Persist ────────────────────────────────────────────────────────────
     await setCachedResources(cacheKey, parsed);
 
-    if (adminDb && analysisId) {
+    if (analysisId) {
       try {
-        await adminDb
+        const db = getDb();
+        await db
           .collection('analyses')
           .doc(analysisId)
           .set({ generated_resources: { [skill]: parsed } }, { merge: true });

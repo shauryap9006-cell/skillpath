@@ -1,20 +1,21 @@
 // app/share/[id]/page.tsx
-import { adminDb } from '@/lib/firebase-admin';
+import { getDb } from '@/lib/firebase-admin';
 import { notFound } from 'next/navigation';
 import type { UserProfile } from '@/types/profile';
 import type { ActiveJob } from '@/types/active-job';
 
 export default async function SharePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  if (!adminDb) return notFound();
+  let db;
+  try { db = getDb(); } catch { return notFound(); }
 
-  const shareSnap = await adminDb.collection('share_cards').doc(id).get();
+  const shareSnap = await db.collection('share_cards').doc(id).get();
   if (!shareSnap.exists) return notFound();
 
   const { uid } = shareSnap.data()!;
   const [profileSnap, jobSnap] = await Promise.all([
-    adminDb.collection('profiles').doc(uid).get(),
-    adminDb.collection('active_jobs').doc(uid).get(),
+    db.collection('profiles').doc(uid).get(),
+    db.collection('active_jobs').doc(uid).get(),
   ]);
 
   if (!profileSnap.exists) return notFound();

@@ -64,12 +64,12 @@ export function calculateCountdown(
   gaps: Array<{ skill: string; weeks_to_learn: number }>,
   hoursPerDay: number = 1
 ): CountdownResult {
-  // Assume parallel learning factor of 2 (learning 2 things at once)
-  const rawTotalWeeks = gaps.reduce((sum, g) => sum + g.weeks_to_learn, 0);
-  const totalWeeks = Math.ceil(rawTotalWeeks / 2);
+  // Total weeks required at 1hr/day is simply the sum.
+  // We no longer divide by 2, because 21 hours of React + 21 hours of Node = 42 days (6 weeks) at 1hr/day.
+  const totalWeeks = gaps.reduce((sum, g) => sum + g.weeks_to_learn, 0);
 
   // 1 week = 7 hours at 1hr/day
-  const totalHours = totalWeeks * 7 * hoursPerDay;
+  const totalHours = totalWeeks * 7;
 
   // Actual days needed = totalHours / hoursPerDay
   const daysNeeded = Math.ceil(totalHours / hoursPerDay);

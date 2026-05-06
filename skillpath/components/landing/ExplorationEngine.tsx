@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight, Map, Compass, Target } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 import { useRouter } from 'next/navigation';
 
 import { useTheme } from 'next-themes';
@@ -42,7 +43,7 @@ export function ExplorationEngine() {
   ];
 
   return (
-    <section id="exploration" className="relative bg-canvas py-section px-8 flex justify-center border-t border-hairline overflow-hidden">
+    <section id="exploration" className="relative bg-transparent py-section px-8 flex justify-center border-t border-hairline overflow-hidden">
       {/* Dynamic Background Shader */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
         <NeuralBackground 
@@ -61,8 +62,9 @@ export function ExplorationEngine() {
         {/* Left Side: Explanation */}
         <div className="flex flex-col items-start text-left">
           <motion.div 
-            initial={{ opacity: 1, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-hairline bg-surface-soft text-[10px] font-black uppercase tracking-widest text-muted mb-8"
           >
             <Sparkles className="w-3 h-3 text-brand-pink" />
@@ -70,8 +72,10 @@ export function ExplorationEngine() {
           </motion.div>
 
           <motion.h2 
-            initial={{ opacity: 1, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
             className="font-display text-[48px] lg:text-[64px] text-ink leading-[1.05] tracking-tight mb-8"
           >
             Uncover the exact <br />
@@ -86,15 +90,14 @@ export function ExplorationEngine() {
             Reverse-engineer the job market. Browse 30+ career paths to discover the exact skills, tech stacks, and benchmarks top-tier companies demand—empowering you to level up proactively.
           </motion.p>
 
-          <motion.button 
-            initial={{ opacity: 1, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
+          <Button 
+            variant="primary"
             onClick={handleExplore}
-            className="bg-primary text-on-primary font-sans font-bold uppercase tracking-widest text-[13px] px-xl py-[16px] h-[52px] rounded-xl flex items-center gap-3 hover:bg-primary-active transition-all active:scale-[0.98] shadow-lg tactile-button"
+            className="h-[56px] px-8 rounded-xl gap-3 shadow-lg"
           >
-            EXPLORE CAREER PATHS
+            Explore Career Paths
             <ArrowRight className="w-5 h-5" />
-          </motion.button>
+          </Button>
         </div>
 
         {/* Right Side: Feature Highlights */}
@@ -102,9 +105,11 @@ export function ExplorationEngine() {
           {featureHighlights.map((feature, i) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 1, x: 0 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="p-lg rounded-xl bg-surface-strong/50 border border-hairline flex items-start gap-6 tactile-card"
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.1 + 0.3, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+              className="p-lg rounded-[24px] bg-white/40 dark:bg-black/20 backdrop-blur-md border border-white/20 dark:border-white/5 flex items-start gap-6 tactile-card group overflow-hidden"
             >
 
               <div className="w-12 h-12 rounded-lg bg-canvas flex items-center justify-center shadow-sm border border-hairline flex-shrink-0">

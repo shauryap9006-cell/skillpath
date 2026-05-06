@@ -54,22 +54,27 @@ export function Preloader({ onComplete }: PreloaderProps) {
 
     setQuote(MOTIVATIONAL_LINES[Math.floor(Math.random() * MOTIVATIONAL_LINES.length)]);
 
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setIsVisible(false);
-            setLoaded(true);
-            if (onComplete) onComplete();
-          }, 600); // Short delay as in source
-          return 100;
-        }
-        return prev + Math.floor(Math.random() * 8) + 1; // source increments
-      });
-    }, 100);
+    const handleLoad = () => {
+      setProgress(100);
+      setTimeout(() => {
+        setIsVisible(false);
+        setLoaded(true);
+        if (onComplete) onComplete();
+      }, 400); // Brief pause for the exit animation to feel natural
+    };
 
-    return () => clearInterval(interval);
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+      // Fallback: If assets take too long (>2s), proceed anyway for better UX
+      const fallback = setTimeout(handleLoad, 2000);
+      
+      return () => {
+        window.removeEventListener('load', handleLoad);
+        clearTimeout(fallback);
+      };
+    }
   }, [setLoaded, onComplete, isHomePage]);
 
   if (!hasMounted || !isHomePage) return null;

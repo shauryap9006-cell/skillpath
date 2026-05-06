@@ -7,6 +7,7 @@ import { ProgressBar } from '@/components/ui/ProgressBar';
 import DotField from '@/components/ui/DotField';
 import { getHistory, removeFromHistory, clearHistory, type HistoryEntry } from '@/lib/history';
 import { motion } from 'framer-motion';
+import { Compass, Target } from 'lucide-react';
 
 export default function HistoryPage() {
   const [entries, setEntries] = useState<HistoryEntry[]>([]);
@@ -104,12 +105,27 @@ export default function HistoryPage() {
                   transition={{ duration: 0.5, ease: "easeOut" }}
                   className="group relative bg-surface-card border border-hairline rounded-[24px] p-8 hover:border-primary/50 transition-all duration-300 shadow-sm"
                 >
-                  <Link href={`/results/${entry.share_token}`} className="absolute inset-0 z-10 rounded-[24px]" />
+                  <Link 
+                    href={entry.type === 'explore' ? `/explore/${entry.share_token}` : `/results/${entry.share_token}`} 
+                    className="absolute inset-0 z-10 rounded-[24px]" 
+                  />
 
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     {/* Left: Info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-4 mb-4">
+                        {entry.type === 'explore' ? (
+                           <div className="flex items-center gap-1 text-brand-pink">
+                             <Compass size={14} />
+                             <span className="font-sans font-bold text-[10px] tracking-widest uppercase">Explore</span>
+                           </div>
+                        ) : (
+                           <div className="flex items-center gap-1 text-primary">
+                             <Target size={14} />
+                             <span className="font-sans font-bold text-[10px] tracking-widest uppercase">Analyze</span>
+                           </div>
+                        )}
+                        <span className="w-1 h-1 rounded-full bg-hairline" />
                         <span className="font-sans font-bold text-[11px] text-muted tracking-widest uppercase">
                           {new Date(entry.created_at).toLocaleDateString('en-US', {
                             month: 'short',
@@ -122,7 +138,7 @@ export default function HistoryPage() {
                         </span>
                       </div>
                       <p className="font-sans text-body-lg text-ink font-semibold truncate mb-4">
-                        {entry.jd_preview || 'Job analysis'}
+                        {entry.jd_preview || (entry.type === 'explore' ? 'Role Exploration' : 'Job analysis')}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {entry.mvc_skills.slice(0, 4).map((skill) => (
@@ -143,12 +159,16 @@ export default function HistoryPage() {
 
                     {/* Right: Score + Actions */}
                     <div className="flex items-center gap-8">
-                      <div className="text-right">
-                        <div className="flex items-baseline gap-1 justify-end mb-2">
-                          <span className="font-display text-title-xl text-ink">{entry.gap_score}</span>
-                          <span className="font-sans font-bold text-[12px] text-muted">/100</span>
-                        </div>
-                        <ProgressBar progress={entry.gap_score} className="w-24 mb-2" />
+                      <div className="text-right flex flex-col items-end">
+                        {entry.type !== 'explore' && entry.gap_score !== undefined && (
+                          <>
+                            <div className="flex items-baseline gap-1 justify-end mb-2">
+                              <span className="font-display text-title-xl text-ink">{entry.gap_score}</span>
+                              <span className="font-sans font-bold text-[12px] text-muted">/100</span>
+                            </div>
+                            <ProgressBar progress={entry.gap_score} className="w-24 mb-2" />
+                          </>
+                        )}
                         <span className="font-sans font-bold text-[11px] tracking-widest uppercase text-muted">
                           {entry.weeks_required} weeks
                         </span>

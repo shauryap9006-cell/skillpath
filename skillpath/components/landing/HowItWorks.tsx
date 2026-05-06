@@ -36,8 +36,10 @@ export function HowItWorks() {
   ];
 
   return (
-    <section id="how-it-works" className="bg-canvas py-section px-8 lg:px-24 flex justify-center">
-      <div className="max-w-[1280px] w-full">
+    <section id="how-it-works" className="relative bg-transparent py-section px-8 lg:px-24 flex justify-center overflow-hidden">
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-canvas via-transparent to-canvas pointer-events-none opacity-60" />
+
+      <div className="max-w-[1280px] w-full relative z-10">
         <div className="flex flex-col items-center text-center mb-24">
           <span className="font-sans text-caption-uppercase text-ink mb-4 uppercase tracking-widest font-semibold">The Methodology</span>
           <h2 className="font-display text-display-lg lg:text-display-xl text-ink max-w-4xl">
@@ -49,11 +51,11 @@ export function HowItWorks() {
           {steps.map((step, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="rounded-xl p-xl flex flex-col min-h-[500px] relative overflow-hidden tactile-card"
+              initial={{ opacity: 0, y: 60, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 1.2, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="rounded-[32px] p-xl flex flex-col min-h-[500px] relative overflow-hidden bg-white/40 dark:bg-black/20 backdrop-blur-md border border-white/20 dark:border-white/5 tactile-card"
             >
               <div className="flex justify-between items-start mb-8 relative z-10">
                 <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center shadow-md">

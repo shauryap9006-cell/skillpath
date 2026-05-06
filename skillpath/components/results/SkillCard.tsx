@@ -4,10 +4,12 @@ import React, { useState } from 'react';
 import {
   Play, Sparkles, CheckCircle2, AlertCircle,
   ChevronDown, Clock, RotateCcw, Layers, Zap,
+  TrendingUp, ArrowUpRight, DollarSign
 } from 'lucide-react';
 import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import { ResourceCard } from './ResourceCard';
-import type { SkillGap, Resource, SkillResources } from '@/types/analysis';
+import { ConfidenceStrip } from './ConfidenceStrip';
+import type { SkillGap, Resource, SkillResources, ConfidenceLevel } from '@/types/analysis';
 
 interface SkillCardProps {
   gap: SkillGap;
@@ -23,6 +25,9 @@ interface SkillCardProps {
   onTrackingChange?: (skill: string, state: 'not_started' | 'in_progress' | 'learned') => Promise<void>;
   trackingColor?: string;
   colorVariant?: string;
+  // Confidence self-assessment
+  confidenceLevel?: ConfidenceLevel;
+  onConfidenceChange?: (skill: string, level: ConfidenceLevel) => void;
 }
 
 type Status = 'idle' | 'loading' | 'done' | 'error';
@@ -56,7 +61,8 @@ const slide: any = {
 const SkillCardComponent: React.FC<SkillCardProps> = ({
   gap, index, analysisId, role, seniority, companyType,
   initialResources, autoGenerate = false,
-  trackingState = 'not_started', onTrackingChange, trackingColor
+  trackingState = 'not_started', onTrackingChange, trackingColor,
+  confidenceLevel, onConfidenceChange
 }) => {
   const [status, setStatus] = useState<Status>(initialResources ? 'done' : 'idle');
   const [skillResources, setSkillResources] = useState<SkillResources | null>(() => {
@@ -177,6 +183,20 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
                     MVC
                   </span>
                 )}
+                {/* Phase 2: Salary ROI Badge */}
+                {gap.premium && gap.premium > 0 && (
+                  <span className="flex items-center gap-1 px-2 py-0.5 rounded-sm bg-brand-ochre/10 border border-brand-ochre/20 text-[9px] text-brand-ochre font-bold tracking-widest uppercase">
+                    <DollarSign size={8} />
+                    +${Math.round(gap.premium / 1000)}k Market Value
+                  </span>
+                )}
+                {/* Phase 1: Trend Indicator */}
+                {gap.trend && Object.keys(gap.trend).length > 0 && (
+                  <span className="flex items-center gap-1 px-2 py-0.5 rounded-sm bg-brand-lavender/10 border border-brand-lavender/20 text-[9px] text-brand-lavender font-bold tracking-widest uppercase">
+                    <TrendingUp size={8} />
+                    Trending
+                  </span>
+                )}
                 <span className="px-2 py-0.5 rounded-sm bg-surface-soft border border-hairline text-[9px] text-muted font-bold uppercase tracking-widest">
                   {level}
                 </span>
@@ -202,6 +222,18 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
           <p className="font-sans text-body-md text-muted leading-relaxed mt-5 max-w-2xl">
             {gap.reason}
           </p>
+
+          {/* Confidence Self-Assessment Strip */}
+          {onConfidenceChange && (
+            <div className="mt-5 pt-4 border-t border-hairline/50">
+              <ConfidenceStrip
+                skill={gap.skill}
+                value={confidenceLevel ?? 'never_used'}
+                onChange={onConfidenceChange}
+                accentColor={trackingColor}
+              />
+            </div>
+          )}
         </div>
 
         {/* ── Strategic Focus (slides in) ───────────────────────── */}

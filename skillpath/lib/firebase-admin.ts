@@ -1,63 +1,135 @@
-import { initializeApp, getApps, cert, type App } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
-import { getAuth } from 'firebase-admin/auth';
+/**
+ * Firebase Admin SDK — Bulletproof Lazy Singleton
+ *
+ * Strategy: Base64-encoded service account (FIREBASE_SERVICE_ACCOUNT_BASE64)
+ * with fallback to individual env vars.
+ *
+ * Key design decisions:
+ * - Getter functions, NOT top-level constants (retries init on every call)
+ * - Zero PEM manipulation — trust the JSON as-is
+ * - Single clear error message on failure
+ */
 
-let app: App | null = null;
+import { initializeApp, getApps, cert, type App } from 'firebase-admin/app';
+import { getFirestore, type Firestore } from 'firebase-admin/firestore';
+import { getAuth, type Auth } from 'firebase-admin/auth';
+
+let _app: App | null = null;
+let _initAttempted = false;
+let _initError: string | null = null;
 
 function initAdmin(): App | null {
-  if (getApps().length > 0) return getApps()[0];
+  // If already initialized by us or another module, reuse it
+  if (getApps().length > 0) {
+    _app = getApps()[0];
+    return _app;
+  }
 
-  // ── Strategy 1: full service account JSON as base64 (recommended) ──
+  // Strategy 1: Base64-encoded full service account JSON
   const b64 = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64;
   if (b64) {
     try {
       const json = Buffer.from(b64, 'base64').toString('utf-8');
       const sa = JSON.parse(json);
-      console.log('[Firebase Admin] Initializing via base64 service account');
-      return initializeApp({ credential: cert(sa) });
-    } catch (e) {
-      console.error('[Firebase Admin] Base64 init failed:', e);
+      if (sa.private_key) {
+        sa.private_key = sa.private_key.replace(/\\n/g, '\n');
+        console.log(`[Firebase Admin] Strategy: Base64 | Key length: ${sa.private_key.length}`);
+      }
+      _app = initializeApp({ credential: cert(sa) }, 'base64');
+      console.log('[Firebase Admin] ✓ Initialized via Base64 service account');
+      return _app;
+    } catch (e: any) {
+      console.error('[Firebase Admin] Base64 strategy failed:', e.message);
+      _initError = `Base64: ${e.message}`;
+      if (e.message.includes('ASN.1') || e.message.includes('PEM')) {
+        _initError += ' (The private key in .env.local is likely corrupted or truncated. Please provide a fresh one.)';
+      }
     }
   }
 
-  // ── Strategy 2: individual env vars with proper key handling ──
+  // Strategy 2: Individual environment variables
   const projectId = process.env.FIREBASE_PROJECT_ID;
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-  const rawKey = process.env.FIREBASE_PRIVATE_KEY;
+  const privateKey = process.env.FIREBASE_PRIVATE_KEY;
 
-  if (projectId && clientEmail && rawKey) {
+  if (projectId && clientEmail && privateKey) {
     try {
-      // Handle every possible encoding Vercel might apply
-      let privateKey = rawKey;
-
-      // Remove surrounding quotes if Vercel added them
-      if (privateKey.startsWith('"') && privateKey.endsWith('"')) {
-        privateKey = privateKey.slice(1, -1);
-      }
-
-      // Replace escaped newlines with real newlines
-      privateKey = privateKey.replace(/\\n/g, '\n');
-
-      // Verify it looks like a PEM key
-      if (!privateKey.includes('-----BEGIN PRIVATE KEY-----')) {
-        throw new Error('Key does not look like a valid PEM private key');
-      }
-
-      console.log('[Firebase Admin] Initializing via individual env vars');
-      return initializeApp({
-        credential: cert({ projectId, clientEmail, privateKey }),
+      // Replace literal \n with actual newlines (common in env vars)
+      const formattedKey = privateKey.replace(/\\n/g, '\n');
+      _app = initializeApp({
+        credential: cert({ projectId, clientEmail, privateKey: formattedKey }),
       });
-    } catch (e) {
-      console.error('[Firebase Admin] Individual vars init failed:', e);
+      console.log('[Firebase Admin] ✓ Initialized via individual env vars');
+      return _app;
+    } catch (e: any) {
+      console.error('[Firebase Admin] Individual vars strategy failed:', e.message);
+      _initError = `Individual: ${e.message}`;
     }
   }
 
-  console.error('[Firebase Admin] No valid credentials found. Set FIREBASE_SERVICE_ACCOUNT_BASE64');
+  if (!b64 && !projectId) {
+    _initError = 'No Firebase credentials found. Set FIREBASE_SERVICE_ACCOUNT_BASE64 or FIREBASE_PROJECT_ID + FIREBASE_CLIENT_EMAIL + FIREBASE_PRIVATE_KEY.';
+    console.error(`[Firebase Admin] ✗ ${_initError}`);
+  }
+
   return null;
 }
 
-app = initAdmin();
+let _db: Firestore | null = null;
 
-export const adminDb = app ? getFirestore(app) : null;
-export const adminAuth = app ? getAuth(app) : null;
-export default app;
+/**
+ * Get the Firestore database instance.
+ * Retries initialization on every call if previous attempt failed.
+ */
+export function getDb(): Firestore {
+  if (_db) return _db;
+
+  if (!_app) {
+    _app = initAdmin();
+    _initAttempted = true;
+  }
+  if (!_app) {
+    throw new Error(`Firebase Admin not initialized: ${_initError || 'Unknown error'}`);
+  }
+  _db = getFirestore(_app);
+  _db.settings({ ignoreUndefinedProperties: true });
+  return _db;
+}
+
+/**
+ * Get the Firebase Auth instance.
+ * Retries initialization on every call if previous attempt failed.
+ */
+export function getAdminAuth(): Auth {
+  if (!_app) {
+    _app = initAdmin();
+    _initAttempted = true;
+  }
+  if (!_app) {
+    throw new Error(`Firebase Admin not initialized: ${_initError || 'Unknown error'}`);
+  }
+  return getAuth(_app);
+}
+
+/**
+ * Check if Firebase Admin is ready without throwing.
+ */
+export function isFirebaseReady(): boolean {
+  if (_app) return true;
+  try {
+    _app = initAdmin();
+    return _app !== null;
+  } catch {
+    return false;
+  }
+}
+
+// Legacy exports for backward compatibility during migration
+// These use the lazy getter pattern internally
+export const adminDb = (() => {
+  try { return getDb(); } catch { return null; }
+})();
+
+export const adminAuth = (() => {
+  try { return getAdminAuth(); } catch { return null; }
+})();

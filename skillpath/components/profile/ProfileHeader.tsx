@@ -14,7 +14,7 @@ interface ProfileHeaderProps {
 }
 
 export function ProfileHeader({ profile, onUpdate }: ProfileHeaderProps) {
-  const { logout } = useAuth();
+  const { logout, getToken } = useAuth();
   const [editing, setEditing] = useState(false);
   // ... (keeping other states)
   const [name, setName] = useState(profile.display_name);
@@ -25,7 +25,7 @@ export function ProfileHeader({ profile, onUpdate }: ProfileHeaderProps) {
 
   const handleSave = async () => {
     setSaving(true);
-    const token = localStorage.getItem('token');
+    const token = await getToken();
     const res = await fetch('/api/profile', {
       method: 'PATCH',
       headers: {
@@ -43,7 +43,7 @@ export function ProfileHeader({ profile, onUpdate }: ProfileHeaderProps) {
 
   const handleShare = async () => {
     setShareLoading(true);
-    const token = localStorage.getItem('token');
+    const token = await getToken();
     const res = await fetch('/api/profile/share', {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${token}` }
@@ -57,7 +57,7 @@ export function ProfileHeader({ profile, onUpdate }: ProfileHeaderProps) {
 
   return (
     <div className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-8 pb-10 border-b border-hairline/50">
-      <div className="flex flex-col md:flex-row items-center gap-8 w-full">
+      <div className="flex flex-col md:flex-row items-center gap-8 flex-1">
         {/* Avatar - High-Fidelity Clay Style */}
         <div
           className="w-24 h-24 rounded-[36px] flex items-center justify-center text-white font-display font-bold text-3xl shrink-0 shadow-2xl relative group overflow-hidden"

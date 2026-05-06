@@ -20,8 +20,8 @@ export function Navbar() {
 
   const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'Resources', href: '/#features' },
-    { label: 'Explore', href: '/explore' },
+    { label: 'Skill Battle', href: '/battle' },
+    { label: 'Exploration Engine', href: '/explore' },
     { label: 'Analyze', href: '/analyze' },
     { label: 'History', href: '/history' },
   ];

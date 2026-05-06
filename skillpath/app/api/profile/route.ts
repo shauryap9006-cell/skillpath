@@ -1,20 +1,25 @@
 // app/api/profile/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { adminDb, adminAuth } from '@/lib/firebase-admin';
-import { getAuthUser } from '@/lib/auth-helpers';
+import { getDb, getAdminAuth } from '@/lib/firebase-admin';
+import { getAuthUserSafe } from '@/lib/auth-helpers';
 import { nameToColor } from '@/lib/profile-utils';
 import type { UserProfile } from '@/types/profile';
 
 export async function GET(req: NextRequest) {
-  const user = await getAuthUser(req);
-  if (!user || !adminDb) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+  const user = await getAuthUserSafe(req);
+  if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+
+  let db;
+  try { db = getDb(); } catch {
+    return NextResponse.json({ error: 'database_unavailable' }, { status: 503 });
+  }
 
   const { searchParams } = new URL(req.url);
   const nameHint = searchParams.get('name') || user.name || 'Skill Explorer';
   const emailHint = searchParams.get('email') || user.email || '';
 
   try {
-    const ref = adminDb.collection('profiles').doc(user.uid);
+    const ref = db.collection('profiles').doc(user.uid);
     const snap = await ref.get();
 
     if (snap.exists) {
@@ -31,14 +36,15 @@ export async function GET(req: NextRequest) {
     let name = nameHint;
     let email = emailHint;
 
-    if (adminAuth && !email) {
-      try {
-        const authUser = await adminAuth.getUser(user.uid);
+    try {
+      const authService = getAdminAuth();
+      if (!email) {
+        const authUser = await authService.getUser(user.uid);
         name = authUser.displayName || authUser.email?.split('@')[0] || name;
         email = authUser.email ?? email;
-      } catch (e) {
-        console.warn('[Profile GET] Could not find user in Firebase Auth, using fallback info.');
       }
+    } catch (e) {
+      console.warn('[Profile GET] Could not fetch from Firebase Auth, using fallback info.');
     }
 
     const profile: UserProfile = {
@@ -61,8 +67,13 @@ export async function GET(req: NextRequest) {
 }
 
 export async function PATCH(req: NextRequest) {
-  const user = await getAuthUser(req);
-  if (!user || !adminDb) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+  const user = await getAuthUserSafe(req);
+  if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+
+  let db;
+  try { db = getDb(); } catch {
+    return NextResponse.json({ error: 'database_unavailable' }, { status: 503 });
+  }
 
   let body: { display_name?: string; target_role?: string };
   try { body = await req.json(); }
@@ -78,7 +89,7 @@ export async function PATCH(req: NextRequest) {
       update.target_role = body.target_role.trim().slice(0, 80);
     }
 
-    await adminDb.collection('profiles').doc(user.uid).update(update);
+    await db.collection('profiles').doc(user.uid).update(update);
     return NextResponse.json({ updated: true });
   } catch (e) {
     console.error('[Profile PATCH]', e);

@@ -1,20 +1,27 @@
+/**
+ * Explore Results Page — Server Component
+ * 
+ * Fetches exploration data from Firestore and renders with client sub-components.
+ * NO client-only imports (framer-motion, etc.) allowed at this level.
+ */
+
 import { notFound } from 'next/navigation';
-import { adminDb } from '@/lib/firebase-admin';
-import { Navbar } from '@/components/landing/Navbar';
-import { Footer } from '@/components/landing/CtaSection';
+import { getDb } from '@/lib/firebase-admin';
 import SkillMap from '@/components/explore/SkillMap';
 import ExploreStats from '@/components/explore/ExploreStats';
 import ExploreCTA from '@/components/explore/ExploreCTA';
-import { motion } from 'framer-motion';
-
-// Note: Framer motion needs a client component wrapper or "use client"
-// I'll put the layout logic here and import client components for visuals.
+import { Footer } from '@/components/landing/CtaSection';
 
 async function getExploration(token: string) {
-  if (!adminDb) return null;
-  const doc = await adminDb.collection('explorations').doc(token).get();
-  if (!doc.exists) return null;
-  return doc.data();
+  try {
+    const db = getDb();
+    const doc = await db.collection('explorations').doc(token).get();
+    if (!doc.exists) return null;
+    return doc.data();
+  } catch (e) {
+    console.error('[Explore Results] Failed to fetch exploration:', e);
+    return null;
+  }
 }
 
 export default async function ExploreResultsPage({ params }: { params: Promise<{ share_token: string }> }) {
@@ -50,11 +57,11 @@ export default async function ExploreResultsPage({ params }: { params: Promise<{
             <div className="relative z-10">
               <span className="font-bold text-[10px] text-brand-teal uppercase tracking-[0.2em] mb-8 block">The Interview Gatekeepers</span>
               <h2 className="font-display text-display-md text-ink mb-10 max-w-2xl leading-tight">
-                These {data.mvc_skills.length} skills appear in 80%+ of JDs for this role. Master these to get interviews.
+                These {data.mvc_skills?.length || 0} skills appear in 80%+ of JDs for this role. Master these to get interviews.
               </h2>
 
               <div className="flex flex-wrap gap-4">
-                {data.mvc_skills.map((skill: string, i: number) => (
+                {(data.mvc_skills || []).map((skill: string) => (
                   <span
                     key={skill}
                     className="font-sans font-semibold text-body-md text-ink border border-hairline px-8 py-4 rounded-xl bg-canvas hover:bg-surface-soft transition-colors cursor-default"
@@ -79,11 +86,13 @@ export default async function ExploreResultsPage({ params }: { params: Promise<{
             </p>
           </header>
 
-          <SkillMap categories={data.skill_map.categories} />
+          {data.skill_map?.categories && (
+            <SkillMap categories={data.skill_map.categories} />
+          )}
         </section>
 
         {/* Conversion CTA */}
-        <ExploreCTA />
+        <ExploreCTA explorationData={data as any} />
       </div>
 
       <Footer />

@@ -17,7 +17,6 @@ export default function ExplorePage() {
   const particleColor = isDark ? '#6366f1' : '#ff4d8b';
   const trailColor = isDark ? '0, 0, 0' : '255, 250, 240';
 
-
   return (
     <main className="h-screen w-screen bg-canvas text-ink selection:bg-primary/10 relative overflow-hidden font-sans flex flex-col items-center justify-center">
       {/* Background Shader */}

@@ -101,7 +101,7 @@ export const FeatureAutoSlider = ({ className }: { className?: string }) => {
         }
       `}</style>
 
-      <section id="features" className={`bg-canvas py-section overflow-hidden ${className || ''}`}>
+      <section id="features" className={`bg-transparent py-section overflow-hidden ${className || ''}`}>
         {/* Header */}
         <div className="container mx-auto px-8 lg:px-16 mb-16 text-center">
           <span className="font-sans text-caption-uppercase text-muted mb-4 block uppercase">

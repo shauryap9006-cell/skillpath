@@ -5,6 +5,7 @@ const groq = new Groq({
 });
 
 export type GroqModel =
+  | "openai/gpt-oss-120b"
   | "llama-3.3-70b-versatile"
   | "llama-3.1-8b-instant"
   | "mixtral-8x7b-32768";
@@ -35,6 +36,7 @@ export async function callGroq(
   const maxTokens = options?.maxTokens ?? 1024;
 
   const fallbackModels: GroqModel[] = [
+    "openai/gpt-oss-120b",
     "llama-3.3-70b-versatile",
     "llama-3.1-8b-instant",
     "mixtral-8x7b-32768",
@@ -64,9 +66,9 @@ export async function callGroq(
         const err = error as { status?: number; error?: { error?: { code?: string } } };
         const errorCode = err?.error?.error?.code;
 
-        // 429 = rate limited → try next model
-        if (err.status === 429 && currentModel !== modelsToTry[modelsToTry.length - 1]) {
-          console.warn(`Rate limited on ${currentModel}, falling back...`);
+        // 429 = rate limited, 404 = model not found → try next model
+        if ((err.status === 429 || err.status === 404) && currentModel !== modelsToTry[modelsToTry.length - 1]) {
+          console.warn(`Error ${err.status} on ${currentModel}, falling back...`);
           continue;
         }
 

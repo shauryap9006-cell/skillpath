@@ -1,15 +1,20 @@
 // app/api/profile/timeline/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { adminDb } from '@/lib/firebase-admin';
-import { getAuthUser } from '@/lib/auth-helpers';
+import { getDb } from '@/lib/firebase-admin';
+import { getAuthUserSafe } from '@/lib/auth-helpers';
 import type { TimelineEntry } from '@/types/profile';
 
 export async function GET(req: NextRequest) {
-  const user = await getAuthUser(req);
-  if (!user || !adminDb) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+  const user = await getAuthUserSafe(req);
+  if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+
+  let db;
+  try { db = getDb(); } catch {
+    return NextResponse.json({ error: 'database_unavailable' }, { status: 503 });
+  }
 
   try {
-    const snap = await adminDb
+    const snap = await db
       .collection('skill_timeline')
       .doc(user.uid)
       .collection('entries')
@@ -26,8 +31,13 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const user = await getAuthUser(req);
-  if (!user || !adminDb) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+  const user = await getAuthUserSafe(req);
+  if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+
+  let db;
+  try { db = getDb(); } catch {
+    return NextResponse.json({ error: 'database_unavailable' }, { status: 503 });
+  }
 
   let body: Omit<TimelineEntry, 'id'>;
   try { body = await req.json(); }
@@ -36,7 +46,7 @@ export async function POST(req: NextRequest) {
   try {
     const id = `entry_${Date.now()}`;
     const entry: TimelineEntry = { ...body, id };
-    await adminDb
+    await db
       .collection('skill_timeline')
       .doc(user.uid)
       .collection('entries')

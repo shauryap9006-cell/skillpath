@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, CheckCircle2, Zap, Minus, Plus } from 'lucide-react';
 import type { TimelineEntry } from '@/types/profile';
+import { useAuth } from '@/context/AuthContext';
 
 function groupByMonth(entries: TimelineEntry[]) {
   const map = new Map<string, TimelineEntry[]>();
@@ -19,25 +20,27 @@ function groupByMonth(entries: TimelineEntry[]) {
 }
 
 export function SkillTimeline() {
+  const { getToken } = useAuth();
   const [entries, setEntries] = useState<TimelineEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    fetch('/api/profile/timeline', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    })
-      .then(r => r.json())
-      .then(d => {
-        // Sort entries by date descending to ensure latest are first
-        const sorted = (d.entries ?? []).sort((a: TimelineEntry, b: TimelineEntry) =>
-          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-        );
-        setEntries(sorted);
-        setLoading(false);
+    (async () => {
+      const token = await getToken();
+      fetch('/api/profile/timeline', {
+        headers: { 'Authorization': `Bearer ${token}` }
       })
-      .catch(() => setLoading(false));
+        .then(r => r.json())
+        .then(d => {
+          const sorted = (d.entries ?? []).sort((a: TimelineEntry, b: TimelineEntry) =>
+            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+          );
+          setEntries(sorted);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    })();
   }, []);
 
   const grouped = groupByMonth(entries);

@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { callGroqJSON } from "@/lib/groq";
-import { adminDb } from "@/lib/firebase-admin";
+import { getDb } from "@/lib/firebase-admin";
 import {
   PLAN_GENERATION_SYSTEM,
   buildPlanGenerationPrompt,
 } from "@/prompts/generate-plan";
 import type { LearningPlan } from "@/types/analysis";
-
-import { getAuthUser } from "@/lib/auth-helpers";
+import { getAuthUser, AuthError } from "@/lib/auth-helpers";
 
 export async function POST(
   req: NextRequest,
@@ -16,16 +15,25 @@ export async function POST(
   const { id } = await params;
 
   try {
-    const user = await getAuthUser(req);
-    if (!user) {
+    let user;
+    try {
+      user = await getAuthUser(req);
+    } catch (e) {
+      if (e instanceof AuthError) {
+        return NextResponse.json({ error: e.code.toLowerCase(), message: e.message }, { status: e.statusCode });
+      }
       return NextResponse.json({ error: "unauthorized" }, { status: 401 });
     }
-    if (!adminDb) {
-      return NextResponse.json({ error: "database_unavailable" }, { status: 500 });
+
+    let db;
+    try {
+      db = getDb();
+    } catch {
+      return NextResponse.json({ error: "database_unavailable" }, { status: 503 });
     }
 
     // 1. Fetch existing analysis
-    const doc = await adminDb.collection("analyses").doc(id).get();
+    const doc = await db.collection("analyses").doc(id).get();
 
     if (!doc.exists) {
       return NextResponse.json({ error: "not_found" }, { status: 404 });
@@ -47,7 +55,7 @@ export async function POST(
     );
 
     // 3. Save it back to Firestore
-    await adminDb.collection("analyses").doc(id).update({
+    await db.collection("analyses").doc(id).update({
       learning_plan: learningPlan
     });
 
@@ -61,5 +69,4 @@ export async function POST(
       { status: 500 }
     );
   }
-}
 }

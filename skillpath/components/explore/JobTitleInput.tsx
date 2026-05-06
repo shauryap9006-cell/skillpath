@@ -1,13 +1,23 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { saveToHistory } from '@/lib/history';
+
+const LOADING_MESSAGES = [
+  "Parsing role requirements...",
+  "Mapping skill architecture...",
+  "Building learning path...",
+  "Almost there...",
+];
 
 export default function JobTitleInput() {
   const [jobTitle, setJobTitle] = useState('');
   const [isExploring, setIsExploring] = useState(false);
+  const [error, setError] = useState('');
+  const [loadingMsg, setLoadingMsg] = useState(0);
   const router = useRouter();
 
   const handleExplore = async (e: React.FormEvent) => {
@@ -15,6 +25,14 @@ export default function JobTitleInput() {
     if (!jobTitle.trim() || isExploring) return;
 
     setIsExploring(true);
+    setError('');
+    setLoadingMsg(0);
+
+    // Cycle through loading messages
+    const interval = setInterval(() => {
+      setLoadingMsg(prev => (prev + 1) % LOADING_MESSAGES.length);
+    }, 4000);
+
     try {
       const res = await fetch('/api/explore', {
         method: 'POST',
@@ -23,16 +41,28 @@ export default function JobTitleInput() {
       });
 
       const data = await res.json();
+
       if (res.ok && data.share_token) {
+        saveToHistory({
+          type: 'explore',
+          share_token: data.share_token,
+          weeks_required: data.total_weeks || 0,
+          company_type: data.company_type || 'unknown',
+          mvc_skills: data.mvc_skills || [],
+          created_at: new Date().toISOString(),
+          jd_preview: data.job_title_raw || jobTitle,
+        });
         router.push(`/explore/${data.share_token}`);
       } else {
-        alert(data.message || 'Something went wrong. Please try again.');
+        setError(data.message || 'Something went wrong. Please try again.');
         setIsExploring(false);
       }
     } catch (err) {
       console.error('Explore error:', err);
-      alert('Failed to connect to the server.');
+      setError('Failed to connect to the server. Please check your connection and try again.');
       setIsExploring(false);
+    } finally {
+      clearInterval(interval);
     }
   };
 
@@ -58,11 +88,11 @@ export default function JobTitleInput() {
       </motion.div>
 
       <form onSubmit={handleExplore} className="relative max-w-3xl mx-auto">
-        <div className="bg-surface-strong p-3 rounded-xl border border-hairline shadow-sm flex flex-col md:flex-row gap-3 mb-10 tactile-card">
+        <div className="bg-surface-strong p-3 rounded-xl border border-hairline shadow-sm flex flex-col md:flex-row gap-3 mb-6 tactile-card">
           <input
             type="text"
             value={jobTitle}
-            onChange={(e) => setJobTitle(e.target.value)}
+            onChange={(e) => { setJobTitle(e.target.value); setError(''); }}
             placeholder="e.g. Senior Data Analyst, Lead Product Manager..."
             className="flex-1 bg-canvas py-6 px-8 text-lg md:text-xl font-sans text-ink border border-ink/15 rounded-lg focus:border-ink/40 focus:outline-none transition-all placeholder:text-ink/40 tactile-input"
             disabled={isExploring}
@@ -74,10 +104,59 @@ export default function JobTitleInput() {
             className={`flex items-center justify-center gap-3 px-10 py-6 md:py-0 bg-primary dark:bg-brand-pink text-on-primary dark:text-white rounded-lg font-sans font-semibold text-button transition-all hover:bg-primary-active dark:hover:opacity-90 active:scale-[0.98] tactile-button ${isExploring ? 'opacity-50 cursor-not-allowed' : ''
               }`}
           >
-            {isExploring ? 'MAPPING...' : 'START EXPLORATION'}
-            <ArrowRight size={18} />
+            {isExploring ? (
+              <span className="flex items-center gap-3">
+                <div className="flex gap-0.5 items-end h-3">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <motion.div
+                      key={i}
+                      className="w-0.5 bg-current rounded-full"
+                      animate={{ height: ['40%', '100%', '40%'] }}
+                      transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.1 }}
+                    />
+                  ))}
+                </div>
+                MAPPING...
+              </span>
+            ) : (
+              <>
+                START EXPLORATION
+                <ArrowRight size={18} />
+              </>
+            )}
           </button>
         </div>
+
+        {/* Error message */}
+        <AnimatePresence>
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="mb-6 px-6 py-3 rounded-xl bg-brand-pink/10 border border-brand-pink/20 text-brand-pink text-[12px] font-semibold text-center"
+            >
+              {error}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Loading message */}
+        <AnimatePresence mode="wait">
+          {isExploring && (
+            <motion.div
+              key={loadingMsg}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              className="mb-6 text-center"
+            >
+              <p className="text-[13px] text-muted font-medium italic">
+                {LOADING_MESSAGES[loadingMsg]}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <motion.div
           initial={{ opacity: 0 }}

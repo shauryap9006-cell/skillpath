@@ -27,7 +27,7 @@ const fadeUp = {
 };
 
 export default function ProfilePage() {
-  const { user } = useAuth();
+  const { user, getToken } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [activeJob, setActiveJob] = useState<ActiveJob | null | 'loading'>('loading');
 
@@ -48,26 +48,28 @@ export default function ProfilePage() {
   }, [user]);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setActiveJob(null);
-      return;
-    }
-    const headers = { 'Authorization': `Bearer ${token}` };
-    const params = new URLSearchParams();
-    if (user?.name) params.append('name', user.name);
-    if (user?.email) params.append('email', user.email);
+    (async () => {
+      const token = await getToken();
+      if (!token) {
+        setActiveJob(null);
+        return;
+      }
+      const headers = { 'Authorization': `Bearer ${token}` };
+      const params = new URLSearchParams();
+      if (user?.name) params.append('name', user.name);
+      if (user?.email) params.append('email', user.email);
 
-    Promise.all([
-      fetch(`/api/profile?${params.toString()}`, { headers }).then(r => r.json()),
-      fetch('/api/active-job', { headers }).then(r => r.json()),
-    ]).then(([pData, jData]) => {
-      if (pData.profile) setProfile(pData.profile);
-      setActiveJob(jData.active_job ?? null);
-    }).catch(err => {
-      console.error("[Profile] Fetch error:", err);
-      setActiveJob(null);
-    });
+      Promise.all([
+        fetch(`/api/profile?${params.toString()}`, { headers }).then(r => r.json()),
+        fetch('/api/active-job', { headers }).then(r => r.json()),
+      ]).then(([pData, jData]) => {
+        if (pData.profile) setProfile(pData.profile);
+        setActiveJob(jData.active_job ?? null);
+      }).catch(err => {
+        console.error('[Profile] Fetch error:', err);
+        setActiveJob(null);
+      });
+    })();
   }, []);
 
   const stats = {

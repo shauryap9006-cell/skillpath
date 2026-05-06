@@ -6,14 +6,16 @@
 const STORAGE_KEY = 'skillpath_history';
 
 export interface HistoryEntry {
+  type?: 'analyze' | 'explore';
   share_token: string;
-  gap_score: number;
+  gap_score?: number;
   weeks_required: number;
   company_type: string;
   mvc_skills: string[];
   created_at: string;
-  /** First 80 chars of the JD for preview */
+  /** First 80 chars of the JD for preview or Job Title for explore */
   jd_preview: string;
+  resume_text?: string;
 }
 
 export function getHistory(): HistoryEntry[] {

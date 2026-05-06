@@ -52,6 +52,7 @@ Thumbs.db
 
 # Temporary & Workspace Cleanup
 scratch/
+archive/
 Animate Preloader/
 preloader_temp_2/
 temp/

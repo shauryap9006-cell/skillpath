@@ -1,0 +1,195 @@
+{
+  "version": "2025-05",
+  "skills": {
+    "jquery": {
+      "display": "jQuery",
+      "category": "frontend",
+      "trend": "declining",
+      "jd_frequency": {
+        "2022": 28,
+        "2023": 14,
+        "2024": 7,
+        "2025": 3
+      },
+      "peak_year": 2018,
+      "modern_replacement": "vanilla JS or React",
+      "verdict": "Remove or replace",
+      "severity": "high"
+    },
+    "hadoop": {
+      "display": "Hadoop",
+      "category": "data",
+      "trend": "declining",
+      "jd_frequency": {
+        "2022": 22,
+        "2023": 15,
+        "2024": 9,
+        "2025": 5
+      },
+      "modern_replacement": "Spark or Databricks",
+      "verdict": "Replace with Spark",
+      "severity": "high"
+    },
+    "svn": {
+      "display": "SVN (Subversion)",
+      "category": "tools",
+      "trend": "declining",
+      "jd_frequency": {
+        "2022": 12,
+        "2023": 8,
+        "2024": 4,
+        "2025": 2
+      },
+      "modern_replacement": "Git",
+      "verdict": "Migrate to Git",
+      "severity": "high"
+    },
+    "rest_only": {
+      "display": "REST APIs (only)",
+      "category": "backend",
+      "trend": "declining",
+      "jd_frequency": {
+        "2022": 80,
+        "2023": 72,
+        "2024": 61,
+        "2025": 54
+      },
+      "modern_replacement": "GraphQL + REST",
+      "verdict": "Add GraphQL",
+      "severity": "medium"
+    },
+    "angularjs": {
+      "display": "AngularJS (v1)",
+      "category": "frontend",
+      "trend": "declining",
+      "jd_frequency": {
+        "2022": 18,
+        "2023": 10,
+        "2024": 5,
+        "2025": 2
+      },
+      "modern_replacement": "React or Angular 17+",
+      "verdict": "Complete legacy migration",
+      "severity": "high"
+    },
+    "flash": {
+      "display": "Adobe Flash",
+      "category": "frontend",
+      "trend": "declining",
+      "jd_frequency": {
+        "2022": 2,
+        "2023": 1,
+        "2024": 0,
+        "2025": 0
+      },
+      "modern_replacement": "HTML5 Canvas / Lottie",
+      "verdict": "Remove immediately",
+      "severity": "high"
+    },
+    "perl": {
+      "display": "Perl",
+      "category": "backend",
+      "trend": "declining",
+      "jd_frequency": {
+        "2022": 15,
+        "2023": 12,
+        "2024": 8,
+        "2025": 5
+      },
+      "modern_replacement": "Python",
+      "verdict": "Replace with Python",
+      "severity": "medium"
+    },
+    "react": {
+      "display": "React",
+      "category": "frontend",
+      "trend": "stable_high",
+      "jd_frequency": {
+        "2022": 68,
+        "2023": 72,
+        "2024": 74,
+        "2025": 71
+      },
+      "verdict": "Keep — consistently high demand",
+      "severity": "none"
+    },
+    "typescript": {
+      "display": "TypeScript",
+      "category": "frontend",
+      "trend": "rising",
+      "jd_frequency": {
+        "2022": 45,
+        "2023": 58,
+        "2024": 72,
+        "2025": 81
+      },
+      "verdict": "Essential — rising rapidly",
+      "severity": "none"
+    },
+    "python": {
+      "display": "Python",
+      "category": "backend",
+      "trend": "rising",
+      "jd_frequency": {
+        "2022": 52,
+        "2023": 61,
+        "2024": 68,
+        "2025": 75
+      },
+      "verdict": "Essential for AI and Backend",
+      "severity": "none"
+    },
+    "docker": {
+      "display": "Docker",
+      "category": "devops",
+      "trend": "stable_high",
+      "jd_frequency": {
+        "2022": 45,
+        "2023": 48,
+        "2024": 52,
+        "2025": 51
+      },
+      "verdict": "Standard skill",
+      "severity": "none"
+    },
+    "postgresql": {
+      "display": "PostgreSQL",
+      "category": "database",
+      "trend": "rising",
+      "jd_frequency": {
+        "2022": 38,
+        "2023": 44,
+        "2024": 49,
+        "2025": 55
+      },
+      "verdict": "Rising database standard",
+      "severity": "none"
+    },
+    "graphql": {
+      "display": "GraphQL",
+      "category": "backend",
+      "trend": "rising",
+      "jd_frequency": {
+        "2022": 22,
+        "2023": 28,
+        "2024": 35,
+        "2025": 41
+      },
+      "verdict": "Modern standard",
+      "severity": "none"
+    },
+    "kubernetes": {
+      "display": "Kubernetes",
+      "category": "devops",
+      "trend": "rising",
+      "jd_frequency": {
+        "2022": 25,
+        "2023": 32,
+        "2024": 38,
+        "2025": 44
+      },
+      "verdict": "Essential for scaling",
+      "severity": "none"
+    }
+  }
+}
