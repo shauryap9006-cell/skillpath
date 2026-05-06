@@ -1,13 +1,27 @@
 import { NextResponse } from 'next/server';
 import { Groq } from 'groq-sdk';
 
+import { getAuthUser } from '@/lib/auth-helpers';
+
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
 export async function POST(req: Request) {
   try {
-    const { optionA, optionB, winner, totalVotes, trend, premium } = await req.json();
+    // ---- Auth Check ----
+    try {
+      await getAuthUser(req as any); // NextRequest vs Request cast
+    } catch (e) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const body = await req.json();
+    const { optionA, optionB, winner, totalVotes, trend, premium } = body;
+
+    if (!optionA?.name || !optionB?.name || !winner) {
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
 
     const prompt = `
       You are a senior tech architect and career strategist. 

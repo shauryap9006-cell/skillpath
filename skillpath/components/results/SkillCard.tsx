@@ -190,13 +190,6 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
                     +${Math.round(gap.premium / 1000)}k Market Value
                   </span>
                 )}
-                {/* Phase 1: Trend Indicator */}
-                {gap.trend && Object.keys(gap.trend).length > 0 && (
-                  <span className="flex items-center gap-1 px-2 py-0.5 rounded-sm bg-brand-lavender/10 border border-brand-lavender/20 text-[9px] text-brand-lavender font-bold tracking-widest uppercase">
-                    <TrendingUp size={8} />
-                    Trending
-                  </span>
-                )}
                 <span className="px-2 py-0.5 rounded-sm bg-surface-soft border border-hairline text-[9px] text-muted font-bold uppercase tracking-widest">
                   {level}
                 </span>

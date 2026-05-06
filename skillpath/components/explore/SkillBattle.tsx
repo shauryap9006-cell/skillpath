@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Swords, Share2, TrendingUp, DollarSign, Users, Trophy, RotateCcw } from 'lucide-react';
 import { conductSkillBattle, type BattleResult } from '@/lib/skill-battle';
 import { Button } from '@/components/ui/Button';
+import { useAuth } from '@/context/AuthContext';
 
 export function SkillBattle() {
   const [skillA, setSkillA] = useState('React');
@@ -14,6 +15,7 @@ export function SkillBattle() {
   const [isBattling, setIsBattling] = useState(false);
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [hasVoted, setHasVoted] = useState(false);
+  const { user, getToken, openAuthModal } = useAuth();
 
   const handleBattle = async () => {
     if (!skillA || !skillB) return;
@@ -31,8 +33,18 @@ export function SkillBattle() {
       // Now fetch AI verdict
       setIsAiLoading(true);
       try {
+        if (!user) {
+          setIsAiLoading(false);
+          return;
+        }
+        
+        const token = await getToken();
         const response = await fetch('/api/battle/ai', {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify({
             optionA: battleResult.optionA,
             optionB: battleResult.optionB,

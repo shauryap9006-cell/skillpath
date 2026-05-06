@@ -32,7 +32,7 @@ export default function ExploreCTA({ explorationData }: ExploreCTAProps) {
     
     // Attempt to find the most recent resume from history to enable auto-trigger
     const history = getHistory();
-    const lastAnalysis = history.find(h => h.resume_text || h.type === 'analysis');
+    const lastAnalysis = history.find(h => h.resume_text || h.type === 'analyze');
     
     if (lastAnalysis?.resume_text) {
       sessionStorage.setItem('pending_resume', lastAnalysis.resume_text);

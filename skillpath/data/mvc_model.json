@@ -1,0 +1,10136 @@
+{
+  "software-engineer": [
+    {
+      "skill": "sql",
+      "count": 13004,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "python",
+      "count": 11382,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 10551,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "html",
+      "count": 8297,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 8204,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 7311,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "java",
+      "count": 7044,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 6993,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 6962,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 6699,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 4963,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 4205,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 3418,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 2937,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 2915,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "php",
+      "count": 2690,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 2454,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "go",
+      "count": 2401,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 1871,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 1283,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 1234,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 843,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 767,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 617,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 572,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 529,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 520,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 425,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 393,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 374,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "other": [
+    {
+      "skill": "python",
+      "count": 21871,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 20022,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "html",
+      "count": 18437,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 18206,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 16618,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "java",
+      "count": 12535,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 10384,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 10164,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 9157,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 9156,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "go",
+      "count": 7942,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "php",
+      "count": 7581,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 6745,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 5534,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 5118,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 4530,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 4323,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 4016,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 3473,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 3147,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 2905,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 2723,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 2026,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 1304,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 1023,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spark",
+      "count": 958,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 788,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 776,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 668,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 657,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "healthcare-practitioner": [
+    {
+      "skill": "go",
+      "count": 96,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 74,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "dbt",
+      "count": 18,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 15,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 14,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "html",
+      "count": 14,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 12,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "php",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "react",
+      "count": 8,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "gcp",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 3,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "css",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spark",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "nlp",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "angular",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "sales-manager": [
+    {
+      "skill": "excel",
+      "count": 137,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 89,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "java",
+      "count": 25,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 19,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 13,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "html",
+      "count": 11,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "php",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "react",
+      "count": 5,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "css",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "spark",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 3,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "docker",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "computer vision",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "deep learning",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "devops-engineer": [
+    {
+      "skill": "python",
+      "count": 6786,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 6199,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 4744,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 4651,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 4212,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 3735,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "css",
+      "count": 3311,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "html",
+      "count": 3310,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 3111,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "go",
+      "count": 3039,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "java",
+      "count": 2727,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 2723,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 2618,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 2146,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 2088,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 1949,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "php",
+      "count": 1442,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 1085,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 1046,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 1002,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 480,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 468,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 308,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 293,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 189,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 170,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 158,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 127,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 115,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ci/cd",
+      "count": 97,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "solutions-architect": [
+    {
+      "skill": "azure",
+      "count": 39,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 26,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 24,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 21,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 19,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 18,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "python",
+      "count": 18,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "java",
+      "count": 18,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "microservices",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "gcp",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "terraform",
+      "count": 9,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "kubernetes",
+      "count": 9,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ci/cd",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "etl",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "docker",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "css",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "kafka",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "react",
+      "count": 5,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "html",
+      "count": 5,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "angular",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    }
+  ],
+  "product-manager": [
+    {
+      "skill": "python",
+      "count": 2514,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 2112,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 2052,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "html",
+      "count": 1745,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 1737,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 1450,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 1372,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 1234,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "java",
+      "count": 1100,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 918,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 898,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 746,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 686,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "php",
+      "count": 650,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "go",
+      "count": 597,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 556,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 480,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 412,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 397,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 227,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 204,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 200,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 191,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 184,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 133,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 119,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 117,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 112,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 77,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 51,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "operations-leadership": [
+    {
+      "skill": "excel",
+      "count": 277,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 107,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 26,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 23,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "html",
+      "count": 22,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "express",
+      "count": 20,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 18,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "python",
+      "count": 18,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 15,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 13,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 12,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "php",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "gcp",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "asp.net",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "java",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "next.js",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "power bi",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "css",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 4,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spark",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    }
+  ],
+  "educator": [
+    {
+      "skill": "go",
+      "count": 65,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 49,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 29,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 14,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 6,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "react",
+      "count": 5,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "kanban",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spark",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "html",
+      "count": 2,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 2,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "transformers",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "power bi",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "django",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 1,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "pytorch",
+      "count": 1,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "pandas",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "qa-engineer": [
+    {
+      "skill": "agile",
+      "count": 44,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 37,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 33,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 31,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 26,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 17,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 17,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "java",
+      "count": 17,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 13,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 12,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 8,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "etl",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ci/cd",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "git",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "gcp",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jenkins",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "css",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "html",
+      "count": 3,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "react",
+      "count": 3,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "data-analyst": [
+    {
+      "skill": "sql",
+      "count": 134,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 84,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 78,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 73,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 68,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "power bi",
+      "count": 63,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data visualization",
+      "count": 43,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 42,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "etl",
+      "count": 36,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 26,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 26,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data modeling",
+      "count": 23,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 19,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 17,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 16,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 15,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 15,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "html",
+      "count": 14,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 13,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 12,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "looker",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "java",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "css",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "spark",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "git",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "a/b testing",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "dbt",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "operations-manager": [
+    {
+      "skill": "excel",
+      "count": 108,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 39,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "react",
+      "count": 8,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 5,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "html",
+      "count": 3,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "gcp",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data visualization",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spark",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "transformers",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "looker",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 1,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "kanban",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "power bi",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "project-manager": [
+    {
+      "skill": "sql",
+      "count": 794,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 728,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "html",
+      "count": 655,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 645,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "python",
+      "count": 571,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 520,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 454,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 446,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "java",
+      "count": 347,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 338,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "php",
+      "count": 317,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 286,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 249,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 221,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 221,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 166,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 147,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 139,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 133,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "go",
+      "count": 130,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 85,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 81,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 79,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 70,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 61,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 51,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 36,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 25,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 24,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 23,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "customer-success": [
+    {
+      "skill": "excel",
+      "count": 93,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 52,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 16,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 6,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 4,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "java",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "html",
+      "count": 3,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "looker",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "gcp",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "css",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "react",
+      "count": 2,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "graphql",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "power bi",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spark",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "data-engineer": [
+    {
+      "skill": "sql",
+      "count": 1069,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "python",
+      "count": 1047,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 605,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 475,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 430,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 388,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 352,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "java",
+      "count": 321,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "html",
+      "count": 313,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 312,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 260,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 223,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 203,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 201,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 189,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 156,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 148,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 146,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "go",
+      "count": 124,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 118,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 110,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 91,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "etl",
+      "count": 89,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "php",
+      "count": 76,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "data modeling",
+      "count": 72,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spark",
+      "count": 68,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 59,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 51,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "kafka",
+      "count": 36,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 35,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    }
+  ],
+  "support-engineer": [
+    {
+      "skill": "excel",
+      "count": 26,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 22,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 18,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 15,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 15,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 15,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 13,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 9,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "datadog",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "react",
+      "count": 4,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "java",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "angular",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "git",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "terraform",
+      "count": 3,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "etl",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "asp.net",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "grafana",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "prometheus",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "frontend-developer": [
+    {
+      "skill": "javascript",
+      "count": 49324,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "html",
+      "count": 44361,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 44348,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 28602,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 27175,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 24172,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 17431,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "python",
+      "count": 16031,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "php",
+      "count": 14898,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 14696,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "java",
+      "count": 14674,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 13781,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 13090,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 10283,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 8197,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 5658,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 5431,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 5285,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "go",
+      "count": 3631,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 3541,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 2185,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 2137,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 1287,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 808,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 103,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 41,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "react",
+      "count": 20,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 15,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "angular",
+      "count": 14,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 13,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "business-analyst": [
+    {
+      "skill": "sql",
+      "count": 2896,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "python",
+      "count": 2438,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 1556,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "html",
+      "count": 1396,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 1391,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 1351,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 1312,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 1074,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 875,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 754,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 698,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "java",
+      "count": 644,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 392,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "php",
+      "count": 391,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 292,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 157,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 145,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 135,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "go",
+      "count": 124,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 118,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 103,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 91,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 83,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 80,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 76,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 73,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 67,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 66,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 51,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 36,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "game-developer": [
+    {
+      "skill": "javascript",
+      "count": 8031,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "html",
+      "count": 7314,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 7307,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 6034,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "python",
+      "count": 5740,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 5339,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "java",
+      "count": 4812,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 4128,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "php",
+      "count": 3418,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 3406,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 3386,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 3248,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 2796,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 2764,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 1715,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 1447,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 1291,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "go",
+      "count": 1207,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 1196,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 1151,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 1035,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 880,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 828,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 323,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 45,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 24,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "react",
+      "count": 5,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "hardware-engineer": [
+    {
+      "skill": "python",
+      "count": 366,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 192,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "html",
+      "count": 140,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 140,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 136,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 123,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 103,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 77,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "java",
+      "count": 73,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 69,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 55,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 46,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 44,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 41,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "php",
+      "count": 36,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "go",
+      "count": 35,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 27,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 22,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 21,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 18,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 14,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "transformers",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "computer vision",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "mobile-developer": [
+    {
+      "skill": "javascript",
+      "count": 21720,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "css",
+      "count": 18495,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "html",
+      "count": 18476,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "java",
+      "count": 18160,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 16875,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 15515,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 11573,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 11234,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 10810,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "python",
+      "count": 10442,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 9385,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 8511,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "php",
+      "count": 8187,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 7787,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 7702,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 5641,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 4255,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 3545,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 2985,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 2644,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 2348,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "go",
+      "count": 2231,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 1140,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 548,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "react",
+      "count": 162,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 143,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 40,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 29,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 27,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "git",
+      "count": 16,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "executive": [
+    {
+      "skill": "excel",
+      "count": 58,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 35,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 25,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "java",
+      "count": 24,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "go",
+      "count": 22,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "spark",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "deep learning",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 5,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "nlp",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tensorflow",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "llm",
+      "count": 5,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "pytorch",
+      "count": 5,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ci/cd",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "kanban",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "html",
+      "count": 4,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "gcp",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "hr-manager": [
+    {
+      "skill": "excel",
+      "count": 51,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 16,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "css",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "nlp",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 1,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "data-scientist": [
+    {
+      "skill": "python",
+      "count": 8463,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 5267,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 3252,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 3163,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 3135,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "html",
+      "count": 2500,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 2497,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 2423,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 1890,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "java",
+      "count": 1766,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 1742,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 1630,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 996,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 969,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 771,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 571,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 499,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "php",
+      "count": 496,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "go",
+      "count": 411,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 362,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 291,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 232,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 186,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 181,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 151,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 151,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 90,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 81,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 60,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 42,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "marketing-manager": [
+    {
+      "skill": "go",
+      "count": 40,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 36,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 13,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "html",
+      "count": 12,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "a/b testing",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "css",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 4,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "php",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "express",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "power bi",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "terraform",
+      "count": 1,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jenkins",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ci/cd",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "etl",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "java",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    }
+  ],
+  "financial-analyst": [
+    {
+      "skill": "excel",
+      "count": 96,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 24,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 22,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 21,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 20,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 19,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "go",
+      "count": 16,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "power bi",
+      "count": 16,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 14,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "php",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "data visualization",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "html",
+      "count": 3,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "java",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "c++",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 2,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "css",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data modeling",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "git",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ci/cd",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "microservices",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "ml-engineer": [
+    {
+      "skill": "machine learning",
+      "count": 68,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 67,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "pytorch",
+      "count": 38,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tensorflow",
+      "count": 34,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "java",
+      "count": 25,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "nlp",
+      "count": 24,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "deep learning",
+      "count": 22,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "computer vision",
+      "count": 20,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spark",
+      "count": 18,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 17,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 17,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 16,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 15,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scikit-learn",
+      "count": 14,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 12,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "mlops",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "kubernetes",
+      "count": 10,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ci/cd",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "llm",
+      "count": 8,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "pandas",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "gcp",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "docker",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "hadoop",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "terraform",
+      "count": 4,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "microservices",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "etl",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "marketing-leadership": [
+    {
+      "skill": "tableau",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "java",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    }
+  ],
+  "cybersecurity": [
+    {
+      "skill": "python",
+      "count": 63,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 46,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 45,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 44,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 31,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 26,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "go",
+      "count": 23,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 22,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "java",
+      "count": 19,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 17,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 16,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 15,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "terraform",
+      "count": 15,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ansible",
+      "count": 13,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ci/cd",
+      "count": 12,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "docker",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 10,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "git",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jenkins",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "gcp",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data visualization",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "php",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "kubernetes",
+      "count": 6,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "grafana",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "backend-developer": [
+    {
+      "skill": "sql",
+      "count": 47906,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 41974,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 37390,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "python",
+      "count": 36517,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "java",
+      "count": 32122,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 32110,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "html",
+      "count": 31118,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 31117,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 28020,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 22535,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 19129,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 18248,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 18148,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 16338,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 15401,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "php",
+      "count": 13775,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "go",
+      "count": 13365,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 10687,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 6913,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 6707,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 6096,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 3643,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 3461,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 1336,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 1301,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 655,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 24,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 22,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 19,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "docker",
+      "count": 19,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "legal-counsel": [
+    {
+      "skill": "excel",
+      "count": 26,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "java",
+      "count": 21,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "go",
+      "count": 18,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "python",
+      "count": 17,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "asp.net",
+      "count": 16,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "llm",
+      "count": 13,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "php",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 5,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "grpc",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 3,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "docker",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "prometheus",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "transformers",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "database-admin": [
+    {
+      "skill": "sql",
+      "count": 20579,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 18066,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "css",
+      "count": 17043,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "html",
+      "count": 17041,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 13875,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 11003,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "python",
+      "count": 10310,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 9952,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 9689,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "php",
+      "count": 9610,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 8321,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "java",
+      "count": 8029,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 6377,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 5640,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 5344,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 4088,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 3510,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "go",
+      "count": 2512,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 2079,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 1805,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 1350,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 1095,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 1043,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 763,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 26,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 21,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 18,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 17,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 15,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "embedded-engineer": [
+    {
+      "skill": "python",
+      "count": 5263,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 3803,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 2059,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "html",
+      "count": 1756,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 1746,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 1706,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 1625,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "java",
+      "count": 1487,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 1322,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 1305,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 1164,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 642,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 606,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "go",
+      "count": 597,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "php",
+      "count": 565,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 557,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 336,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 296,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 236,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 233,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 209,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 164,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 106,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 34,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 26,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 24,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "git",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "c++",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "robotics-engineer": [
+    {
+      "skill": "python",
+      "count": 29,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 16,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "java",
+      "count": 13,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 13,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 9,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ansible",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jenkins",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "ci/cd",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "git",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "html",
+      "count": 4,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "go",
+      "count": 4,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "docker",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "datadog",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "terraform",
+      "count": 2,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "kubernetes",
+      "count": 2,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "kafka",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "fullstack-developer": [
+    {
+      "skill": "javascript",
+      "count": 74811,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "css",
+      "count": 63925,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "html",
+      "count": 63921,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 60115,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 44747,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 39320,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 39269,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "python",
+      "count": 34157,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 28356,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "java",
+      "count": 28275,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 26645,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 23659,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "php",
+      "count": 23127,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 19608,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 17056,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 11939,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 10111,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "go",
+      "count": 9296,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 7502,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 6616,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 6034,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 5734,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 3009,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 1722,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 1388,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 701,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "react",
+      "count": 85,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 85,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 83,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "angular",
+      "count": 57,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "scientist": [
+    {
+      "skill": "python",
+      "count": 1925,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 1021,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "html",
+      "count": 659,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 659,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 592,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 583,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 470,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 463,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "java",
+      "count": 414,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 385,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 247,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 181,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 164,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "php",
+      "count": 161,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "go",
+      "count": 112,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 112,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 87,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 81,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 61,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 61,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 49,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 39,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 34,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 30,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 29,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 27,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 12,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    }
+  ],
+  "recruiter": [
+    {
+      "skill": "excel",
+      "count": 37,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 8,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "tableau",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "a/b testing",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "power bi",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "html",
+      "count": 1,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    }
+  ],
+  "blockchain-developer": [
+    {
+      "skill": "javascript",
+      "count": 1373,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 1049,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 982,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "python",
+      "count": 949,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "css",
+      "count": 944,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "html",
+      "count": 943,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 874,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 741,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 712,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 611,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 602,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "java",
+      "count": 576,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 534,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "go",
+      "count": 518,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "php",
+      "count": 440,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 293,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 257,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 255,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 248,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 211,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 182,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 169,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 109,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 36,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "c++",
+      "count": 20,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 20,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "angular",
+      "count": 20,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "react",
+      "count": 15,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 14,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "next.js",
+      "count": 13,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "network-engineer": [
+    {
+      "skill": "azure",
+      "count": 22,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 18,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 16,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 13,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 11,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ansible",
+      "count": 10,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 6,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "kubernetes",
+      "count": 6,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "gcp",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "java",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "terraform",
+      "count": 4,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ci/cd",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "rest api",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "grafana",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "prometheus",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "computer vision",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "html",
+      "count": 2,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "css",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    }
+  ],
+  "product-designer": [
+    {
+      "skill": "agile",
+      "count": 29,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "css",
+      "count": 16,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "html",
+      "count": 15,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 13,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 11,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data visualization",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 4,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 4,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "react",
+      "count": 3,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "a/b testing",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 2,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "kanban",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "angular",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "power bi",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "engineering-leadership": [
+    {
+      "skill": "python",
+      "count": 2,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 2,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "react",
+      "count": 2,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "deep learning",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tensorflow",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "pytorch",
+      "count": 1,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "pandas",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "airflow",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "dbt",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "llm",
+      "count": 1,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sass",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "html",
+      "count": 1,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ci/cd",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "c++",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "it-leadership": [
+    {
+      "skill": "agile",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    }
+  ],
+  "it-admin": [
+    {
+      "skill": "python",
+      "count": 1522,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 1506,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "bash",
+      "count": 1435,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "html",
+      "count": 1352,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 1352,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 1250,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "mysql",
+      "count": 1211,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.08
+      }
+    },
+    {
+      "skill": "powershell",
+      "count": 1047,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.49
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 867,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 772,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "php",
+      "count": 769,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "java",
+      "count": 642,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "mongodb",
+      "count": 398,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.15
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 304,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "go",
+      "count": 301,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "typescript",
+      "count": 295,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "redis",
+      "count": 282,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.24
+      }
+    },
+    {
+      "skill": "elasticsearch",
+      "count": 281,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.02
+      }
+    },
+    {
+      "skill": "rust",
+      "count": 262,
+      "premium": 14400,
+      "trend": {
+        "2024": 2.31
+      }
+    },
+    {
+      "skill": "ruby",
+      "count": 177,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.13
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 94,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    },
+    {
+      "skill": "swift",
+      "count": 81,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.03
+      }
+    },
+    {
+      "skill": "node.js",
+      "count": 70,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "cassandra",
+      "count": 45,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.16
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 28,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 25,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "snowflake",
+      "count": 14,
+      "premium": 8000,
+      "trend": {
+        "2024": 1333.0
+      }
+    },
+    {
+      "skill": "azure",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ansible",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "graphic-designer": [
+    {
+      "skill": "html",
+      "count": 9,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "css",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "go",
+      "count": 5,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 1,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "git",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "kotlin",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.5
+      }
+    }
+  ],
+  "technical-writer": [
+    {
+      "skill": "agile",
+      "count": 8,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "excel",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "html",
+      "count": 5,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.05
+      }
+    },
+    {
+      "skill": "git",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "jira",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "devops",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 2,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "java",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.01
+      }
+    },
+    {
+      "skill": "javascript",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 1,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "postgresql",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.59
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "spring",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "express",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "ai-researcher": [
+    {
+      "skill": "machine learning",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "deep learning",
+      "count": 5,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "python",
+      "count": 3,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.53
+      }
+    },
+    {
+      "skill": "pytorch",
+      "count": 3,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "product management",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "llm",
+      "count": 2,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "react",
+      "count": 1,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "aws",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "linux",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "pandas",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "gcp",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "docker",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "kubernetes",
+      "count": 1,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "ci/cd",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "nlp",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "computer vision",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "bigquery",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 2415.0
+      }
+    },
+    {
+      "skill": "transformers",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "mlops",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 1,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "spark",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tensorflow",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "healthcare-analyst": [
+    {
+      "skill": "sql",
+      "count": 1,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    },
+    {
+      "skill": "sql server",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.1
+      }
+    },
+    {
+      "skill": "gcp",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data visualization",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "data-leadership": [
+    {
+      "skill": "data analysis",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "tensorflow",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "pytorch",
+      "count": 1,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "sql",
+      "count": 1,
+      "premium": 8800,
+      "trend": {
+        "2024": 0.12
+      }
+    },
+    {
+      "skill": "statistics",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "llm",
+      "count": 1,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "finance-leadership": [
+    {
+      "skill": "excel",
+      "count": 7,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "power bi",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "oracle",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.24
+      }
+    }
+  ],
+  "product-leadership": [
+    {
+      "skill": "product management",
+      "count": 6,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "go",
+      "count": 3,
+      "premium": 14400,
+      "trend": {
+        "2024": 0.84
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 3,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 2,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "machine learning",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "nlp",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ],
+  "growth-hacker": [
+    {
+      "skill": "typescript",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.74
+      }
+    },
+    {
+      "skill": "php",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": -0.12
+      }
+    },
+    {
+      "skill": "data analysis",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "a/b testing",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "agile",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    },
+    {
+      "skill": "scrum",
+      "count": 1,
+      "premium": 8000,
+      "trend": {
+        "2024": 0.0
+      }
+    }
+  ]
+}

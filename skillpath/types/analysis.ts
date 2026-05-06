@@ -102,6 +102,8 @@ export interface MVCSkillEntry {
   skill: string;
   count?: number;
   frequency?: number;
+  premium?: number;
+  trend?: Record<string, number>;
 }
 
 export interface MVCRoleData {

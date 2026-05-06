@@ -259,13 +259,14 @@ export async function POST(req: NextRequest) {
 
     // ---- Step 8: Save to Firestore (fire-and-forget) ----
     // Don't await — return results to client immediately
+    // ---- Step 8: Save to Firestore (Synchronous to ensure persistence) ----
     try {
       const db = getDb();
-      db.collection("analyses").doc(shareToken).set(analysisDoc)
-        .then(() => console.log(`[Analyze] ✓ Saved to Firestore: ${shareToken}`))
-        .catch((err) => console.error(`[Analyze] ✗ Firestore save failed:`, err.message));
+      await db.collection("analyses").doc(shareToken).set(analysisDoc);
+      console.log(`[Analyze] ✓ Saved to Firestore: ${shareToken}`);
     } catch (dbError) {
-      console.warn("[Analyze] Firestore unavailable, result not persisted:", dbError instanceof Error ? dbError.message : dbError);
+      console.error("[Analyze] Firestore save failed:", dbError instanceof Error ? dbError.message : dbError);
+      // We still return results to the user even if DB save fails, but we've at least tried and logged it correctly.
     }
 
     console.log(`[Analyze] ✓ Complete | Gap: ${gapResult.gapScore}% | Weeks: ${countdown.weeksRequired} | Token: ${shareToken}`);
