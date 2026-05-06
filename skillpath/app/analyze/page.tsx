@@ -255,25 +255,40 @@ export default function AnalyzePage() {
               </div>
 
               <div className="relative flex-1 rounded-[20px] overflow-hidden bg-black/[0.03] dark:bg-white/[0.02] shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.25)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)] border border-black/5 dark:border-white/5 transition-all focus-within:border-brand-teal/20">
-                {mode === 'dream' && !jd ? (
-                  <div className="h-full min-h-[300px] flex flex-col items-center justify-center p-8 text-center bg-canvas/30 backdrop-blur-sm">
-                    <Star className="text-brand-pink mb-4 animate-pulse" size={32} />
-                    <h3 className="font-display text-xl font-bold mb-2">Define Your Career Dream</h3>
-                    <p className="text-sm text-muted mb-6">Use our guided calibration to refine your long-term vision.</p>
-                    <Button
-                      variant="brand"
-                      disabled={isAnalyzing}
-                      onClick={() => setShowDreamOnboarding(true)}
-                      className="w-full h-[54px] rounded-2xl"
-                    >
-                      Start Calibration
-                    </Button>
+                {mode === 'dream' ? (
+                  <div className="flex flex-col h-full">
+                    <div className="flex-1 relative">
+                      <textarea
+                        disabled={isAnalyzing}
+                        aria-label="Career Dream Description"
+                        placeholder="Describe your ultimate career goal (e.g. Lead Engineer at a fintech startup)..."
+                        className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/50 bg-transparent focus:outline-none resize-none leading-relaxed"
+                        value={jd}
+                        onChange={(e) => setJd(e.target.value)}
+                      />
+                      {!jd && (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center pointer-events-none opacity-20">
+                          <Star className="text-brand-pink mb-2 animate-pulse" size={32} />
+                          <p className="text-xs font-bold uppercase tracking-widest">Type your dream or use AI</p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-4 border-t border-black/5 dark:border-white/5 bg-black/5 dark:bg-white/5">
+                      <button
+                        type="button"
+                        onClick={() => setShowDreamOnboarding(true)}
+                        className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-brand-pink/10 border border-brand-pink/20 text-brand-pink text-[11px] font-bold uppercase tracking-widest hover:bg-brand-pink/20 transition-all"
+                      >
+                        <Sparkles size={14} className="fill-current" />
+                        Calibrate with AI Dreamer
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   <textarea
                     disabled={isAnalyzing}
-                    aria-label={mode === 'job' ? "Job Description" : "Career Dream Description"}
-                    placeholder={mode === 'job' ? "Paste the full job description here..." : "Describe your ultimate career goal..."}
+                    aria-label="Job Description"
+                    placeholder="Paste the full job description here..."
                     className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/50 bg-transparent focus:outline-none resize-none leading-relaxed"
                     value={jd}
                     onChange={(e) => setJd(e.target.value)}
@@ -411,6 +426,36 @@ export default function AnalyzePage() {
           </div>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {showDreamOnboarding && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-canvas/90 backdrop-blur-md overflow-y-auto"
+          >
+            <div className="w-full max-w-2xl my-auto">
+              <div className="bg-[#EBE9DC] dark:bg-[#0A0A0A] p-8 md:p-12 rounded-[40px] border border-black/10 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.2)] relative overflow-hidden">
+                {/* Decorative gradients */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-pink/5 blur-[80px] rounded-full -mr-32 -mt-32" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-teal/5 blur-[80px] rounded-full -ml-32 -mb-32" />
+                
+                <div className="relative z-10">
+                  <DreamOnboarding
+                    onComplete={(desc, ctx) => {
+                      setJd(desc);
+                      setDreamContext(ctx);
+                      setShowDreamOnboarding(false);
+                    }}
+                    onCancel={() => setShowDreamOnboarding(false)}
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
