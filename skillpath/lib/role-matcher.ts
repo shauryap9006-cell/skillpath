@@ -138,15 +138,28 @@ export function compareToSimilarRoles(
     if (slug === baseRole) continue;
     
     // Default to 'mid-' version for adjacency checks
-    const prefixedSlug = `mid-${slug}`;
-    const targetSlug = mvcProfiles[prefixedSlug] ? prefixedSlug : (mvcProfiles[slug] ? slug : null);
+    let targetSlug = null;
+    const candidates = [
+      `mid-${slug}`, 
+      slug, 
+      `mid ${slug.replace(/-/g, ' ')}`, 
+      slug.replace(/-/g, ' ')
+    ];
+    
+    for (const cand of candidates) {
+      if (mvcProfiles[cand]) {
+        targetSlug = cand;
+        break;
+      }
+    }
     
     if (!targetSlug || targetSlug === fullKey) continue;
 
     const result = scoreUserAgainstRole(userSkills, targetSlug);
     
-    // Filter: only show roles with > 20% match to avoid "random" unrelated roles
-    if (result.pct < 20) continue;
+    // Filter: only show roles with > 10% match to avoid completely unrelated noise,
+    // but keep enough to show variety as requested (4-5 roles).
+    if (result.pct < 10) continue;
 
     results.push({
       role_key: slug,

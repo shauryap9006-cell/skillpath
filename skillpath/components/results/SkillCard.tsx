@@ -151,10 +151,10 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
         <div className={`absolute left-0 top-0 bottom-0 w-1 ${cfg.accent} transition-colors duration-300`} />
 
         {/* ── Main content ──────────────────────────────────────── */}
-        <div className="pl-8 pr-8 pt-7 pb-7">
+        <div className="px-5 md:px-8 py-6 md:py-7">
 
           {/* Header: grid */}
-          <div className="flex gap-6 items-start">
+          <div className="flex gap-4 md:gap-6 items-start">
 
             {/* Tracking Toggle */}
             <div className="pt-1.5">
@@ -194,7 +194,7 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
                   {level}
                 </span>
               </div>
-              <h4 className={`font-display text-title-lg text-ink tracking-tight leading-tight transition-all truncate ${trackingState === 'learned' ? 'line-through opacity-40' : ''}`}>
+              <h4 className={`font-display text-[18px] md:text-title-lg text-ink tracking-tight leading-tight transition-all ${trackingState === 'learned' ? 'line-through opacity-40' : ''}`}>
                 {gap.skill}
               </h4>
             </div>
@@ -233,7 +233,7 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
         <AnimatePresence>
           {status === 'done' && skillResources && (
             <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="overflow-hidden">
-              <div className="mx-8 mb-0 px-5 py-4 rounded-lg bg-surface-soft border border-hairline">
+              <div className="mx-5 md:mx-8 mb-0 px-4 md:px-5 py-4 rounded-lg bg-surface-soft border border-hairline">
                 <div className="flex items-center gap-2 mb-1.5">
                   <Sparkles size={13} className="text-primary" />
                   <span className="font-sans text-[10px] font-bold uppercase tracking-widest text-primary">
@@ -249,7 +249,7 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
         </AnimatePresence>
 
         {/* ── Action bar ────────────────────────────────────────── */}
-        <div className="px-8 py-5 mt-2">
+        <div className="px-5 md:px-8 py-5 mt-2">
           {status === 'idle' && (
             <button
               onClick={generate}
@@ -308,7 +308,7 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
         <AnimatePresence>
           {isExpanded && skillResources && (
             <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="overflow-hidden">
-              <div className="border-t border-hairline mx-8 pt-5 pb-7 flex flex-col gap-4">
+              <div className="border-t border-hairline mx-5 md:mx-8 pt-5 pb-7 flex flex-col gap-4">
                 {skillResources.resources.map((res, i) => (
                   <ResourceCard key={`${res.url}-${i}`} resource={res} />
                 ))}
@@ -322,7 +322,7 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({
           {status === 'done' && (
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              className="flex items-center justify-between px-8 py-3 border-t border-hairline bg-surface-soft/50"
+              className="flex items-center justify-between px-5 md:px-8 py-3 border-t border-hairline bg-surface-soft/50"
             >
               <div className="flex items-center gap-2 text-brand-teal font-bold text-[10px] uppercase tracking-widest">
                 <CheckCircle2 size={12} />

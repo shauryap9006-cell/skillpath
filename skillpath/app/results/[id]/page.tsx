@@ -367,7 +367,7 @@ export default function ResultsPage({
         onConfidenceChange={handleConfidenceChange}
         roleName={data?.role_category || 'Target Role'}
       />
-      <div className="max-w-[1280px] mx-auto px-8 lg:px-24 pt-16 w-full">
+      <div className="max-w-[1280px] mx-auto px-5 md:px-8 lg:px-24 pt-8 md:pt-16 w-full">
 
         {/* Results Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-hairline pb-8 gap-6">
@@ -376,7 +376,7 @@ export default function ResultsPage({
               <span className="w-2 h-2 rounded-full bg-brand-teal animate-pulse" />
               {activeJob ? 'Active Learning Path' : 'Analysis Complete'}
             </span>
-            <h1 className="font-display text-display-lg font-semibold leading-[1.05] tracking-[-0.04em] mb-4 text-balance">
+            <h1 className="font-display text-[32px] md:text-display-lg font-semibold leading-[1.1] md:leading-[1.05] tracking-[-0.04em] mb-4 text-balance">
               {remainingWeeks > 0
                 ? `Hey ${firstName}, you're ${remainingWeeks} weeks from job-ready.`
                 : `Hey ${firstName}, you're ready to apply!`}
@@ -389,16 +389,16 @@ export default function ResultsPage({
               )}
             </p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-3 md:gap-4 mt-2 md:mt-0">
             <button
               onClick={handleSave}
               disabled={saved}
-              className={`font-sans font-semibold text-button px-6 py-3 rounded-md border transition-all ${saved
+              className={`flex-1 md:flex-none font-sans font-semibold text-button px-4 md:px-6 py-2.5 md:py-3 rounded-md border transition-all ${saved
                 ? 'text-brand-teal border-brand-teal/20 bg-brand-teal/5 cursor-default'
                 : 'text-ink border-hairline hover:bg-surface-soft'
                 }`}
             >
-              {saved ? '✓ Saved' : 'Save to Profile'}
+              {saved ? '✓ Saved' : 'Save'}
             </button>
             <PinJobButton
               analysisId={data.share_token}
@@ -410,9 +410,9 @@ export default function ResultsPage({
             />
             <button
               onClick={handleShare}
-              className="bg-primary text-on-primary font-sans font-semibold text-button px-6 py-3 rounded-md hover:bg-primary-active transition-colors"
+              className="flex-1 md:flex-none bg-primary text-on-primary font-sans font-semibold text-button px-4 md:px-6 py-2.5 md:py-3 rounded-md hover:bg-primary-active transition-colors"
             >
-              Share link ↗
+              Share ↗
             </button>
           </div>
         </div>
@@ -428,10 +428,10 @@ export default function ResultsPage({
 
             {/* Gap & Readiness Score */}
             <div className="mb-16">
-              <div className="flex items-center gap-10">
+              <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10">
                 {activeJob && (
                   <div className="shrink-0">
-                    <ReadinessRing score={currentScore} color={activeJob.color} size={132} strokeWidth={8} />
+                    <ReadinessRing score={currentScore} color={activeJob.color} size={120} strokeWidth={8} />
                   </div>
                 )}
                 <div className="flex-1">
@@ -445,8 +445,8 @@ export default function ResultsPage({
                       </span>
                     )}
                   </div>
-                  <div className="flex items-baseline gap-2 mb-8">
-                    <span className="font-display text-[96px] leading-none tracking-tight">{currentScore}</span>
+                  <div className="flex items-baseline justify-center md:justify-start gap-2 mb-6 md:mb-8">
+                    <span className="font-display text-[64px] md:text-[96px] leading-none tracking-tight">{currentScore}</span>
                     <span className="font-sans text-display-sm text-muted">/ 100</span>
                   </div>
                   <ProgressBar progress={currentScore} className="h-4" />

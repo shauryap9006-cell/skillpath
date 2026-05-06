@@ -262,7 +262,7 @@ export default function AnalyzePage() {
                         disabled={isAnalyzing}
                         aria-label="Career Dream Description"
                         placeholder="Describe your ultimate career goal (e.g. Lead Engineer at a fintech startup)..."
-                        className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/50 bg-transparent focus:outline-none resize-none leading-relaxed"
+                        className="w-full h-full min-h-[240px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/50 bg-transparent focus:outline-none resize-none leading-relaxed"
                         value={jd}
                         onChange={(e) => setJd(e.target.value)}
                       />
@@ -289,7 +289,7 @@ export default function AnalyzePage() {
                     disabled={isAnalyzing}
                     aria-label="Job Description"
                     placeholder="Paste the full job description here..."
-                    className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/50 bg-transparent focus:outline-none resize-none leading-relaxed"
+                    className="w-full h-full min-h-[240px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/50 bg-transparent focus:outline-none resize-none leading-relaxed"
                     value={jd}
                     onChange={(e) => setJd(e.target.value)}
                   />
@@ -336,7 +336,7 @@ export default function AnalyzePage() {
                         disabled={isAnalyzing}
                         aria-label="Resume Text"
                         placeholder="Paste your raw resume text here..."
-                        className="w-full h-full min-h-[300px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/50 bg-transparent focus:outline-none resize-none leading-relaxed"
+                        className="w-full h-full min-h-[240px] md:min-h-[340px] p-5 md:p-6 font-sans text-sm md:text-body-md text-ink placeholder:text-ink/50 bg-transparent focus:outline-none resize-none leading-relaxed"
                         value={resumeText === ' ' ? '' : resumeText}
                         onChange={(e) => setResumeText(e.target.value)}
                         autoFocus
@@ -436,7 +436,7 @@ export default function AnalyzePage() {
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-canvas/90 backdrop-blur-md overflow-y-auto"
           >
             <div className="w-full max-w-2xl my-auto">
-              <div className="bg-[#EBE9DC] dark:bg-[#0A0A0A] p-8 md:p-12 rounded-[40px] border border-black/10 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.2)] relative overflow-hidden">
+              <div className="bg-[#EBE9DC] dark:bg-[#0A0A0A] p-6 md:p-12 rounded-[32px] md:rounded-[40px] border border-black/10 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.2)] relative overflow-hidden">
                 {/* Decorative gradients */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-pink/5 blur-[80px] rounded-full -mr-32 -mt-32" />
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-teal/5 blur-[80px] rounded-full -ml-32 -mb-32" />

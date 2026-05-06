@@ -32,7 +32,7 @@ export function RoleSwitchPanel({
       {/* Background glow */}
       <div className="absolute -right-8 -top-8 w-32 h-32 bg-brand-lavender/5 rounded-full blur-3xl group-hover:bg-brand-lavender/10 transition-colors" />
 
-      <div className={`px-8 pt-8 flex items-center justify-between relative z-20 ${isExpanded ? 'pb-6' : 'pb-8'}`}>
+      <div className={`px-5 md:px-8 pt-6 md:pt-8 flex items-center justify-between relative z-20 ${isExpanded ? 'pb-4 md:pb-6' : 'pb-6 md:pb-8'}`}>
         <div className="flex items-center gap-4 flex-1 min-w-0">
           <div className="flex items-center gap-2 group/info relative shrink-0">
             <ArrowRightLeft size={16} className="text-muted cursor-help" />
@@ -76,12 +76,12 @@ export function RoleSwitchPanel({
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="px-8 pb-8 space-y-4">
+            <div className="px-5 md:px-8 pb-6 md:pb-8 space-y-4">
               {comparisons.map((role, i) => (
                 <div
                   key={role.role_key}
                   className={[
-                    'w-full px-5 py-4 rounded-2xl border transition-all duration-200',
+                    'w-full px-4 md:px-5 py-3 md:py-4 rounded-2xl border transition-all duration-200',
                     role.is_current
                       ? 'bg-ink/[0.03] border-ink/10 ring-1 ring-ink/5'
                       : 'bg-surface-soft/40 border-hairline hover:bg-surface-soft hover:border-muted/30',
@@ -90,7 +90,7 @@ export function RoleSwitchPanel({
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2 min-w-0">
                       <span className={[
-                        'font-sans text-body-xs font-bold uppercase tracking-wide truncate',
+                        'font-sans text-body-xs font-bold uppercase tracking-wide',
                         role.is_current ? 'text-ink' : 'text-muted',
                       ].join(' ')}>
                         {role.display_name}

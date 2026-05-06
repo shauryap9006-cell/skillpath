@@ -36,10 +36,9 @@ export function ReadinessRing({
   }, [score, motionVal]); // Critical: Maintain constant array size
 
   return (
-    <div className="relative" style={{ width: size, height: size }}>
+    <div className="relative aspect-square" style={{ width: size, height: size }}>
       <svg
-        width={size}
-        height={size}
+        className="w-full h-full"
         viewBox={`0 0 ${size} ${size}`}
         style={{ transform: 'rotate(-90deg)' }}
       >
