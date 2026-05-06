@@ -80,6 +80,7 @@ export interface AnalysisResult {
   user_skills?: string[];
   matched_skills?: string[];
   trajectory?: TrajectoryInfo;
+  foundational_prerequisites?: string[];
   resume_text?: string;
   jd_text?: string;
 }
