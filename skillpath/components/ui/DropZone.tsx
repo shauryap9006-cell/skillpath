@@ -7,14 +7,16 @@ import { motion } from 'framer-motion';
 interface DropZoneProps {
   onFileSelect: (file: File | null) => void;
   className?: string;
+  disabled?: boolean;
 }
  
-export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = '' }) => {
+export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = '', disabled = false }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
  
   const handleDrag = (e: React.DragEvent) => {
+    if (disabled) return;
     e.preventDefault();
     e.stopPropagation();
     if (e.type === 'dragenter' || e.type === 'dragover') {
@@ -25,6 +27,7 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = ''
   };
  
   const handleDrop = (e: React.DragEvent) => {
+    if (disabled) return;
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
@@ -41,6 +44,7 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = ''
   };
  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (disabled) return;
     if (e.target.files && e.target.files[0]) {
       const selected = e.target.files[0];
       setFile(selected);
@@ -49,6 +53,7 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = ''
   };
  
   const clearFile = (e: React.MouseEvent) => {
+    if (disabled) return;
     e.stopPropagation();
     setFile(null);
     onFileSelect(null);
@@ -62,7 +67,7 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = ''
       <motion.div 
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        className={`h-full min-h-[140px] w-full bg-ink/[0.03] border border-ink/10 rounded-[16px] flex items-center justify-between px-6 transition-all relative overflow-hidden group ${className}`}
+        className={`h-full min-h-[140px] w-full bg-ink/[0.03] border border-ink/10 rounded-[16px] flex items-center justify-between px-6 transition-all relative overflow-hidden group ${className} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
         <div className="flex items-center gap-4 relative z-10">
           <div className="w-10 h-10 rounded-xl bg-ink/5 flex items-center justify-center border border-ink/10">
@@ -79,7 +84,8 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = ''
         </div>
         <button 
           onClick={clearFile} 
-          className="relative z-10 w-8 h-8 flex items-center justify-center bg-ink/5 hover:bg-ink/10 rounded-lg transition-all border border-ink/10" 
+          disabled={disabled}
+          className={`relative z-10 w-8 h-8 flex items-center justify-center bg-ink/5 hover:bg-ink/10 rounded-lg transition-all border border-ink/10 ${disabled ? 'opacity-20 cursor-not-allowed' : ''}`} 
           aria-label="Remove file"
         >
           <X size={14} className="text-ink/40 hover:text-ink" />
@@ -90,16 +96,17 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect, className = ''
  
   return (
     <motion.div 
-      onClick={() => inputRef.current?.click()}
+      onClick={() => !disabled && inputRef.current?.click()}
       onDragEnter={handleDrag}
       onDragLeave={handleDrag}
       onDragOver={handleDrag}
       onDrop={handleDrop}
-      whileHover={{ scale: 1.005 }}
-      whileTap={{ scale: 0.995 }}
-      className={`h-full min-h-[140px] w-full border-2 border-dashed rounded-[16px] flex items-center justify-center cursor-pointer transition-all duration-300 shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.25)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)]
+      whileHover={!disabled ? { scale: 1.005 } : {}}
+      whileTap={!disabled ? { scale: 0.995 } : {}}
+      className={`h-full min-h-[140px] w-full border-2 border-dashed rounded-[16px] flex items-center justify-center transition-all duration-300 shadow-[inset_3px_3px_6px_rgba(0,0,0,0.06),inset_-2px_-2px_4px_rgba(255,255,255,0.25)] dark:shadow-[inset_2px_2px_10px_rgba(0,0,0,0.4)]
+        ${disabled ? 'cursor-not-allowed border-ink/5 bg-ink/[0.01]' : 'cursor-pointer'}
         ${isDragging ? 'border-brand-teal bg-brand-teal/5' : 'border-ink/5 dark:border-white/5 bg-ink/[0.01] dark:bg-white/[0.01]'}
-        hover:border-ink/20 dark:hover:border-white/20 hover:bg-ink/[0.03] dark:hover:bg-white/[0.03]
+        ${!disabled ? 'hover:border-ink/20 dark:hover:border-white/20 hover:bg-ink/[0.03] dark:hover:bg-white/[0.03]' : ''}
         ${className}
       `}
     >
