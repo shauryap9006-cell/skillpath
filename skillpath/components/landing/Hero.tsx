@@ -125,7 +125,7 @@ export function Hero() {
 
         <motion.div
           style={{ x: svgX, y: svgY }}
-          className="lg:col-span-7 relative h-[600px] flex items-center justify-center"
+          className="lg:col-span-7 relative h-[300px] md:h-[500px] lg:h-[600px] flex items-center justify-center overflow-visible"
           initial="hidden"
           animate={loaded ? "visible" : "hidden"}
         >
@@ -141,16 +141,17 @@ export function Hero() {
               scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
               delay: 1.5
             }}
-            className="absolute pointer-events-none w-[600px] h-[600px] rounded-full"
+            className="absolute pointer-events-none w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full"
             style={{
               background: 'radial-gradient(circle, var(--color-bulb-glow) 0%, transparent 70%)',
-              left: 'calc(81.25% - 300px)',
-              top: 'calc(25% - 300px)',
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
               willChange: 'transform, opacity'
             }}
           />
 
-          <svg viewBox="0 0 800 600" className="w-full h-full relative z-10" style={{ overflow: 'visible' }}>
+          <svg viewBox="0 0 800 600" className="w-full h-full max-w-[400px] md:max-w-none relative z-10" style={{ overflow: 'visible' }}>
             <defs>
               {/* Path gradient */}
               <linearGradient id="ribbonGradient" x1="0%" y1="100%" x2="100%" y2="0%">

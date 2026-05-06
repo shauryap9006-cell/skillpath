@@ -21,7 +21,8 @@ export function GenerativeArtScene() {
       0.1,
       1000
     );
-    camera.position.z = 3;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    camera.position.z = isMobile ? 4.5 : 3;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
@@ -142,9 +143,12 @@ export function GenerativeArtScene() {
 
     const handleResize = () => {
       if (!currentMount) return;
-      camera.aspect = currentMount.clientWidth / currentMount.clientHeight;
+      const width = currentMount.clientWidth;
+      const height = currentMount.clientHeight;
+      camera.aspect = width / height;
+      camera.position.z = width < 768 ? 4.5 : 3;
       camera.updateProjectionMatrix();
-      renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
+      renderer.setSize(width, height);
     };
 
     window.addEventListener("resize", handleResize);
