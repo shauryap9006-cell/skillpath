@@ -217,32 +217,53 @@ export function detectRoleCategory(jdText: string): string {
     if ((mvcData as any)[strategy]) return strategy;
   }
 
-  // 18. Fuzzy Matching Fallback
-  // If no exact match, find the key that contains our base role or vice versa
+  // 18. Fuzzy Matching Fallback (Seniority-Aware)
   let bestMatch = "";
   let bestScore = 0;
-  const target = spaceRole.toLowerCase();
-
+  
+  // Try matching WITH seniority first
+  const targetWithSeniority = `${seniority} ${spaceRole}`.toLowerCase();
+  
   for (const key of DYNAMIC_ROLES) {
     const keyNorm = key.toLowerCase().replace(/-/g, " ");
     
-    // Direct inclusion is a strong signal
-    if (keyNorm === target) return key;
+    // Exact or direct inclusion of seniority-specific role
+    if (keyNorm === targetWithSeniority) return key;
     
-    if (keyNorm.includes(target) || target.includes(keyNorm)) {
-      // Calculate a simple overlap score
-      const score = Math.min(keyNorm.length, target.length) / Math.max(keyNorm.length, target.length);
-      if (score > bestScore) {
-        bestScore = score;
+    if (keyNorm.includes(targetWithSeniority) || targetWithSeniority.includes(keyNorm)) {
+      const score = Math.min(keyNorm.length, targetWithSeniority.length) / Math.max(keyNorm.length, targetWithSeniority.length);
+      // Give weight to seniority matches
+      const seniorityWeight = (keyNorm.includes(seniority)) ? 1.2 : 1.0;
+      const finalScore = score * seniorityWeight;
+      
+      if (finalScore > bestScore) {
+        bestScore = finalScore;
         bestMatch = key;
       }
     }
   }
 
-  // Only use fuzzy match if it's reasonably similar (> 40% overlap)
-  if (bestScore > 0.4) return bestMatch;
+  // If no good seniority match, try base role match
+  if (bestScore < 0.4) {
+    const targetBase = spaceRole.toLowerCase();
+    for (const key of DYNAMIC_ROLES) {
+      const keyNorm = key.toLowerCase().replace(/-/g, " ");
+      if (keyNorm.includes(targetBase) || targetBase.includes(keyNorm)) {
+        const score = Math.min(keyNorm.length, targetBase.length) / Math.max(keyNorm.length, targetBase.length);
+        if (score > bestScore) {
+          bestScore = score;
+          bestMatch = key;
+        }
+      }
+    }
+  }
+
+  // Only use fuzzy match if it's reasonably similar (> 35% overlap)
+  if (bestScore > 0.35) return bestMatch;
 
   // 19. Final safety net: Software Engineer
+  const finalFallback = `${seniority}-software-engineer`;
+  if ((mvcData as any)[finalFallback]) return finalFallback;
   return (mvcData as any)["mid-software-engineer"] ? "mid-software-engineer" : DYNAMIC_ROLES[0];
 }
 
