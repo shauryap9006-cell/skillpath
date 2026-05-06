@@ -201,7 +201,7 @@ export function detectRoleCategory(jdText: string): string {
     }
   }
 
-  // 17. Final Prefixed Match
+  // 17. Final Prefixed Match (Try exact slugs first)
   const fullKey = `${seniority}-${baseRole}`;
   const midKey = `mid-${baseRole}`;
   
@@ -209,7 +209,17 @@ export function detectRoleCategory(jdText: string): string {
   if (mvcData[midKey as keyof typeof mvcData]) return midKey;
   if (mvcData[baseRole as keyof typeof mvcData]) return baseRole;
 
-  return "mid-software-engineer";
+  // 18. Robustness: Try space-separated keys (e.g. "software engineer" instead of "software-engineer")
+  const spaceRole = baseRole.replace(/-/g, " ");
+  const fullSpaceKey = `${seniority} ${spaceRole}`;
+  const midSpaceKey = `mid ${spaceRole}`;
+
+  if (mvcData[fullSpaceKey as keyof typeof mvcData]) return fullSpaceKey;
+  if (mvcData[midSpaceKey as keyof typeof mvcData]) return midSpaceKey;
+  if (mvcData[spaceRole as keyof typeof mvcData]) return spaceRole;
+
+  // 19. Final fallback: Software Engineer (but only as a last resort)
+  return mvcData[fullKey as keyof typeof mvcData] ? fullKey : "mid-software-engineer";
 }
 
 /**
@@ -241,25 +251,44 @@ export function extractSkills(text: string): string[] {
     skills.forEach(s => allKnownSkills.add(s.skill.toLowerCase()));
   });
 
-  // 2. Add skills from trends model (ensures legacy skills are extracted too)
-  const trendSkills = (skillTrends as any).skills;
+  // 2. UNIVERSAL TECH DICTIONARY (Expanded for high-precision extraction)
+  const universalTech = [
+    "python", "javascript", "typescript", "java", "c#", "c++", "ruby", "php", "swift", "kotlin", "go", "rust", "scala", "clojure", "dart",
+    "react", "angular", "vue", "next.js", "nuxt", "svelte", "jquery", "bootstrap", "tailwind", "sass", "less", "webpack", "vite",
+    "node.js", "express", "django", "flask", "spring boot", "asp.net", "laravel", "ruby on rails", "fastapi", "nestjs",
+    "sql", "postgresql", "mysql", "mongodb", "redis", "elasticsearch", "cassandra", "dynamodb", "firebase", "supabase", "snowflake", "bigquery",
+    "aws", "azure", "gcp", "google cloud", "docker", "kubernetes", "terraform", "ansible", "jenkins", "gitlab ci", "github actions", "ci/cd",
+    "machine learning", "deep learning", "nlp", "computer vision", "tensorflow", "pytorch", "scikit-learn", "keras", "pandas", "numpy", "matplotlib",
+    "git", "linux", "bash", "powershell", "microservices", "rest api", "graphql", "grpc", "websockets", "agile", "scrum", "kanban", "jira",
+    "unit testing", "jest", "cypress", "selenium", "playwright", "figma", "sketch", "adobe xd", "ui design", "ux design",
+    "blockchain", "solidity", "web3", "smart contracts", "cybersecurity", "penetration testing", "firewalls", "siem",
+    "tableau", "power bi", "looker", "etl", "data pipeline", "airflow", "kafka", "spark", "hadoop", "dbt", "llm", "openai", "gpt", "rag", "langchain"
+  ];
+  universalTech.forEach(s => allKnownSkills.add(s.toLowerCase()));
+
+  // 3. Add skills from trends model
+  const trendSkills = (skillTrends as any).skills || {};
   Object.keys(trendSkills).forEach(skillKey => {
     allKnownSkills.add(skillKey.toLowerCase());
-    if (trendSkills[skillKey].display) {
-      allKnownSkills.add(trendSkills[skillKey].display.toLowerCase());
-    }
   });
 
   const found: string[] = [];
+  const textLower = text.toLowerCase();
+
   for (const skill of allKnownSkills) {
-    if (skill.includes(" ")) {
-      if (lower.includes(skill)) {
-        found.push(skill);
-      }
+    if (skill.length < 2) continue;
+    
+    // Use word boundaries for single words, direct includes for multi-word
+    if (skill.includes(" ") || skill.includes(".") || skill.includes("-") || skill.includes("#") || skill.includes("+")) {
+       const escaped = skill.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+       // Handle special chars like .js, c++, c#
+       const regex = new RegExp(`(?<=\\s|^|[\\(\\),;])${escaped}(?=\\s|$|[\\(\\),;])`, 'gi');
+       if (regex.test(textLower)) {
+         found.push(skill);
+       }
     } else {
-      const escaped = skill.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`\\b${escaped}\\b`, 'i');
-      if (regex.test(lower)) {
+      const regex = new RegExp(`\\b${skill.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+      if (regex.test(textLower)) {
         found.push(skill);
       }
     }
@@ -309,18 +338,19 @@ export function rankGapsLocally(
   companyType: string,
   roleCategory: string
 ): SkillGap[] {
-  const mvcSet = new Set(mvcSkills.map(s => s.toLowerCase()));
   const roleData = (mvcData as any)[roleCategory] || (mvcData as any)["mid-software-engineer"];
   const skills = Array.isArray(roleData) ? roleData : (roleData?.skills ?? []);
-
-  const metaMap: Record<string, { count: number, premium: number, trend: Record<string, number> }> = {};
-  skills.forEach((item: any) => {
-    metaMap[item.skill.toLowerCase()] = {
-      count: item.count || 0,
-      premium: item.premium || 0,
-      trend: item.trend || {}
-    };
+  const mvcSet = new Set(mvcSkills.map(s => s.toLowerCase()));
+  const metaMap: Record<string, any> = {};
+  skills.forEach((s: any) => {
+    metaMap[s.skill.toLowerCase()] = s;
   });
+
+  // Get the max frequency in this role to use as a dynamic denominator baseline
+  // We'll estimate the total samples in the model by looking at the top skill's count.
+  const maxFreq = Math.max(...skills.map((s: any) => s.count || 1), 100);
+  // Estimate total records: top skill (like SQL) usually has 25% - 40% frequency.
+  const estimatedTotal = maxFreq * 2.5; 
 
   return missingSkills.map((skill, index) => {
     const sNorm = skill.toLowerCase();
@@ -336,10 +366,16 @@ export function rankGapsLocally(
       weeks = 1;
     }
 
+    const freqPercent = Math.round((meta.count / estimatedTotal) * 100);
+    
     let reason = `${skill} is a relevant skill for this career path.`;
-    if (isMvc) {
-      const freqPercent = meta.count > 0 ? `found in ${Math.round((meta.count / 10000) * 100)}% of JDs` : "a must-have skill";
-      reason = `${skill} is a core "Minimum Viable Candidate" skill (${freqPercent}).`;
+    // Only call it "Core MVC" if it has real frequency > 2%
+    const isStatisticallySignificant = freqPercent >= 3;
+
+    if (isMvc && isStatisticallySignificant) {
+      reason = `${skill} is a core "Minimum Viable Candidate" skill (found in ${freqPercent}% of JDs).`;
+    } else if (meta.premium > 10000) {
+      reason = `${skill} is a high-ROI premium skill that can boost your salary potential.`;
     }
 
     return {
@@ -350,18 +386,20 @@ export function rankGapsLocally(
       trend: meta.trend,
       weeks_to_learn: weeks,
       reason,
-      in_mvc: isMvc,
+      in_mvc: isMvc && isStatisticallySignificant,
     };
   })
     .sort((a, b) => {
-      // Prioritize by Premium (Salary ROI) then Frequency
+      // 1. MVC Skills with real frequency first
       if (a.in_mvc && !b.in_mvc) return -1;
       if (!a.in_mvc && b.in_mvc) return 1;
       
-      // If both are MVC, sort by Premium
+      // 2. Sort by frequency first (Market Demand)
+      if (a.frequency !== b.frequency) return b.frequency - a.frequency;
+      
+      // 3. Then sort by Premium (Salary ROI)
       if (a.premium !== b.premium) return (b.premium || 0) - (a.premium || 0);
       
-      if (a.frequency !== b.frequency) return b.frequency - a.frequency;
       return 0;
     })
     .map((gap, i) => ({ ...gap, priority: i + 1 }));

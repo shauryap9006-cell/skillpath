@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
       console.error("[Explore] Skill map generation failed:", e instanceof Error ? e.message : e);
       return NextResponse.json({
         error: "generation_failed",
-        message: "Failed to generate skill map. The AI service may be temporarily overloaded. Please try again in a few seconds.",
+        message: "Failed to generate skill map. If you are the owner, please check your GROQ_API_KEY. Otherwise, the service might be overloaded.",
         stage: "skill_map",
       }, { status: 502 });
     }
@@ -148,6 +148,7 @@ export async function POST(req: NextRequest) {
       console.log(`[Explore] ✓ Saved: ${shareToken}`);
     } catch (dbError: any) {
       console.error("[Explore] Firestore save failed:", dbError.message);
+      throw new Error("Failed to save exploration data to database. Please check Firebase configuration.");
     }
 
     const duration = Date.now() - startTime;

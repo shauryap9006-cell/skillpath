@@ -50,8 +50,9 @@ export async function getAuthUser(req: NextRequest): Promise<{
   try {
     adminAuth = getAdminAuth();
   } catch (e) {
+    console.error("[Auth] Firebase Admin initialization error:", e);
     throw new AuthError(
-      "Authentication service temporarily unavailable",
+      "Authentication service temporarily unavailable. Please check Firebase environment variables.",
       "FIREBASE_UNAVAILABLE"
     );
   }

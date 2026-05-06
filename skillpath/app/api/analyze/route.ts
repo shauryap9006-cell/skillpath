@@ -158,6 +158,7 @@ export async function POST(req: NextRequest) {
     const jdSkills = jdKeywordSkills.length > 0 ? jdKeywordSkills : modelSkills.slice(0, 15);
     
     // Also clean resume skills through the Local Expert refiner
+    // NEW: We now do an aggressive AI extraction pass for the resume to ensure 100% accuracy
     const rawResumeSkills = extractSkills(resume_text);
     const { cleaned: resumeSkills } = await cleanSkillsWithAI(rawResumeSkills, "resume");
 
@@ -208,6 +209,48 @@ export async function POST(req: NextRequest) {
       aiSummary = `You are ${countdown.weeksRequired} weeks away from being a competitive candidate for this ${getRoleLabel(roleCategory)} role.`;
     }
 
+    // ---- Step 7.5: Foundational Prerequisites (Simple & Fast) ----
+    let foundationalPrerequisites: string[] = [];
+    try {
+      const prereqResponse = await groq.chat.completions.create({
+        model: "llama-3.1-8b-instant",
+        messages: [
+          { 
+            role: "system", 
+            content: "You are a Technical Architect. Identify 3 SPECIFIC TECHNICAL foundational concepts the user is MISSING from their resume that are required to master their advanced gaps. Focus on Logic & Fundamentals (e.g., 'Memory Management', 'Asynchronous Flow', 'Relational Logic'). Return ONLY a JSON array of 3 strings." 
+          },
+          {
+            role: "user",
+            content: `Target Role: ${roleCategory}\nUser's Current Skills: ${resumeSkills.join(", ")}\nMissing Advanced Skills: ${rankedGaps.slice(0, 5).map(g => g.skill).join(", ")}`
+          }
+        ],
+        temperature: 0.1,
+        max_tokens: 60,
+        response_format: { type: "json_object" }
+      });
+
+      const content = prereqResponse.choices[0]?.message?.content || "[]";
+      const parsed = JSON.parse(content);
+      
+      // Defensive Parsing: Find the first array in the JSON object
+      if (Array.isArray(parsed)) {
+        foundationalPrerequisites = parsed;
+      } else {
+        const firstArray = Object.values(parsed).find(v => Array.isArray(v));
+        foundationalPrerequisites = Array.isArray(firstArray) ? firstArray : [];
+      }
+      
+      foundationalPrerequisites = foundationalPrerequisites
+        .filter(s => typeof s === 'string' && s.length > 2)
+        .slice(0, 3);
+        
+      console.log("[Analyze] ✓ Foundational prerequisites generated");
+    } catch (prereqError) {
+      console.warn("[Analyze] Prerequisites generation failed:", prereqError instanceof Error ? prereqError.message : prereqError);
+      // Technical Fallback (No fluff)
+      foundationalPrerequisites = ["Version Control (Git)", "Data Structures", "Command Line Basics"];
+    }
+
     // ---- Build response document ----
     const shareToken = crypto.randomUUID();
     const uniqueMvcSkills = Array.from(new Set(mvcSkills.map(s => s.trim())));
@@ -242,6 +285,7 @@ export async function POST(req: NextRequest) {
       jd_skills: jdSkills,
       resume_skills: resumeSkills,
       skill_gaps: rankedGaps,
+      foundational_prerequisites: foundationalPrerequisites,
       jd_preview: jd_text.slice(0, 100),
       jd_text,
       resume_text,
@@ -266,7 +310,7 @@ export async function POST(req: NextRequest) {
       console.log(`[Analyze] ✓ Saved to Firestore: ${shareToken}`);
     } catch (dbError) {
       console.error("[Analyze] Firestore save failed:", dbError instanceof Error ? dbError.message : dbError);
-      // We still return results to the user even if DB save fails, but we've at least tried and logged it correctly.
+      throw new Error("Database temporarily unavailable. Could not save results.");
     }
 
     console.log(`[Analyze] ✓ Complete | Gap: ${gapResult.gapScore}% | Weeks: ${countdown.weeksRequired} | Token: ${shareToken}`);

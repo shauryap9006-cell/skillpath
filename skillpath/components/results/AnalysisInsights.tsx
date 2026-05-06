@@ -35,7 +35,7 @@ export function AnalysisInsights({
   const displayCritical = adjustedCriticalCount ?? rawHighPriority;
 
   const isAdjusted = adjustedScore !== undefined && adjustedScore !== data.gap_score;
-
+  
   return (
     <div className="p-8 rounded-3xl border border-hairline bg-surface-card shadow-sm relative overflow-hidden group">
       {/* Background glow */}
@@ -162,6 +162,7 @@ export function AnalysisInsights({
                   "{data.summary || "Focus on high-priority gaps first to reach the 80% application readiness threshold faster."}"
                 </p>
               </div>
+
             </div>
           </motion.div>
         )}

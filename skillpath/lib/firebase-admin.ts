@@ -55,7 +55,16 @@ function initAdmin(): App | null {
   if (projectId && clientEmail && privateKey) {
     try {
       // Replace literal \n with actual newlines (common in env vars)
-      const formattedKey = privateKey.replace(/\\n/g, '\n');
+      let formattedKey = privateKey.replace(/\\n/g, '\n');
+      
+      // Remove surrounding quotes if they exist (common Vercel issue)
+      if (formattedKey.startsWith('"') && formattedKey.endsWith('"')) {
+        formattedKey = formattedKey.slice(1, -1);
+      }
+      
+      // Handle escaped quotes inside the string
+      formattedKey = formattedKey.replace(/\\"/g, '"');
+
       _app = initializeApp({
         credential: cert({ projectId, clientEmail, privateKey: formattedKey }),
       });

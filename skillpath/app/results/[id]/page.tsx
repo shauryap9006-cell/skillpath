@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useMemo, useCallback, use } from 'react';
 import {
   ArrowLeft,
+  ArrowRight,
   Share2,
   Sparkles,
   CheckCircle2,
@@ -25,6 +26,7 @@ import { GenerateAllButton } from '@/components/results/GenerateAllButton';
 import { PinJobButton } from '@/components/results/PinJobButton';
 import { ReadinessRing } from '@/components/results/ReadinessRing';
 import { AnalysisInsights } from '@/components/results/AnalysisInsights';
+import { FoundationalPillars } from '@/components/results/FoundationalPillars';
 import { RoleSwitchPanel } from '@/components/results/RoleSwitchPanel';
 import { FreshnessScoreCard } from '@/components/results/FreshnessScoreCard';
 import { CareerCompass } from '@/components/results/CareerCompass';
@@ -498,12 +500,25 @@ export default function ResultsPage({
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mb-6 p-3 rounded-xl bg-brand-teal/10 border border-brand-teal/20 flex items-center gap-3"
+                  onClick={() => {
+                    const targetSkillObj = activeGaps[5] || activeGaps[activeGaps.length - 1];
+                    if (targetSkillObj) {
+                      const id = `skill-${targetSkillObj.skill.toLowerCase().replace(/\s+/g, '-')}`;
+                      const el = document.getElementById(id);
+                      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                  }}
+                  className="mb-6 p-3 rounded-xl bg-brand-teal/10 border border-brand-teal/20 flex items-center justify-between gap-3 cursor-pointer hover:bg-brand-teal/15 transition-colors group"
                 >
-                  <Sparkles size={16} className="text-brand-teal" />
-                  <span className="text-[11px] font-bold text-brand-teal uppercase tracking-widest">
-                    Milestone Reached! Unlocked {dynamicLimit - 5} Advanced Skills
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <Sparkles size={16} className="text-brand-teal" />
+                    <span className="text-[11px] font-bold text-brand-teal uppercase tracking-widest">
+                      Milestone Reached! Unlocked {dynamicLimit - 5} Advanced Skills
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1 text-brand-teal font-sans text-[10px] font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">
+                    View <ArrowRight size={12} />
+                  </div>
                 </motion.div>
               )}
 
@@ -653,6 +668,12 @@ export default function ResultsPage({
               adjustedWeeks={adjustedWeeks}
               adjustedCriticalCount={adjustedCritical}
               masteredCount={masteredSkills.length}
+            />
+
+            {/* Foundational Prerequisites (Now on the Right) */}
+            <FoundationalPillars 
+              pillars={data.foundational_prerequisites || (data as any).pillars || []} 
+              roleCategory={data.role_category}
             />
 
             <div className="sticky top-32 p-10 rounded-3xl border border-hairline bg-surface-card dark:bg-surface-soft shadow-[0_8px_32px_rgba(0,0,0,0.06)] overflow-hidden">
