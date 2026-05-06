@@ -48,7 +48,7 @@ function getSkillMarketData(skillName: string) {
     const found = skills.find((s: any) => s.skill.toLowerCase() === target);
     if (found) {
       count += found.count || 0;
-      if (found.premium > 0) {
+      if (found.premium && found.premium > 0) {
         totalPremium += found.premium;
         premiumOccurrences++;
       }
