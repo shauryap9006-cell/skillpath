@@ -6,7 +6,7 @@ import { Navbar } from '@/components/landing/Navbar';
 import { DropZone } from '@/components/ui/DropZone';
 import { saveToHistory } from '@/lib/history';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, FileText, Upload, ChevronRight, Target, Star } from 'lucide-react';
+import { Sparkles, FileText, Upload, ChevronRight, Target, Star, HelpCircle } from 'lucide-react';
 import { GenerativeArtScene } from '@/components/ui/anomalous-matter-hero';
 import { useAuth } from '@/context/AuthContext';
 import { DreamOnboarding, type DreamContext } from '@/components/analyze/DreamOnboarding';
@@ -230,6 +230,25 @@ export default function AnalyzePage() {
                       )}
                       <span className="relative z-20">Dream</span>
                     </button>
+                  </div>
+                  
+                  <div className="relative group/help">
+                    <button className="p-2 rounded-full hover:bg-black/5 transition-colors">
+                      <HelpCircle size={14} className="text-ink/30 group-hover/help:text-brand-teal transition-colors" />
+                    </button>
+                    
+                    <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 p-4 bg-white dark:bg-zinc-900 rounded-xl border border-black/10 dark:border-white/10 shadow-2xl opacity-0 invisible group-hover/help:opacity-100 group-hover/help:visible transition-all z-50 pointer-events-none">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Target size={12} className="text-brand-teal" />
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-ink/40">Precision Tip</span>
+                      </div>
+                      <p className="text-[11px] leading-relaxed text-ink/70 dark:text-white/70">
+                        Include the <span className="text-ink dark:text-white font-bold">Job Title</span> clearly at the start. 
+                        <br/><br/>
+                        <span className="text-brand-teal font-bold">Pro Tip:</span> Add "Junior" or "Senior" for specific mapping, otherwise we default to <span className="italic font-bold">Mid-level</span> baseline.
+                      </p>
+                      <div className="absolute left-1/2 -translate-x-1/2 top-full border-8 border-transparent border-t-white dark:border-t-zinc-900" />
+                    </div>
                   </div>
                 </div>
                 <Target size={16} className="text-ink/20" />

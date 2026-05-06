@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, HelpCircle, Target } from 'lucide-react';
 import { saveToHistory } from '@/lib/history';
 
 const LOADING_MESSAGES = [
@@ -74,10 +74,31 @@ export default function JobTitleInput() {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }}
         className="text-center mb-16"
       >
-        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-brand-teal/10 border border-brand-teal/20 text-[11px] text-brand-teal font-bold tracking-widest uppercase mb-6">
-          <Sparkles size={12} className="fill-current" />
-          AI Exploration Engine
-        </span>
+        <div className="flex items-center justify-center gap-2 mb-6">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-brand-teal/10 border border-brand-teal/20 text-[11px] text-brand-teal font-bold tracking-widest uppercase">
+            <Sparkles size={12} className="fill-current" />
+            AI Exploration Engine
+          </span>
+          
+          <div className="relative group/help">
+            <button className="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+              <HelpCircle size={14} className="text-ink/30 group-hover/help:text-brand-teal transition-colors" />
+            </button>
+            
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 p-4 bg-white dark:bg-zinc-900 rounded-xl border border-black/10 dark:border-white/10 shadow-2xl opacity-0 invisible group-hover/help:opacity-100 group-hover/help:visible transition-all z-50 pointer-events-none text-left">
+              <div className="flex items-center gap-2 mb-2">
+                <Target size={12} className="text-brand-teal" />
+                <span className="text-[10px] font-bold uppercase tracking-widest text-ink/40">Precision Tip</span>
+              </div>
+              <p className="text-[11px] leading-relaxed text-ink/70 dark:text-white/70">
+                Be specific with your title. Instead of just "Engineer", try <span className="text-ink dark:text-white font-bold">"Junior Backend Developer"</span> or <span className="text-ink dark:text-white font-bold">"Senior Product Designer"</span>.
+                <br/><br/>
+                <span className="text-brand-teal font-bold">Note:</span> If no level is specified, we baseline your path for <span className="italic font-bold">Mid-level</span> requirements.
+              </p>
+              <div className="absolute left-1/2 -translate-x-1/2 top-full border-8 border-transparent border-t-white dark:border-t-zinc-900" />
+            </div>
+          </div>
+        </div>
         <h1 className="font-display text-display-lg text-ink mb-6 text-center">
           What's your <br />
           <span className="text-primary italic font-serif">dream job?</span>

@@ -201,25 +201,49 @@ export function detectRoleCategory(jdText: string): string {
     }
   }
 
-  // 17. Final Prefixed Match (Try exact slugs first)
-  const fullKey = `${seniority}-${baseRole}`;
-  const midKey = `mid-${baseRole}`;
-  
-  if (mvcData[fullKey as keyof typeof mvcData]) return fullKey;
-  if (mvcData[midKey as keyof typeof mvcData]) return midKey;
-  if (mvcData[baseRole as keyof typeof mvcData]) return baseRole;
-
-  // 18. Robustness: Try space-separated keys (e.g. "software engineer" instead of "software-engineer")
+  // 17. Multi-Strategy Key Search
   const spaceRole = baseRole.replace(/-/g, " ");
-  const fullSpaceKey = `${seniority} ${spaceRole}`;
-  const midSpaceKey = `mid ${spaceRole}`;
+  const strategies = [
+    `${seniority}-${baseRole}`,              // mid-software-engineer
+    `mid-${baseRole}`,                      // mid-software-engineer (fallback seniority)
+    baseRole,                               // software-engineer
+    `${seniority} ${spaceRole}`,            // mid software engineer
+    `mid ${spaceRole}`,                     // mid software engineer
+    spaceRole,                              // software engineer
+    `${spaceRole} ${seniority}`,            // software engineer mid
+  ];
 
-  if (mvcData[fullSpaceKey as keyof typeof mvcData]) return fullSpaceKey;
-  if (mvcData[midSpaceKey as keyof typeof mvcData]) return midSpaceKey;
-  if (mvcData[spaceRole as keyof typeof mvcData]) return spaceRole;
+  for (const strategy of strategies) {
+    if ((mvcData as any)[strategy]) return strategy;
+  }
 
-  // 19. Final fallback: Software Engineer (but only as a last resort)
-  return mvcData[fullKey as keyof typeof mvcData] ? fullKey : "mid-software-engineer";
+  // 18. Fuzzy Matching Fallback
+  // If no exact match, find the key that contains our base role or vice versa
+  let bestMatch = "";
+  let bestScore = 0;
+  const target = spaceRole.toLowerCase();
+
+  for (const key of DYNAMIC_ROLES) {
+    const keyNorm = key.toLowerCase().replace(/-/g, " ");
+    
+    // Direct inclusion is a strong signal
+    if (keyNorm === target) return key;
+    
+    if (keyNorm.includes(target) || target.includes(keyNorm)) {
+      // Calculate a simple overlap score
+      const score = Math.min(keyNorm.length, target.length) / Math.max(keyNorm.length, target.length);
+      if (score > bestScore) {
+        bestScore = score;
+        bestMatch = key;
+      }
+    }
+  }
+
+  // Only use fuzzy match if it's reasonably similar (> 40% overlap)
+  if (bestScore > 0.4) return bestMatch;
+
+  // 19. Final safety net: Software Engineer
+  return (mvcData as any)["mid-software-engineer"] ? "mid-software-engineer" : DYNAMIC_ROLES[0];
 }
 
 /**
